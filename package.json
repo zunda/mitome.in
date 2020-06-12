@@ -1,0 +1,16 @@
+{
+  "name": "mitome.in",
+  "version": "1.0.0",
+  "description": "Explore OpenPGP as an alternative for seals (mitome-in)",
+  "main": "index.js",
+  "repository": "https://github.com/zunda/mitome.in/",
+  "author": "zunda",
+  "license": "MIT",
+  "dependencies": {
+    "vuepress": "^1.5.1"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  }
+}
