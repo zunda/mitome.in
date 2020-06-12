@@ -2,8 +2,12 @@
   <div>
     <p>
       {{ name }} &lt;<tt>{{ email }}</tt>&gt; の鍵対を
-      <button v-on:click="generateKey">生成する</button>
-      <button v-on:click="clearKey">消す</button>
+      <button v-bind:disabled="processing" v-on:click="generateKey">
+        生成する
+      </button>
+      <button v-bind:disabled="processing" v-on:click="clearKey">
+        消す
+      </button>
     </p>
     <p>公開鍵<pre>{{ privateKey }}</pre></p>
     <p>私有鍵<pre>{{ publicKey }}</pre></p>
@@ -21,17 +25,20 @@ export default {
   data() {
     return {
       privateKey: "",
-      publicKey: ""
+      publicKey: "",
+      processing: false
     }
   },
   methods: {
     generateKey: function () {
+      this.processing = true
       OpenPgp.generateKey({
         userIds: [{name: this.name, email: this.email}],
         rsaBits: 2048
       }).then((key) => {
         this.privateKey = key.privateKeyArmored
         this.publicKey = key.publicKeyArmored
+        this.processing = false
       })
     },
     clearKey: function () {
