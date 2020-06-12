@@ -1,14 +1,23 @@
 <template>
   <div>
-    <h3>公開鍵</h3><pre>{{ privateKey }}</pre>
-    <h3>私有鍵</h3><pre>{{ publicKey }}</pre>
-    <button v-on:click="generateKey">鍵対を生成する</button>
-    <button v-on:click="clearKey">鍵対を消す</button>
+    <p>
+      {{ name }} &lt;<tt>{{ email }}</tt>&gt; の鍵対を
+      <button v-on:click="generateKey">生成する</button>
+      <button v-on:click="clearKey">消す</button>
+    </p>
+    <p>公開鍵<pre>{{ privateKey }}</pre></p>
+    <p>私有鍵<pre>{{ publicKey }}</pre></p>
   </div>
 </template>
 
 <script>
+import OpenPgp from 'openpgp'
+
 export default {
+  props: {
+    name: String,
+    email: String
+  },
   data() {
     return {
       privateKey: "",
@@ -17,8 +26,13 @@ export default {
   },
   methods: {
     generateKey: function () {
-      this.privateKey = "Private Key"
-      this.publicKey = "Public Key"
+      OpenPgp.generateKey({
+        userIds: [{name: this.name, email: this.email}],
+        rsaBits: 2048
+      }).then((key) => {
+        this.privateKey = key.privateKeyArmored
+        this.publicKey = key.publicKeyArmored
+      })
     },
     clearKey: function () {
       this.privateKey = ""
