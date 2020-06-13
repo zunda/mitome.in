@@ -5,6 +5,16 @@ module.exports = {
     nav: [
       { text: 'ホーム', link: '/' }
     ],
-    repo: 'zunda/mitome.in'
+    repo: 'zunda/mitome.in',
+    sidebar: [
+      '/',
+      {
+        title: 'OpenPGP',
+        children: [
+          '/keyPair',
+        ]
+      },
+      '/references/'
+    ]
   }
 }
