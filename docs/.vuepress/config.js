@@ -1,5 +1,6 @@
 module.exports = {
   title: 'mitome.in',
+  lang: 'ja',
   description: '認印の代わりとしてOpenPGPの利用方法を考えます。',
   head: [
     ['link', { rel: 'icon', href: '/mitomein.png' }]
@@ -23,5 +24,34 @@ module.exports = {
       '/sns/',
       '/references/'
     ]
-  }
+  },
+  plugins: [
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'tip',
+        defaultTitle: {
+          '/': 'ヒント'
+        }
+      }
+    ],
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'warning',
+        defaultTitle: {
+          '/': '注意'
+        }
+      }
+    ],
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'danger',
+        defaultTitle: {
+          '/': '警告'
+        }
+      }
+    ]
+  ]
 }
