@@ -1,4 +1,6 @@
 # mitome.in
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5b8126d8-1773-4ab4-8a4b-76c0f5839aa3/deploy-status)](https://app.netlify.com/sites/mitomein/deploys)
+
 Explore OpenPGP as an alternative for seals (mitome-in). View the site alive at https://mitome.in/
 
 ## Usage
