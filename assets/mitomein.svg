@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   sodipodi:docname="mitomein.svg"
+   inkscape:version="1.0 (6e3e5246a0, 2020-05-07)"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 103.02013 103.02013"
+   height="103.02013mm"
+   width="103.02013mm">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     fit-margin-bottom="0"
+     fit-margin-right="0"
+     fit-margin-left="0"
+     fit-margin-top="0"
+     inkscape:window-maximized="0"
+     inkscape:window-y="314"
+     inkscape:window-x="927"
+     inkscape:window-height="824"
+     inkscape:window-width="989"
+     showgrid="false"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="mm"
+     inkscape:cy="189.68201"
+     inkscape:cx="239.79593"
+     inkscape:zoom="1.3405556"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-8.4899329,-8.4899351)"
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <circle
+       r="50"
+       cy="73.484695"
+       cx="42.426407"
+       id="path10"
+       style="fill:none;fill-rule:evenodd;stroke:#ff8000;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       transform="rotate(-15)" />
+    <text
+       id="text837"
+       y="34.029987"
+       x="60.950592"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:43.3602px;line-height:0.85;font-family:'Noto Serif CJK JP';-inkscape-font-specification:'Noto Serif CJK JP, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:-3.09398px;word-spacing:0px;writing-mode:tb-rl;stroke-width:0.286809"
+       xml:space="preserve"
+       transform="rotate(-15)"><tspan
+         dx="0 0"
+         dy="0 0"
+         rotate="0 0 0"
+         y="60.950592"
+         x="34.029987"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:43.3602px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:tb-rl;fill:#ff8000;fill-opacity:1;stroke-width:0.286809"
+         id="tspan847"
+         sodipodi:role="line">電子</tspan><tspan
+         y="24.094421"
+         x="34.029987"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:43.3602px;font-family:'Noto Sans CJK JP';-inkscape-font-specification:'Noto Sans CJK JP, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:tb-rl;fill:#ff8000;fill-opacity:1;stroke-width:0.286809"
+         id="tspan849"
+         sodipodi:role="line">署名</tspan></text>
+  </g>
+</svg>

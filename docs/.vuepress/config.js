@@ -1,6 +1,9 @@
 module.exports = {
   title: 'mitome.in',
   description: '認印の代わりとしてOpenPGPの利用方法を考えます。',
+  head: [
+    ['link', { rel: 'icon', href: '/mitomein.png' }]
+  ],
   themeConfig: {
     nav: [
       { text: 'ホーム', link: '/' }
