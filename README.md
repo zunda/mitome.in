@@ -3,18 +3,27 @@
 
 Explore OpenPGP as an alternative for seals (mitome-in). View the site alive at https://mitome.in/
 
-## Usage
+## Project setup
 ```sh
 yarn install
 ```
 
-Run locally:
+## Authoring
+Create and edit the `.md` files under `doc/`. Add them to the side bar to the `themeConfig.sidebar` array in `docs/.vuepress/config.js`.
+
+Place images under `docs/.vuepress/public/`. They are evailable at the base path.
+
+### The mitomein icon
+Edit `assets/mitomein.svg` with Inkscape and export it as a 48x48 png image.
+
+## Serve the pages
+Locally:
 
 ```sh
 yarn docs:dev
 ```
 
-Build the pages:
+Through static files:
 
 ```sh
 yarn docs:build
