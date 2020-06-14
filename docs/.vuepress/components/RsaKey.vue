@@ -9,16 +9,20 @@
         消す
       </button>
     </p>
-    <p>公開鍵<br>
+    <p>公開鍵 <button @click="copyPublicKey">コピー</button><br>
       <textarea v-model="publicKey" class="key" spellcheck="false" readonly />
     </p>
-    <p>私有鍵<br>
+    <p>私有鍵 <button @click="copyPrivateKey">コピー</button><br>
       <textarea v-model="privateKey" class="key" spellcheck="false" readonly />
     </p>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import VueClipboard from 'vue-clipboard2'
+
+Vue.use(VueClipboard)
 import OpenPgp from 'openpgp'
 
 export default {
@@ -48,6 +52,12 @@ export default {
     clearKey: function () {
       this.privateKey = ""
       this.publicKey = ""
+    },
+    copyPublicKey: function() {
+      this.$copyText(this.publicKey)
+    },
+    copyPrivateKey: function() {
+      this.$copyText(this.privateKey)
     }
   }
 }
