@@ -51,7 +51,7 @@ export default {
 
 <style>
 pre {
-  background-color: #282c34;
-  color: #a0f0a0;
+  background-color: #2c3e50;
+  color: #e07000;
 }
 </style>
