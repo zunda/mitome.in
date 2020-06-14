@@ -9,11 +9,17 @@ module.exports = {
     sidebar: [
       '/',
       {
-        title: 'OpenPGP',
+        title: 'OpenPGPを試す',
         children: [
-          '/keyPair',
+          '/OpenPGP/',
+          '/OpenPGP/keyPair',
+          '/OpenPGP/encryption',
+          '/OpenPGP/sign',
+          '/OpenPGP/wut'
         ]
       },
+      '/email/',
+      '/sns/',
       '/references/'
     ]
   }
