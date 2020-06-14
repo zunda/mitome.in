@@ -6,6 +6,7 @@ module.exports = {
   ],
   themeConfig: {
     repo: 'zunda/mitome.in',
+    logo: '/mitomein.png',
     sidebar: [
       '/',
       {
