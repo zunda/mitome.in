@@ -9,8 +9,12 @@
         消す
       </button>
     </p>
-    <p>公開鍵<br><textarea v-model="publicKey" class="key" cols="80" rows="10" /></p>
-    <p>私有鍵<br><textarea v-model="privateKey" class="key" cols="80" rows="10" /></p>
+    <p>公開鍵<br>
+      <textarea v-model="publicKey" class="key" spellcheck="false" readonly />
+    </p>
+    <p>私有鍵<br>
+      <textarea v-model="privateKey" class="key" spellcheck="false" readonly />
+    </p>
   </div>
 </template>
 
