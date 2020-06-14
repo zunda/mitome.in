@@ -1,5 +1,5 @@
 # mitome.in
-Explore OpenPGP as an alternative for seals (mitome-in)
+Explore OpenPGP as an alternative for seals (mitome-in). View the site alive at https://mitome.in/
 
 ## Usage
 ```sh
