@@ -9,8 +9,8 @@
         消す
       </button>
     </p>
-    <p>公開鍵<pre>{{ privateKey }}</pre></p>
-    <p>私有鍵<pre>{{ publicKey }}</pre></p>
+    <p>公開鍵<br><textarea v-model="publicKey" class="key" cols="80" rows="10" /></p>
+    <p>私有鍵<br><textarea v-model="privateKey" class="key" cols="80" rows="10" /></p>
   </div>
 </template>
 
@@ -48,10 +48,3 @@ export default {
   }
 }
 </script>
-
-<style>
-pre {
-  background-color: #2c3e50;
-  color: #e07000;
-}
-</style>
