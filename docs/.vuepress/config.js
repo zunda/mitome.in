@@ -5,9 +5,6 @@ module.exports = {
     ['link', { rel: 'icon', href: '/mitomein.png' }]
   ],
   themeConfig: {
-    nav: [
-      { text: 'ホーム', link: '/' }
-    ],
     repo: 'zunda/mitome.in',
     sidebar: [
       '/',
