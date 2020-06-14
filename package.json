@@ -9,6 +9,7 @@
   "dependencies": {
     "openpgp": "^4.10.4",
     "vue-clipboard2": "^0.3.1",
+    "vue-toast-notification": "^0.4.0",
     "vuepress": "^1.5.1"
   },
   "scripts": {

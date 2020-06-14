@@ -20,9 +20,14 @@
 
 <script>
 import Vue from 'vue'
-import VueClipboard from 'vue-clipboard2'
 
+import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
+
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-default.css';
+Vue.use(VueToast);
+
 import OpenPgp from 'openpgp'
 
 export default {
@@ -46,6 +51,10 @@ export default {
       }).then((key) => {
         this.privateKey = key.privateKeyArmored
         this.publicKey = key.publicKeyArmored
+      }).catch((e) => {
+        console.log(e)
+        Vue.$toast.open({message: e.message, type: 'error'})
+      }).finally(() => {
         this.processing = false
       })
     },
@@ -54,10 +63,27 @@ export default {
       this.publicKey = ""
     },
     copyPublicKey: function() {
-      this.$copyText(this.publicKey)
+      if (this.publicKey === "") {
+        Vue.$toast.open({message: '鍵対はまだ生成されていません', type: 'warning'});
+        return
+      }
+      this.$copyText(this.publicKey).then(() => {
+        Vue.$toast.open({message: '公開鍵をコピーしました', type: 'info'});
+      }).catch((e) => {
+        console.log(e)
+        Vue.$toast.open({message: e, type: 'error'});
+      })
     },
     copyPrivateKey: function() {
-      this.$copyText(this.privateKey)
+      if (this.publicKey === "") {
+        Vue.$toast.open({message: '鍵対はまだ生成されていません', type: 'warning'});
+        return
+      }
+      this.$copyText(this.privateKey).then(() => {
+        Vue.$toast.open({message: '私有鍵をコピーしました', type: 'info'});
+      }).catch((e) => {
+        Vue.$toast.open({message: e, type: 'error'});
+      })
     }
   }
 }
