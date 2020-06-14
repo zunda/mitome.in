@@ -22,6 +22,7 @@ module.exports = {
       },
       '/email/',
       '/sns/',
+      '/device/',
       '/references/'
     ]
   },
