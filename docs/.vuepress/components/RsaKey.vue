@@ -33,9 +33,9 @@ import Vue from 'vue'
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
 
-import VueToast from 'vue-toast-notification';
-import 'vue-toast-notification/dist/theme-default.css';
-Vue.use(VueToast);
+import VueToast from 'vue-toast-notification'
+import 'vue-toast-notification/dist/theme-default.css'
+Vue.use(VueToast)
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCopy } from '@fortawesome/free-solid-svg-icons'
@@ -79,25 +79,25 @@ export default {
     },
     copyPublicKey: function() {
       if (this.publicKey === "") {
-        Vue.$toast.open({message: '鍵対はまだ生成されていません', type: 'warning'});
+        Vue.$toast.open({message: '鍵対はまだ生成されていません', type: 'warning'})
         return
       }
       this.$copyText(this.publicKey).then(() => {
-        Vue.$toast.open({message: '公開鍵をコピーしました', type: 'info'});
+        Vue.$toast.open({message: '公開鍵をコピーしました', type: 'info'})
       }).catch((e) => {
         console.log(e)
-        Vue.$toast.open({message: e, type: 'error'});
+        Vue.$toast.open({message: e, type: 'error'})
       })
     },
     copyPrivateKey: function() {
       if (this.publicKey === "") {
-        Vue.$toast.open({message: '鍵対はまだ生成されていません', type: 'warning'});
+        Vue.$toast.open({message: '鍵対はまだ生成されていません', type: 'warning'})
         return
       }
       this.$copyText(this.privateKey).then(() => {
-        Vue.$toast.open({message: '私有鍵をコピーしました', type: 'info'});
+        Vue.$toast.open({message: '私有鍵をコピーしました', type: 'info'})
       }).catch((e) => {
-        Vue.$toast.open({message: e, type: 'error'});
+        Vue.$toast.open({message: e, type: 'error'})
       })
     }
   }
