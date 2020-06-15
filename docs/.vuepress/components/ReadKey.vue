@@ -6,7 +6,7 @@
       <textarea v-model="keyArmored" class="key" spellcheck="false" />
     </p>
     <ul>
-      <li>鍵の種別: {{ klass }}</li>
+      <li>鍵の種類: {{ klass }}</li>
       <li>名前: {{ name }}</li>
       <li>電子メールアドレス: {{ email }}</li>
       <li>生成時刻:<br>{{ created }}</li>
@@ -46,7 +46,7 @@ export default {
           throw {message: '有効な鍵が見つかりませんでした'}
         }
         this.name = key.keys[0].users[0].userId.name
-        this.email = key.keys[0].users[0].userId.name
+        this.email = key.keys[0].users[0].userId.email
         this.klass = key.keys[0].keyPacket.constructor.name
         this.created = key.keys[0].keyPacket.created
         this.fingerprint =
