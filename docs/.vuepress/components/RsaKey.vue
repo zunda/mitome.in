@@ -1,7 +1,9 @@
 <template>
   <div>
     <p>
-      {{ name }} &lt;<tt>{{ email }}</tt>&gt; の鍵対を
+      <input v-model="userId" placeholder="ユーザーID">
+      <input v-model="email" placeholder="電子メールアドレス">
+      の鍵対を
       <button v-bind:disabled="processing" v-on:click="generateKey">
         生成する
       </button>
@@ -9,10 +11,17 @@
         消す
       </button>
     </p>
-    <p>公開鍵 <button @click="copyPublicKey">コピー</button><br>
+    <p>公開鍵
+      <button @click="copyPublicKey" title="公開鍵をクリップボードにコピーする">
+        <font-awesome-icon icon="copy" />
+      </button>
+      <br>
       <textarea v-model="publicKey" class="key" spellcheck="false" readonly />
     </p>
-    <p>私有鍵 <button @click="copyPrivateKey">コピー</button><br>
+    <p>私有鍵
+      <button @click="copyPrivateKey" title="私有鍵をクリップボードにコピーする">
+        <font-awesome-icon icon="copy" />
+      </button>
       <textarea v-model="privateKey" class="key" spellcheck="false" readonly />
     </p>
   </div>
@@ -28,11 +37,17 @@ import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-default.css';
 Vue.use(VueToast);
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCopy } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+library.add(faCopy)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
 import OpenPgp from 'openpgp'
 
 export default {
   props: {
-    name: String,
+    userId: String,
     email: String
   },
   data() {
@@ -88,3 +103,10 @@ export default {
   }
 }
 </script>
+
+<style>
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+</style>
