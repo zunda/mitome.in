@@ -15,10 +15,12 @@
     "vue-clipboard2": "^0.3.1",
     "vue-toast-notification": "^0.4.0",
     "vuepress": "^1.5.1",
+    "vuepress-plugin-font-awesome": "^1.90.6",
     "vuex": "^3.4.0"
   },
   "scripts": {
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:dev": "yarn fa:build --dest=docs && vuepress dev docs",
+    "docs:build": "yarn fa:build --dest=docs && vuepress build docs",
+    "fa:build": "node node_modules/vuepress-plugin-font-awesome/index.js"
   }
 }

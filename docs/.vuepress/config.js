@@ -54,5 +54,11 @@ module.exports = {
         }
       }
     ]
-  ]
+  ],
+  thirdPartyComponents: {
+    fontAwesomeIcons: {
+      regular: [''],
+      solid: ['copy']
+    }
+  }
 }

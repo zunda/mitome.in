@@ -90,6 +90,7 @@ dist
 
 # vuepress build output
 .vuepress/dist
+docs/.vuepress/components/Fa/
 
 # Serverless directories
 .serverless/

@@ -13,14 +13,14 @@
     </p>
     <p>公開鍵
       <button @click="copyPublicKey" title="公開鍵をクリップボードにコピーする">
-        <font-awesome-icon icon="copy" />
+        <Fa-Copy />
       </button>
       <br>
       <textarea v-model="publicKey" class="key" spellcheck="false" readonly />
     </p>
     <p>私有鍵
       <button @click="copyPrivateKey" title="私有鍵をクリップボードにコピーする">
-        <font-awesome-icon icon="copy" />
+        <Fa-Copy />
       </button>
       <textarea v-model="privateKey" class="key" spellcheck="false" readonly />
     </p>
