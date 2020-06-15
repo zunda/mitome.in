@@ -47,13 +47,15 @@ const OpenPgp = require('openpgp')
 
 export default {
   props: {
-    name: String,
-    email: String
+    defaultName: String,
+    defaultEmail: String
   },
   data() {
     return {
-      privateKey: "",
+      name: "",
+      email: "",
       publicKey: "",
+      privateKey: "",
       processing: false
     }
   },
@@ -64,8 +66,9 @@ export default {
         userIds: [{name: this.name, email: this.email}],
         rsaBits: 2048
       }).then((key) => {
-        this.privateKey = key.privateKeyArmored
         this.publicKey = key.publicKeyArmored
+        this.privateKey = key.privateKeyArmored
+        this.commitKey()
       }).catch((e) => {
         console.log(e)
         Vue.$toast.open({message: e.message, type: 'error'})
@@ -73,9 +76,18 @@ export default {
         this.processing = false
       })
     },
-    clearKey: function () {
-      this.privateKey = ""
+    clearKey: function() {
       this.publicKey = ""
+      this.privateKey = ""
+      this.commitKey()
+    },
+    commitKey: function() {
+      this.$store.commit('setKeyPair', {
+        name: this.name,
+        email: this.email,
+        privateKey: this.privateKey,
+        publicKey: this.publicKey
+      })
     },
     copyPublicKey: function() {
       if (this.publicKey === "") {
@@ -99,6 +111,18 @@ export default {
       }).catch((e) => {
         Vue.$toast.open({message: e, type: 'error'})
       })
+    }
+  },
+  mounted() {
+    const storedKeyPair = this.$store.state.keyPair
+    if (storedKeyPair !== null) {
+      this.name = storedKeyPair.name
+      this.email = storedKeyPair.email
+      this.privateKey = storedKeyPair.privateKey
+      this.publicKey = storedKeyPair.publicKey
+    } else {
+      this.name = this.defaultName
+      this.email = this.defaultEmail
     }
   }
 }

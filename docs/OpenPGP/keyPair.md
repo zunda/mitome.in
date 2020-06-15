@@ -10,7 +10,7 @@
 
 下記では、2048ビットのRSA鍵をブラウザ内で生成します。負荷の軽減のために鍵の長さは短か目にしてあります。ここで生成された鍵は実際には利用しない方が安全です。
 
-<ClientOnly><RsaKey name="Alice" email="alice@example.com" /></ClientOnly>
+<ClientOnly><RsaKey defaultName="Alice" defaultEmail="alice@example.com" /></ClientOnly>
 
 鍵はテキストの羅列に変換されて表示されています。
 
