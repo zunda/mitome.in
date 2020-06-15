@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>
-      <input v-model="userId" placeholder="ユーザーID">
+      <input v-model="name" placeholder="ユーザーID">
       <input v-model="email" placeholder="電子メールアドレス">
       の鍵対を
       <button v-bind:disabled="processing" v-on:click="generateKey">
@@ -47,7 +47,7 @@ const OpenPgp = require('openpgp')
 
 export default {
   props: {
-    userId: String,
+    name: String,
     email: String
   },
   data() {
