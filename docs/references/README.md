@@ -12,6 +12,9 @@
 |電子署名|デジタル署名|
 |復号|復号化|
 
+## [OpenPGP のメッセージフォーマット](https://www.ipa.go.jp/security/rfc/RFC2440JA.html)
+篠田佳奈・宮川寧夫翻訳、The Internet Society著、1998年、RFC-2440
+
 ## [OpenPGP](https://www.openpgp.org/)
 
 ## [OpenPGP.js](https://openpgpjs.org/)

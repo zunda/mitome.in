@@ -6,7 +6,7 @@
       <textarea v-model="keyArmored" class="key" spellcheck="false" />
     </p>
     <ul>
-      <li>鍵の種類: {{ klass }}</li>
+      <li>種類: {{ type }}</li>
       <li>名前: {{ name }}</li>
       <li>電子メールアドレス: {{ email }}</li>
       <li>生成時刻: {{ created }}</li>
@@ -26,6 +26,24 @@ import moment from 'moment'
 
 const OpenPgp = require('openpgp')
 
+// https://www.ipa.go.jp/security/rfc/RFC2440JA.html#05
+const packetTypes = {
+  1: '公開鍵暗号セッション鍵',
+  2: '署名',
+  3: '共通鍵で暗号化されたセッション鍵',
+  4: 'One-Pass署名',
+  6: '公開鍵',
+  14: '公開サブキー',
+  5: '私有鍵',  // 秘密鍵
+  7: '私有サブキー',  // 秘密サブキー
+  8: '圧縮データ',
+  9: '共通鍵暗号化データ',
+  10: 'マーカー',
+  11: 'リテラルデータ',
+  12: 'トラスト',
+  13: 'ユーザID'
+}
+
 export default {
   data() {
     return {
@@ -33,7 +51,7 @@ export default {
       name: "",
       email: "",
       created: "",
-      klass: "",
+      type: "",
       fingerprint: "",
       processing: false,
       processed: false
@@ -49,7 +67,7 @@ export default {
         }
         this.name = key.keys[0].users[0].userId.name
         this.email = key.keys[0].users[0].userId.email
-        this.klass = key.keys[0].keyPacket.constructor.name
+        this.type = packetTypes[key.keys[0].keyPacket.tag]
         this.created = moment(key.keys[0].keyPacket.created).format('YYYY年MM月DD日 HH:MM:SS Z')
         this.fingerprint =
           Array.from(key.keys[0].keyPacket.fingerprint)
