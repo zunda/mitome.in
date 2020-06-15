@@ -43,7 +43,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(faCopy)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-import OpenPgp from 'openpgp'
+const OpenPgp = require('openpgp')
 
 export default {
   props: {
