@@ -4,11 +4,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    keyPair: null
+    keyPairs: {}
   },
   mutations: {
-    setKeyPair: (state, keyPair) => {
-      state.keyPair = keyPair
+    setKeyPair: (state, payload) => {
+      state.keyPairs[payload.owner] = payload.keyPair
     },
   },
 });

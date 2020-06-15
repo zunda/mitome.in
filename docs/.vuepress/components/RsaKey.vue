@@ -47,6 +47,7 @@ const OpenPgp = require('openpgp')
 
 export default {
   props: {
+    owner: String,
     defaultName: String,
     defaultEmail: String
   },
@@ -83,10 +84,13 @@ export default {
     },
     commitKey: function() {
       this.$store.commit('setKeyPair', {
-        name: this.name,
-        email: this.email,
-        privateKey: this.privateKey,
-        publicKey: this.publicKey
+        owner: this.owner,
+        keyPair: {
+          name: this.name,
+          email: this.email,
+          privateKey: this.privateKey,
+          publicKey: this.publicKey
+        }
       })
     },
     copyPublicKey: function() {
@@ -114,8 +118,8 @@ export default {
     }
   },
   mounted() {
-    const storedKeyPair = this.$store.state.keyPair
-    if (storedKeyPair !== null) {
+    const storedKeyPair = this.$store.state.keyPairs[this.owner]
+    if (storedKeyPair !== undefined) {
       this.name = storedKeyPair.name
       this.email = storedKeyPair.email
       this.privateKey = storedKeyPair.privateKey
