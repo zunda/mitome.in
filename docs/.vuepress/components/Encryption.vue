@@ -61,6 +61,9 @@ export default {
         if (key.keys.length < 1) {
           throw {message: '有効な鍵が見つかりませんでした'}
         }
+        if (key.keys.length > 1) {
+          Vue.$toast.open({message: '複数の鍵が見つかりました。最初の鍵だけ追加します', type: 'warning'})
+        }
         const newKey = key.keys[0]
         if (newKey.keyPacket.tag != 6 && newKey.keyPacket.tag != 14) {
           throw {message: '公開鍵ではありません'}
