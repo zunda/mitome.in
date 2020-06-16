@@ -104,6 +104,7 @@ export default {
       })
     },
     commitPublicKeys: function() {
+      this.$store.commit('setPublicKeys', this.publicKeys)
     },
     copyEncryptedMessage: function() {
       this.$copyText(this.encryptedMessage).then(() => {
@@ -114,5 +115,10 @@ export default {
       })
     }
   },
+  mounted() {
+    if (this.$store.state.publicKeys.length > 0) {
+      this.publicKeys = this.$store.state.publicKeys
+    }
+  }
 }
 </script>
