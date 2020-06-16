@@ -63,17 +63,18 @@ export default {
     checkKey: function () {
       this.processing = true
       OpenPgp.key.readArmored(this.keyArmored)
-      .then(key => {
-        if (key.keys.length < 1) {
+      .then(data => {
+        if (data.keys.length < 1) {
           throw {message: '有効な鍵が見つかりませんでした'}
         }
-        this.name = key.keys[0].users[0].userId.name
-        this.email = key.keys[0].users[0].userId.email
-        this.type = packetTypes[key.keys[0].keyPacket.tag]
-        this.created = moment(key.keys[0].keyPacket.created).format('YYYY年MM月DD日 HH:MM:SS Z')
-        this.keyId = key.keys[0].keyPacket.keyid.toHex()
+        console.log(data.keys)
+        this.name = data.keys[0].users[0].userId.name
+        this.email = data.keys[0].users[0].userId.email
+        this.type = packetTypes[data.keys[0].keyPacket.tag]
+        this.created = moment(data.keys[0].keyPacket.created).format('YYYY年MM月DD日 HH:MM:SS Z')
+        this.keyId = data.keys[0].keyPacket.keyid.toHex()
         this.fingerprint =
-          Array.from(key.keys[0].keyPacket.fingerprint)
+          Array.from(data.keys[0].keyPacket.fingerprint)
           .map(x => ('0' + x.toString(16).toUpperCase()).slice(-2)).join(' ')
         this.processed = true
       }).catch(e => {
