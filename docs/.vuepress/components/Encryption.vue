@@ -57,7 +57,7 @@ export default {
     addPublicKey: function () {
       this.processing = true
       OpenPgp.key.readArmored(this.newPublicKey)
-      .then((key) => {
+      .then(key => {
         if (key.keys.length < 1) {
           throw {message: '有効な鍵が見つかりませんでした'}
         }
@@ -77,7 +77,7 @@ export default {
         })
         this.commitPublicKeys()
         this.newPublicKey = ''
-      }).catch((e) => {
+      }).catch(e => {
         console.log(e)
         Vue.$toast.open({message: e.message, type: 'error'})
       }).finally(() => {
@@ -94,9 +94,9 @@ export default {
       OpenPgp.encrypt({
         message: OpenPgp.message.fromText(this.message),
         publicKeys: this.publicKeys.map(x => x.key)
-      }).then((result) => {
+      }).then(result => {
         this.encryptedMessage = result.data
-      }).catch((e) => {
+      }).catch(e => {
         console.log(e)
         Vue.$toast.open({message: e.message, type: 'error'})
       }).finally(() => {
@@ -108,7 +108,7 @@ export default {
     copyEncryptedMessage: function() {
       this.$copyText(this.encryptedMessage).then(() => {
         Vue.$toast.open({message: '暗号文をコピーしました', type: 'info'})
-      }).catch((e) => {
+      }).catch(e => {
         console.log(e)
         Vue.$toast.open({message: e, type: 'error'})
       })

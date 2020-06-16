@@ -63,7 +63,7 @@ export default {
     checkKey: function () {
       this.processing = true
       OpenPgp.key.readArmored(this.keyArmored)
-      .then((key) => {
+      .then(key => {
         if (key.keys.length < 1) {
           throw {message: '有効な鍵が見つかりませんでした'}
         }
@@ -76,7 +76,7 @@ export default {
           Array.from(key.keys[0].keyPacket.fingerprint)
           .map(x => ('0' + x.toString(16).toUpperCase()).slice(-2)).join(' ')
         this.processed = true
-      }).catch((e) => {
+      }).catch(e => {
         console.log(e)
         Vue.$toast.open({message: e.message, type: 'error'})
       }).finally(() => {

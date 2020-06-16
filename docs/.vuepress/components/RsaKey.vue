@@ -7,9 +7,6 @@
       <button v-bind:disabled="processing" v-on:click="generateKey">
         生成する
       </button>
-      <button v-bind:disabled="processing" v-on:click="clearKey">
-        消す
-      </button>
     </p>
     <p>公開鍵
       <button @click="copyPublicKey" title="公開鍵をクリップボードにコピーする">
@@ -60,21 +57,16 @@ export default {
       OpenPgp.generateKey({
         userIds: [{name: this.name, email: this.email}],
         rsaBits: 2048
-      }).then((key) => {
+      }).then(key => {
         this.publicKey = key.publicKeyArmored
         this.privateKey = key.privateKeyArmored
         this.commitKey()
-      }).catch((e) => {
+      }).catch(e => {
         console.log(e)
         Vue.$toast.open({message: e.message, type: 'error'})
       }).finally(() => {
         this.processing = false
       })
-    },
-    clearKey: function() {
-      this.publicKey = ""
-      this.privateKey = ""
-      this.commitKey()
     },
     commitKey: function() {
       this.$store.commit('setKeyPair', {
@@ -94,7 +86,7 @@ export default {
       }
       this.$copyText(this.publicKey).then(() => {
         Vue.$toast.open({message: '公開鍵をコピーしました', type: 'info'})
-      }).catch((e) => {
+      }).catch(e => {
         console.log(e)
         Vue.$toast.open({message: e, type: 'error'})
       })
@@ -106,7 +98,7 @@ export default {
       }
       this.$copyText(this.privateKey).then(() => {
         Vue.$toast.open({message: '私有鍵をコピーしました', type: 'info'})
-      }).catch((e) => {
+      }).catch(e => {
         Vue.$toast.open({message: e, type: 'error'})
       })
     }
