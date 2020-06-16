@@ -1,12 +1,11 @@
 <template>
   <div>
-    <p>メッセージ<br><textarea v-model="message" class="cleartext" /></p>
     <p>下記にペーストした公開鍵を受取人に
       <button v-bind:disabled="processing" v-on:click="addPublicKey">
         追加する
       </button>
       <br>
-      <textarea v-model="newPublicKey" class="key" spellcheck="false" />
+      <textarea v-model="newPublicKey" class="key" spellcheck="false" placeholder="受取人の公開鍵" />
     </p>
     <ul id="public-keys">
       <li v-for="publicKey in publicKeys" :key="publicKey.keyId">
@@ -16,6 +15,7 @@
         <span class="email">&lt;{{ publicKey.emali }}&gt;</span>
       </li>
     </ul>
+    <p>メッセージ<br><textarea v-model="message" class="cleartext" placeholder="暗号化されるメッセージ" /></p>
     <p>
       <button v-bind:disabled="processing" v-on:click="encrypt">
         暗号化する
