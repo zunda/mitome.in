@@ -37,12 +37,6 @@ import VueToast from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-default.css'
 Vue.use(VueToast)
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCopy } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-library.add(faCopy)
-Vue.component('font-awesome-icon', FontAwesomeIcon)
-
 const OpenPgp = require('openpgp')
 
 export default {
