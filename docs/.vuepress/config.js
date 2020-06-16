@@ -1,7 +1,7 @@
 module.exports = {
   title: 'mitome.in',
   lang: 'ja',
-  description: '認印の代わりとしてOpenPGPの利用方法を考えます。',
+  description: '認め印を使うくらい気軽に、電子署名や暗号でやりとりしたい',
   head: [
     ['link', { rel: 'icon', href: '/mitomein.png' }]
   ],
