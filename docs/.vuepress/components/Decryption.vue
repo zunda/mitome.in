@@ -1,6 +1,6 @@
 <template>
   <div>
-    <textarea v-model="privateKey" class="key" spellcheck="false" placeholder="受取人の私有鍵" />
+    <textarea v-model="privateKey" class="key" spellcheck="false" placeholder="受取人の私有鍵" @blur="commitPrivateKey" />
     <p>上記にペーストした私有鍵で下記にペーストした暗号文を
       <button v-bind:disabled="processing" v-on:click="decrypt">
         復号する
@@ -54,6 +54,14 @@ export default {
         this.processing = false
       })
     },
+    commitPrivateKey: function() {
+      this.$store.commit('setPrivateKey', this.privateKey)
+    }
+  },
+  mounted() {
+    if (this.$store.state.privateKey !== undefined) {
+      this.privateKey = this.$store.state.privateKey
+    }
   }
 }
 </script>

@@ -5,7 +5,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     keyPairs: {},
-    publicKeys: []
+    publicKeys: [],
+    privateKey: undefined
   },
   mutations: {
     setKeyPair: (state, payload) => {
@@ -13,6 +14,9 @@ export default new Vuex.Store({
     },
     setPublicKeys: (state, publicKeys) => {
       state.publicKeys = publicKeys
+    },
+    setPrivateKey: (state, privateKey) => {
+      state.privateKey = privateKey
     }
-  },
+  }
 });
