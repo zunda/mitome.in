@@ -2,18 +2,18 @@
   <div>
     <p>メッセージ<br><textarea v-model="message" class="cleartext" /></p>
     <p>下記にペーストした公開鍵を受取人に
-      <button v-bind:disabled="processing" v-on:click="addPubKey">
+      <button v-bind:disabled="processing" v-on:click="addPublicKey">
         追加する
       </button>
       <br>
-      <textarea v-model="newPubKey" class="key" spellcheck="false" />
+      <textarea v-model="newPublicKey" class="key" spellcheck="false" />
     </p>
     <ul id="public-keys">
-      <li v-for="pubKey in pubKeys" :key="pubKey.keyId">
-        <button v-on:click="removePubKey(pubKey.keyId)" title="鍵をリストから取り除く"><Fa-Eraser /></button>
-        <span class="key-id">{{ pubKey.keyId }}</span>:
-        {{ pubKey.name }}
-        <span class="email">&lt;{{ pubKey.emali }}&gt;</span>
+      <li v-for="publicKey in publicKeys" :key="publicKey.keyId">
+        <button v-on:click="removePublicKey(publicKey.keyId)" title="鍵をリストから取り除く"><Fa-Eraser /></button>
+        <span class="key-id">{{ publicKey.keyId }}</span>:
+        {{ publicKey.name }}
+        <span class="email">&lt;{{ publicKey.emali }}&gt;</span>
       </li>
     </ul>
     <p>
@@ -47,16 +47,16 @@ export default {
   data() {
     return {
       message: "",
-      newPubKey: "",
-      pubKeys: [],
+      newPublicKey: "",
+      publicKeys: [],
       encryptedMessage: "",
       processing: false
     }
   },
   methods: {
-    addPubKey: function () {
+    addPublicKey: function () {
       this.processing = true
-      OpenPgp.key.readArmored(this.newPubKey)
+      OpenPgp.key.readArmored(this.newPublicKey)
       .then((key) => {
         if (key.keys.length < 1) {
           throw {message: '有効な鍵が見つかりませんでした'}
@@ -66,30 +66,44 @@ export default {
           throw {message: '公開鍵ではありません'}
         }
         const newKeyId = newKey.keyPacket.keyid.toHex()
-        if (this.pubKeys.find(key => key.keyId === newKeyId)) {
-          throw {message: '同じIDの鍵が登録されています'}
+        if (this.publicKeys.find(key => key.keyId === newKeyId)) {
+          throw {message: '既に同じIDの公開鍵があります'}
         }
-        this.pubKeys.unshift({
+        this.publicKeys.unshift({
           keyId: newKeyId,
           name: newKey.users[0].userId.name,
           emali: newKey.users[0].userId.email,
           key: newKey
         })
-        this.newPubKey = ''
+        this.commitPublicKeys()
+        this.newPublicKey = ''
       }).catch((e) => {
         console.log(e)
         Vue.$toast.open({message: e.message, type: 'error'})
-
       }).finally(() => {
         this.processing = false
       })
     },
-    removePubKey: function (keyId) {
-      this.pubKeys = this.pubKeys.filter(key => key.keyId !== keyId)
+    removePublicKey: function (keyId) {
+      this.publicKeys = this.publicKeys.filter(key => key.keyId !== keyId)
+      this.commitPublicKeys()
     },
     encrypt: function() {
+      this.processing = true
+      this.encryptedMessage = ''
+      OpenPgp.encrypt({
+        message: OpenPgp.message.fromText(this.message),
+        publicKeys: this.publicKeys.map(x => x.key)
+      }).then((result) => {
+        this.encryptedMessage = result.data
+      }).catch((e) => {
+        console.log(e)
+        Vue.$toast.open({message: e.message, type: 'error'})
+      }).finally(() => {
+        this.processing = false
+      })
     },
-    commitPubKeys: function() {
+    commitPublicKeys: function() {
     },
     copyEncryptedMessage: function() {
       this.$copyText(this.encryptedMessage).then(() => {
