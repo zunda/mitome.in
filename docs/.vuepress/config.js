@@ -58,7 +58,7 @@ module.exports = {
   thirdPartyComponents: {
     fontAwesomeIcons: {
       regular: [''],
-      solid: ['copy', 'remove']
+      solid: ['copy', 'eraser']
     }
   }
 }

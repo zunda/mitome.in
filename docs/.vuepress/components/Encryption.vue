@@ -10,7 +10,7 @@
     </p>
     <ul id="public-keys">
       <li v-for="pubKey in pubKeys" :key="pubKey.keyId">
-        <button v-on:click="removePubKey(pubKey.keyId)" title="鍵をリストから取り除く"><Fa-Remove /></button>
+        <button v-on:click="removePubKey(pubKey.keyId)" title="鍵をリストから取り除く"><Fa-Eraser /></button>
         <span class="key-id">{{ pubKey.keyId }}</span>:
         {{ pubKey.name }}
         <span class="email">&lt;{{ pubKey.emali }}&gt;</span>
