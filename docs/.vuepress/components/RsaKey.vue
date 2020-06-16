@@ -3,6 +3,7 @@
     <p>
       <input v-model="name" placeholder="ユーザーID">
       <input v-model="email" class="email" placeholder="電子メールアドレス">
+      <input v-model="passphrase" class="email" placeholder="パスフレーズ">
       の鍵対を
       <button v-bind:disabled="processing" v-on:click="generateKey">
         生成する
@@ -46,6 +47,7 @@ export default {
     return {
       name: "",
       email: "",
+      passphrase: "",
       publicKey: "",
       privateKey: "",
       processing: false
@@ -56,7 +58,8 @@ export default {
       this.processing = true
       OpenPgp.generateKey({
         userIds: [{name: this.name, email: this.email}],
-        rsaBits: 2048
+        rsaBits: 2048,
+        passphrase: this.passphrase
       }).then(key => {
         this.publicKey = key.publicKeyArmored
         this.privateKey = key.privateKeyArmored
