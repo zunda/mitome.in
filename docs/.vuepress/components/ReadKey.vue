@@ -8,9 +8,10 @@
     <ul>
       <li>種類: {{ type }}</li>
       <li>名前: {{ name }}</li>
-      <li>電子メールアドレス: {{ email }}</li>
+      <li>電子メールアドレス: <span class="email">{{ email }}</span></li>
       <li>生成時刻: {{ created }}</li>
-      <li>指紋(fingerprint):<br>{{ fingerprint }}</li>
+      <li>ID: <span class="key-id">{{ keyId }}</span></li>
+      <li>指紋(fingerprint): <span class="key-id">{{ fingerprint }}</span></li>
     </ul>
   </div>
 </template>
@@ -52,6 +53,7 @@ export default {
       email: "",
       created: "",
       type: "",
+      keyId: "",
       fingerprint: "",
       processing: false,
       processed: false
@@ -69,6 +71,7 @@ export default {
         this.email = key.keys[0].users[0].userId.email
         this.type = packetTypes[key.keys[0].keyPacket.tag]
         this.created = moment(key.keys[0].keyPacket.created).format('YYYY年MM月DD日 HH:MM:SS Z')
+        this.keyId = key.keys[0].keyPacket.keyid.toHex()
         this.fingerprint =
           Array.from(key.keys[0].keyPacket.fingerprint)
           .map(x => ('0' + x.toString(16).toUpperCase()).slice(-2)).join(' ')

@@ -2,7 +2,7 @@
   <div>
     <p>
       <input v-model="name" placeholder="ユーザーID">
-      <input v-model="email" placeholder="電子メールアドレス">
+      <input v-model="email" class="email" placeholder="電子メールアドレス">
       の鍵対を
       <button v-bind:disabled="processing" v-on:click="generateKey">
         生成する
