@@ -71,7 +71,7 @@ export default {
         this.name = data.keys[0].users[0].userId.name
         this.email = data.keys[0].users[0].userId.email
         this.type = packetTypes[data.keys[0].keyPacket.tag]
-        this.created = moment(data.keys[0].keyPacket.created).format('YYYY年MM月DD日 HH:MM:SS Z')
+        this.created = moment(data.keys[0].keyPacket.created).format('YYYY年MM月DD日 HH:mm:ss Z')
         this.keyId = data.keys[0].keyPacket.keyid.toHex()
         this.fingerprint =
           Array.from(data.keys[0].keyPacket.fingerprint)
