@@ -42,7 +42,7 @@ export default {
       privateKey: "",
       passphrase: "",
       message: "",
-      signedMessage: "HI",
+      signedMessage: "",
       processing: false
     }
   },
