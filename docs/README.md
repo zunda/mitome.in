@@ -3,6 +3,11 @@
 
 本稿は書きかけです。誤りや改善点に気づいた方は、GitHub上のレポジトリの[Issue](https://github.com/zunda/mitome.in/issues)や[プルリクエスト](https://github.com/zunda/mitome.in/pulls)にお知らせいただけると筆者が喜びます。
 
+## 著者・コントリビュータ
+本稿の内容は下記の方々によるものです。
+
+- zunda &lt;zundan at gmail.com&gt;
+
 ## ライセンス
 Copyright 2020 by zunda &lt;zundan at gmail.com&gt;
 
