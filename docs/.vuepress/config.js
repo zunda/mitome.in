@@ -20,7 +20,13 @@ module.exports = {
           '/OpenPGP/wut'
         ]
       },
-      '/email/',
+      {
+          title: '電子メールの暗号化と署名',
+          children: [
+            '/email/',
+            '/email/mailvelope'
+          ]
+      },
       '/sns/',
       '/device/',
       '/references/'

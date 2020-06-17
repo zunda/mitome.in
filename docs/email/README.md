@@ -6,4 +6,5 @@
 - Mutt
 - Thunderbird
 - ProtonMail
+- mailvelope
 - その他
