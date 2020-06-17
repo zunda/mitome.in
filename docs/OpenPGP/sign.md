@@ -1,6 +1,6 @@
 # 電子署名
 
 ## 署名する
-<ClientOnly><ClearSign /></ClientOnly>
+<ClientOnly><ClearSign section="sign" /></ClientOnly>
 
 ## 検証する

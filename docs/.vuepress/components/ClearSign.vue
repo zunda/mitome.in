@@ -34,6 +34,9 @@ Vue.use(VueToast)
 const OpenPgp = require('openpgp')
 
 export default {
+  props: {
+    section: String
+  },
   data() {
     return {
       privateKey: "",
@@ -81,7 +84,9 @@ export default {
       this.commitPrivateKey()
     },
     commitPrivateKey: function() {
-      this.$store.commit('setPrivateKey', this.privateKey)
+      this.$store.commit('setPrivateKey', {
+        owner: this.section, key: this.privateKey
+      })
     },
     copySignedMessage: function() {
       this.$copyText(this.signedMessage).then(() => {
@@ -93,8 +98,8 @@ export default {
     }
   },
   mounted() {
-    if (this.$store.state.privateKey !== undefined) {
-      this.privateKey = this.$store.state.privateKey
+    if (this.$store.state.privateKey[this.section] !== undefined) {
+      this.privateKey = this.$store.state.privateKey[this.section]
     }
   }
 }
