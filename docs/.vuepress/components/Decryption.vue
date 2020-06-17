@@ -11,6 +11,9 @@
       </button>
     </p>
     <textarea v-model="encryptedMessage" class="encryptedtext" spellcheck="false" placeholder="暗号文" />
+    <button v-bind::disabled="processing" v-on:click="clearEncryptedMessage" title="暗号文を消去する" style="float:right;">
+      <Fa-Eraser />
+    </button>
     <p>メッセージ<br><textarea v-model="message" class="cleartext" readonly /></p>
   </div>
 </template>
@@ -73,6 +76,9 @@ export default {
       this.privateKey = ""
       this.passphrase = ""
       this.commitPrivateKey()
+    },
+    clearEncryptedMessage: function () {
+      this.encryptedMessage = ""
     },
     commitPrivateKey: function() {
       this.$store.commit('setPrivateKey', {

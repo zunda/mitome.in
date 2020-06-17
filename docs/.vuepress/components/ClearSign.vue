@@ -5,7 +5,7 @@
       <Fa-Eraser />
     </button>
     <input v-model="passphrase" type="password" placeholder="私有鍵のパスフレーズ" />
-    <p>上記にペーストした私有鍵で下記にペーストしたメッセージに
+    <p>上記にペーストした私有鍵で下記のメッセージに
       <button v-bind:disabled="processing" v-on:click="clearSign">
         署名する
       </button>

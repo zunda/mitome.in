@@ -6,6 +6,9 @@
       </button>
       <br>
       <textarea v-model="newPublicKey" class="key" spellcheck="false" placeholder="受取人の公開鍵" />
+      <button v-bind::disabled="processing" v-on:click="clearNewPublicKey" title="入力中の公開鍵を消去する" style="float:right;">
+        <Fa-Eraser />
+      </button>
     </p>
     <ul id="public-keys">
       <li v-for="publicKey in publicKeys" :key="publicKey.keyId">
@@ -86,6 +89,9 @@ export default {
       }).finally(() => {
         this.processing = false
       })
+    },
+    clearNewPublicKey: function() {
+      this.newPublicKey = ''
     },
     removePublicKey: function (keyId) {
       this.publicKeys = this.publicKeys.filter(key => key.keyId !== keyId)

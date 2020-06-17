@@ -4,6 +4,9 @@
       <button v-bind:disabled="processing" @click="checkKey" >
       確認する</button><br>
       <textarea v-model="keyArmored" class="key" spellcheck="false" placeholder="確認したい鍵" />
+      <button v-bind::disabled="processing" v-on:click="clearKey" title="鍵を消去する" style="float:right;">
+        <Fa-Eraser />
+      </button>
     </p>
     <ul>
       <li>種類: {{ type }}</li>
@@ -83,6 +86,9 @@ export default {
       }).finally(() => {
         this.processing = false
       })
+    },
+    clearKey() {
+      this.keyArmored = ''
     }
   }
 }
