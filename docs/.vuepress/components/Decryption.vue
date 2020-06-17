@@ -1,6 +1,7 @@
 <template>
   <div>
     <textarea v-model="privateKey" class="key" spellcheck="false" placeholder="受取人の私有鍵" @blur="commitPrivateKey" />
+    <input v-model="passphrase" type="password" placeholder="私有鍵のパスフレーズ" />
     <p>上記にペーストした私有鍵で下記にペーストした暗号文を
       <button v-bind:disabled="processing" v-on:click="decrypt">
         復号する
@@ -24,6 +25,7 @@ export default {
   data() {
     return {
       privateKey: "",
+      passphrase: "",
       encryptedMessage: "",
       message: "",
       processing: false
@@ -36,8 +38,16 @@ export default {
         OpenPgp.message.readArmored(this.encryptedMessage),
         OpenPgp.key.readArmored(this.privateKey).then(data => {
           if (data.keys.length < 1) {
-            throw {message: '有効な私有鍵が見つかりませんでした'}
+            throw {message: "有効な私有鍵が見つかりませんでした"}
           }
+          data.keys.forEach(key => {
+            key.decrypt(this.passphrase)
+            .catch(e => {
+              if (e.message !== "Key packet is already decrypted.") {
+                throw e
+              }
+            })
+          })
           return data.keys
         })
       ])
