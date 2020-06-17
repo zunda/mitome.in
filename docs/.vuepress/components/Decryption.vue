@@ -1,6 +1,9 @@
 <template>
   <div>
     <textarea v-model="privateKey" class="key" spellcheck="false" placeholder="受取人の私有鍵" @blur="commitPrivateKey" />
+    <button v-bind::disabled="processing" v-on:click="clearPrivateKey" title="私有鍵を消去する" style="float:right;">
+      <Fa-Eraser />
+    </button>
     <input v-model="passphrase" type="password" placeholder="私有鍵のパスフレーズ" />
     <p>上記にペーストした私有鍵で下記にペーストした暗号文を
       <button v-bind:disabled="processing" v-on:click="decrypt">
@@ -62,6 +65,11 @@ export default {
       .finally(() => {
         this.processing = false
       })
+    },
+    clearPrivateKey: function () {
+      this.privateKey = ""
+      this.passphrase = ""
+      commitPrivateKey()
     },
     commitPrivateKey: function() {
       this.$store.commit('setPrivateKey', this.privateKey)
