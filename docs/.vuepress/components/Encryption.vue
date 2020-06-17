@@ -85,7 +85,7 @@ export default {
         this.newPublicKey = ''
       }).catch(e => {
         console.log(e)
-        Vue.$toast.open({message: e.message, type: 'error'})
+        Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
       }).finally(() => {
         this.processing = false
       })
@@ -107,7 +107,7 @@ export default {
         this.encryptedMessage = result.data
       }).catch(e => {
         console.log(e)
-        Vue.$toast.open({message: e.message, type: 'error'})
+        Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
       }).finally(() => {
         this.processing = false
       })
@@ -120,7 +120,7 @@ export default {
         Vue.$toast.open({message: '暗号文をコピーしました', type: 'info'})
       }).catch(e => {
         console.log(e)
-        Vue.$toast.open({message: e, type: 'error'})
+        Vue.$toast.open({message: e, type: 'error', duration: 60000})
       })
     }
   },

@@ -66,7 +66,7 @@ export default {
         this.commitKey()
       }).catch(e => {
         console.log(e)
-        Vue.$toast.open({message: e.message, type: 'error'})
+        Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
       }).finally(() => {
         this.processing = false
       })
@@ -91,7 +91,7 @@ export default {
         Vue.$toast.open({message: '公開鍵をコピーしました', type: 'info'})
       }).catch(e => {
         console.log(e)
-        Vue.$toast.open({message: e, type: 'error'})
+        Vue.$toast.open({message: e, type: 'error', duration: 60000})
       })
     },
     copyPrivateKey: function() {
@@ -102,7 +102,7 @@ export default {
       this.$copyText(this.privateKey).then(() => {
         Vue.$toast.open({message: '私有鍵をコピーしました', type: 'info'})
       }).catch(e => {
-        Vue.$toast.open({message: e, type: 'error'})
+        Vue.$toast.open({message: e, type: 'error', duration: 60000})
       })
     }
   },

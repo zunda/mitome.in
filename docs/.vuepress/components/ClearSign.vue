@@ -72,7 +72,7 @@ export default {
       .then(signed => this.signedMessage = signed.data)
       .catch(e => {
         console.log(e.message)
-        Vue.$toast.open({message: e.message, type: 'error'})
+        Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
       })
       .finally(() => {
         this.processing = false
@@ -93,7 +93,7 @@ export default {
         Vue.$toast.open({message: '署名付きメッセージをコピーしました', type: 'info'})
       }).catch(e => {
         console.log(e)
-        Vue.$toast.open({message: e, type: 'error'})
+        Vue.$toast.open({message: e, type: 'error', duration: 60000})
       })
     }
   },

@@ -76,7 +76,7 @@ export default {
       })
       .catch(e => {
         console.log(e.message)
-        Vue.$toast.open({message: e.message, type: 'error'})
+        Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
       })
       .finally(() => {
         this.processing = false
