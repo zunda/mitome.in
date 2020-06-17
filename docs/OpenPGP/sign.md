@@ -4,3 +4,4 @@
 <ClientOnly><ClearSign section="sign" /></ClientOnly>
 
 ## 検証する
+<ClientOnly><VerifyClearSign section="sign" /></ClientOnly>
