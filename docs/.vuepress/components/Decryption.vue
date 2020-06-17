@@ -32,25 +32,24 @@ export default {
   methods: {
     decrypt: function () {
       this.processing = true
-      OpenPgp.key.readArmored(this.privateKey)
-      .then(data => {
-        if (data.keys.length < 1) {
-          throw {message: '有効な鍵が見つかりませんでした'}
-        }
-        if (data.keys.length > 1) {
-          Vue.$toast.open({message: '複数の鍵が見つかりました。最初の鍵を利用します', type: 'warning'})
-        }
-        OpenPgp.message.readArmored(this.encryptedMessage).
-        then(message => {
-          OpenPgp.decrypt({message: message, privateKeys: data.keys[0]})
-          .then(decrypted => {
-            this.message = decrypted.data
-          })
+      Promise.all([
+        OpenPgp.message.readArmored(this.encryptedMessage),
+        OpenPgp.key.readArmored(this.privateKey).then(data => {
+          if (data.keys.length < 1) {
+            throw {message: '有効な私有鍵が見つかりませんでした'}
+          }
+          return data.keys
         })
-      }).catch(e => {
-        console.log(e)
+      ])
+      .then(([encryptedMessage, privateKeys]) =>
+        OpenPgp.decrypt({message: encryptedMessage, privateKeys: privateKeys})
+      )
+      .then(decrypted => this.message = decrypted.data)
+      .catch(e => {
+        console.log(e.message)
         Vue.$toast.open({message: e.message, type: 'error'})
-      }).finally(() => {
+      })
+      .finally(() => {
         this.processing = false
       })
     },
