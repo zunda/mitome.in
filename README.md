@@ -11,10 +11,10 @@ yarn install
 ## Authoring
 Create and edit the `.md` files under `doc/`. Add them to the side bar to the `themeConfig.sidebar` array in `docs/.vuepress/config.js`.
 
-Place images under `docs/.vuepress/public/`. They are evailable at the base path.
+Place images under `docs/.vuepress/public/`. They are available at the base path.
 
 ### The mitomein icon
-Edit `assets/mitomein.svg` with Inkscape and export it as a 48x48 png image.
+Edit `assets/mitomein.svg` with Inkscape and export it as a 48x48 png image into `docs/.vuepress/public/`.
 
 ## Serve the pages
 Locally:
