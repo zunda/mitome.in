@@ -9,7 +9,7 @@ yarn install
 ```
 
 ## Authoring
-Create and edit the `.md` files under `doc/`. Add them to the side bar to the `themeConfig.sidebar` array in `docs/.vuepress/config.js`.
+Create and edit the `.md` files under `doc/`. Add them to the side bar to the `themeConfig.sidebar` array in `docs/.vuepress/config.js`. Please add your name and contact (optional) to the contributor list in `doc/README.md` if you would like to.
 
 Place images under `docs/.vuepress/public/`. They are available at the base path.
 
