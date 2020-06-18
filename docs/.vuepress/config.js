@@ -16,7 +16,7 @@ module.exports = {
     ['meta', {name: 'og:type', content: 'website'}],
     ['meta', {name: 'og:url', content: domain}],
     ['meta', {name: 'og:image', content: domain + logoPath}],
-    ['meta', {name: 'twitter:card', content: 'summary'}]
+    ['meta', {name: 'twitter:card', content: 'summary'}],
     ['meta', {name: 'twitter:image', content: domain + biggerLogoPath}]
   ],
   themeConfig: {
