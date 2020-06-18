@@ -1,6 +1,7 @@
 const title = 'mitome.in'
 const domain = 'https://' + title
-const logo_path = '/mitomein.png'
+const logoPath = '/mitomein.png'
+const biggerLogoPath = '/mitomein-96x96.png'
 const description = '認め印を使うくらい気軽に、電子署名や暗号でやりとりしたい'
 
 module.exports = {
@@ -8,18 +9,18 @@ module.exports = {
   lang: 'ja',
   description: '認め印を使うくらい気軽に、電子署名や暗号でやりとりしたい',
   head: [
-    ['link', {rel: 'icon', href: logo_path }],
+    ['link', {rel: 'icon', href: logoPath }],
     ['meta', {name: 'keywords', content: 'OpenPGP, 暗号化, 電子署名, 認め印'}],
     ['meta', {name: 'og:title', content: title}],
     ['meta', {name: 'og:description', content: description}],
     ['meta', {name: 'og:type', content: 'website'}],
     ['meta', {name: 'og:url', content: domain}],
-    ['meta', {name: 'og:image', content: domain + logo_path}],
-    ['meta', {name: 'twitter:image', content: domain + logo_path}]
+    ['meta', {name: 'og:image', content: domain + logoPath}],
+    ['meta', {name: 'twitter:image', content: domain + biggerLogoPath}]
   ],
   themeConfig: {
     repo: 'zunda/mitome.in',
-    logo: logo_path,
+    logo: logoPath,
     sidebar: [
       '/',
       {
