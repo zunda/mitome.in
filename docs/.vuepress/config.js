@@ -11,11 +11,12 @@ module.exports = {
   head: [
     ['link', {rel: 'icon', href: logoPath }],
     ['meta', {name: 'keywords', content: 'OpenPGP, 暗号化, 電子署名, 認め印'}],
-    ['meta', {name: 'og:title', content: title}],
+    ['meta', {name: 'og:title', content: title + ' - ' + description}],
     ['meta', {name: 'og:description', content: description}],
     ['meta', {name: 'og:type', content: 'website'}],
     ['meta', {name: 'og:url', content: domain}],
     ['meta', {name: 'og:image', content: domain + logoPath}],
+    ['meta', {name: 'twitter:card', content: 'summary'}]
     ['meta', {name: 'twitter:image', content: domain + biggerLogoPath}]
   ],
   themeConfig: {
