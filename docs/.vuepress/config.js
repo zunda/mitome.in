@@ -17,7 +17,7 @@ module.exports = {
           '/OpenPGP/keyPair',
           '/OpenPGP/encryption',
           '/OpenPGP/sign',
-          '/OpenPGP/wut'
+          '/OpenPGP/wot'
         ]
       },
       '/email/',
