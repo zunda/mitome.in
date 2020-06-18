@@ -12,8 +12,8 @@
       </button>
     </p>
     <p>
-      署名付きメッセージ<br><textarea v-model="signedMessage" class="cleartext" spellcheck="false" placeholder="検証されるメッセージ" v-on:input="clearResult" />
-      <button v-bind::disabled="processing" v-on:click="clearSignedMessage" title="署名付きメッセージを消去する" style="float:right;">
+      クリアテキスト署名<br><textarea v-model="signedMessage" class="cleartext" spellcheck="false" placeholder="検証されるクリアテキスト署名" v-on:input="clearResult" />
+      <button v-bind::disabled="processing" v-on:click="clearSignedMessage" title="クリアテキスト署名を消去する" style="float:right;">
         <Fa-Eraser />
       </button>
     </p>

@@ -11,8 +11,8 @@
       </button>
     </p>
     <p>メッセージ<br><textarea v-model="message" class="cleartext" placeholder="署名されるメッセージ" /></p>
-    <p>署名付きメッセージ
-      <button @click="copySignedMessage" title="署名付きメッセージをクリップボードにコピーする">
+    <p>クリアテキスト署名
+      <button @click="copySignedMessage" title="クリアテキスト署名をクリップボードにコピーする">
         <Fa-Copy />
       </button>
       <br>
@@ -90,7 +90,7 @@ export default {
     },
     copySignedMessage: function() {
       this.$copyText(this.signedMessage).then(() => {
-        Vue.$toast.open({message: '署名付きメッセージをコピーしました', type: 'info'})
+        Vue.$toast.open({message: 'クリアテキスト署名をコピーしました', type: 'info'})
       }).catch(e => {
         console.log(e)
         Vue.$toast.open({message: e, type: 'error', duration: 60000})
