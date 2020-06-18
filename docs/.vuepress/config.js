@@ -7,11 +7,11 @@ const description = '認め印を使うくらい気軽に、電子署名や暗�
 module.exports = {
   title: 'mitome.in',
   lang: 'ja',
-  description: '認め印を使うくらい気軽に、電子署名や暗号でやりとりしたい',
+  description: description,
   head: [
     ['link', {rel: 'icon', href: logoPath }],
     ['meta', {name: 'keywords', content: 'OpenPGP, 暗号化, 電子署名, 認め印'}],
-    ['meta', {name: 'og:title', content: title + ' - ' + description}],
+    ['meta', {name: 'og:title', content: title + ' - 電子署名と暗号について'}],
     ['meta', {name: 'og:description', content: description}],
     ['meta', {name: 'og:type', content: 'website'}],
     ['meta', {name: 'og:url', content: domain}],
