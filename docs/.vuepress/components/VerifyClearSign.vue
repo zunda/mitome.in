@@ -1,10 +1,7 @@
 <template>
   <div>
     <p>
-      <textarea v-model="publicKey" class="key" spellcheck="false" placeholder="検証に使う公開鍵" @blur="commitPublicKey" v-on:input="clearResult" />
-      <button v-bind::disabled="processing" v-on:click="clearPublicKey" title="公開鍵を消去する" style="float:right;">
-        <Fa-Eraser />
-      </button>
+      <InputArea v-bind:text="publicKey" cssClass="key" name="検証に使う公開鍵" v-bind:onInput="clearResult" v-bind:disabled="processing" />
     </p>
     <p>上記にペーストした公開鍵で下記にペーストしたメッセージの署名を
       <button v-bind:disabled="processing" v-on:click="verify">
