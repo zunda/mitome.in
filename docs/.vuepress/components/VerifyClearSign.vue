@@ -1,24 +1,22 @@
 <template>
   <div>
-    <p>
-      <InputArea section="VerifyClearSignPublicKey"
-        cssClass="key"
-        name="検証に使う公開鍵"
-        v-bind:onInput="clearResult"
-        v-bind:disabled="processing"
-      />
-    </p>
-    <p>上記にペーストした公開鍵で下記にペーストしたメッセージの署名を
+    <InputArea section="VerifyClearSignPublicKey"
+      cssClass="key"
+      name="検証に使う公開鍵"
+      v-bind:onInput="clearResult"
+      v-bind:disabled="processing"
+    />
+    <p>上記にペーストした公開鍵で下記にペーストしたクリアテキスト署名を
       <button v-bind:disabled="processing" v-on:click="verify">
         検証する
       </button>
     </p>
-    <p>
-      クリアテキスト署名<br><textarea v-model="signedMessage" class="cleartext" spellcheck="false" placeholder="検証されるクリアテキスト署名" v-on:input="clearResult" />
-      <button v-bind::disabled="processing" v-on:click="clearSignedMessage" title="クリアテキスト署名を消去する" style="float:right;">
-        <Fa-Eraser />
-      </button>
-    </p>
+    <InputArea section="VerifyClearSignClearText"
+      cssClass="cleartext"
+      name="検証されるクリアテキスト署名"
+      v-bind:onInput="clearResult"
+      v-bind:disabled="processing"
+    />
     <p>検証結果: <span v-html="result" /></p>
   </div>
 </template>
@@ -52,9 +50,10 @@ export default {
     verify: function () {
       this.result = ""
       this.processing = true
+      const input = this.$store.state.inputText
       Promise.all([
-        OpenPgp.cleartext.readArmored(this.signedMessage),
-        OpenPgp.key.readArmored(this.$store.state.inputText.VerifyClearSignPublicKey).then(data => {
+        OpenPgp.cleartext.readArmored(input.VerifyClearSignClearText),
+        OpenPgp.key.readArmored(input.VerifyClearSignPublicKey).then(data => {
           if (data.keys.length < 1) {
             throw {message: "有効な公開鍵が見つかりませんでした"}
           }
