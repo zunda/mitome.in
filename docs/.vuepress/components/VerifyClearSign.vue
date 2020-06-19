@@ -55,7 +55,11 @@ export default {
         OpenPgp.cleartext.readArmored(input.VerifyClearSignClearText),
         OpenPgp.key.readArmored(input.VerifyClearSignPublicKey).then(data => {
           if (data.keys.length < 1) {
-            throw {message: "有効な公開鍵が見つかりませんでした"}
+            if (data.err.length > 0) {
+              throw data.err[0]
+            } else {
+              throw {message: "有効な私有鍵が見つかりませんでした"}
+            }
           }
           return data.keys
         })
