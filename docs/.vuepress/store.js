@@ -7,7 +7,6 @@ export default new Vuex.Store({
     keyPairs: {}, // genrated key pairs
     publicKeys: [], // for encryption
     privateKey: {}, // for decrpytion and clear sign
-    publicKey: {}, // for verifitcation
     inputText: {}
   },
   mutations: {
@@ -22,9 +21,6 @@ export default new Vuex.Store({
     },
     setPrivateKey: (state, payload) => {
       state.privateKey[payload.owner] = payload.key
-    },
-    setPublicKey: (state, payload) => {
-      state.publicKey[payload.owner] = payload.key
     }
   }
 });

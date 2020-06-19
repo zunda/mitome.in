@@ -82,25 +82,8 @@ export default {
         this.processing = false
       })
     },
-    clearPublicKey: function () {
-      this.publicKey = ""
-      this.commitPublicKey()
-    },
-    clearSignedMessage: function () {
-      this.signedMessage = ""
-    },
-    commitPublicKey: function() {
-      this.$store.commit('setPublicKey', {
-        owner: this.section, key: this.publicKey
-      })
-    },
     clearResult: function() {
       this.result = ""
-    }
-  },
-  mounted() {
-    if (this.$store.state.publicKey[this.section] !== undefined) {
-      this.publicKey = this.$store.state.publicKey[this.section]
     }
   }
 }
