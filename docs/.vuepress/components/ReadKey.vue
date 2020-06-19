@@ -3,8 +3,17 @@
     <p>下記の鍵を
       <button v-bind:disabled="processing" @click="checkKey" >
       確認する</button><br>
-      <textarea v-model="keyArmored" class="key" spellcheck="false" placeholder="確認したい鍵" />
-      <button v-bind::disabled="processing" v-on:click="clearKey" title="鍵を消去する" style="float:right;">
+      <textarea
+        v-model="keyArmored"
+        class="key"
+        spellcheck="false"
+        placeholder="確認対象の鍵"
+      />
+      <button
+        v-bind::disabled="processing"
+        v-on:click="clearKey"
+        title="確認対象の鍵を消去する"
+        style="float:right;">
         <Fa-Eraser />
       </button>
     </p>
@@ -68,7 +77,11 @@ export default {
       OpenPgp.key.readArmored(this.keyArmored)
       .then(data => {
         if (data.keys.length < 1) {
-          throw {message: '有効な鍵が見つかりませんでした'}
+          if (data.err.length > 0) {
+            throw data.err[0]
+          } else {
+            throw {message: '有効な鍵が見つかりませんでした'}
+          }
         }
         console.log(data.keys)
         this.name = data.keys[0].users[0].userId.name
