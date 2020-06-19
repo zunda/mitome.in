@@ -7,11 +7,15 @@ export default new Vuex.Store({
     keyPairs: {}, // genrated key pairs
     publicKeys: [], // for encryption
     privateKey: {}, // for decrpytion and clear sign
-    inputText: {}
+    inputText: {},
+    outputText: {}
   },
   mutations: {
     setInputText: (state, payload) => {
       state.inputText[payload.section] = payload.text
+    },
+    setOutputText: (state, payload) => {
+      state.outputText[payload.section] = payload.text
     },
     setKeyPair: (state, payload) => {
       state.keyPairs[payload.owner] = payload.keyPair
