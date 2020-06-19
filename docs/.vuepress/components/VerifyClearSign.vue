@@ -1,7 +1,12 @@
 <template>
   <div>
     <p>
-      <InputArea v-bind:text="publicKey" cssClass="key" name="検証に使う公開鍵" v-bind:onInput="clearResult" v-bind:disabled="processing" />
+      <InputArea section="VerifyClearSignPublicKey"
+        cssClass="key"
+        name="検証に使う公開鍵"
+        v-bind:onInput="clearResult"
+        v-bind:disabled="processing"
+      />
     </p>
     <p>上記にペーストした公開鍵で下記にペーストしたメッセージの署名を
       <button v-bind:disabled="processing" v-on:click="verify">
@@ -38,7 +43,6 @@ export default {
   },
   data() {
     return {
-      publicKey: "",
       signedMessage: "",
       result: "",
       processing: false
@@ -50,7 +54,7 @@ export default {
       this.processing = true
       Promise.all([
         OpenPgp.cleartext.readArmored(this.signedMessage),
-        OpenPgp.key.readArmored(this.publicKey).then(data => {
+        OpenPgp.key.readArmored(this.$store.state.inputText.VerifyClearSignPublicKey).then(data => {
           if (data.keys.length < 1) {
             throw {message: "有効な公開鍵が見つかりませんでした"}
           }

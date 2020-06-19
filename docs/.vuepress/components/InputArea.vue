@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ _uid }}
     <textarea v-model="inputText" v-bind:class="cssClass" v-bind:spellcheck="false" v-bind:placeholder="name" @blur="commitText" v-on:input="onInput" />
     <button v-bind::disabled="disabled" v-on:click="clearText" v-bind:title="buttonTitle" style="float:right;">
       <Fa-Eraser />
@@ -17,7 +16,7 @@ Vue.use(VueToast)
 
 export default {
   props: {
-    text: String,
+    section: String,
     name: String,
     cssClass: String,
     disabled: {default: false, type: Boolean},
@@ -25,19 +24,16 @@ export default {
   },
   data() {
     return {
-      inputText: '',
-      buttonTitle: this.name + "を消去する"
+      inputText: this.$store.state.inputText[this.section] || '',
+      buttonTitle: this.name + 'を消去する'
     }
   },
   methods: {
     clearText: function() {
-      this.text = ''
       this.inputText = ''
     },
     commitText: function() {
-      this.text = this.inputText
-      // Avoid mutating a prop directly since the value will be overwritten whenever the parent component re-renders
-      console.log("commitText")
+      this.$store.commit('setInputText', {section: this.section, text: this.inputText})
     }
   }
 }
