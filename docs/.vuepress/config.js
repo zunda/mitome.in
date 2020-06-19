@@ -1,7 +1,7 @@
 const title = 'mitome.in'
 const domain = 'https://' + title
 const logoPath = '/mitomein.png'
-const biggerLogoPath = '/mitomein-96x96.png'
+const biggerLogoPath = '/mitomein-144x144.png'
 const description = '認め印を使うくらい気軽に、電子署名や暗号でやりとりしたい'
 
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
     ['meta', {name: 'og:description', content: description}],
     ['meta', {name: 'og:type', content: 'website'}],
     ['meta', {name: 'og:url', content: domain}],
-    ['meta', {name: 'og:image', content: domain + logoPath}],
+    ['meta', {name: 'og:image', content: domain + biggerLogoPath}],
     ['meta', {name: 'twitter:card', content: 'summary'}],
     ['meta', {name: 'twitter:image', content: domain + biggerLogoPath}]
   ],
