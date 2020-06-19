@@ -1,7 +1,18 @@
 <template>
   <div>
-    <textarea v-model="inputText" v-bind:class="cssClass" v-bind:spellcheck="false" v-bind:placeholder="name" @blur="commitText" v-on:input="onInput" />
-    <button v-bind::disabled="disabled" v-on:click="clearText" v-bind:title="buttonTitle" style="float:right;">
+    <textarea
+      v-model="inputText"
+      v-bind:class="cssClass"
+      v-bind:spellcheck="false"
+      v-bind:placeholder="name"
+      @blur="commitText"
+      v-on:input="onInput"
+    />
+    <button
+      v-bind::disabled="disabled"
+      v-on:click="clearText"
+      v-bind:title="buttonTitle"
+      style="float:right;">
       <Fa-Eraser />
     </button>
   </div>
@@ -20,7 +31,7 @@ export default {
     name: String,
     cssClass: String,
     disabled: {default: false, type: Boolean},
-    onInput: {default: undefined, type: Function}
+    onInput: {default: function(){}, type: Function}
   },
   data() {
     return {
@@ -33,7 +44,9 @@ export default {
       this.inputText = ''
     },
     commitText: function() {
-      this.$store.commit('setInputText', {section: this.section, text: this.inputText})
+      this.$store.commit('setInputText', {
+        section: this.section, text: this.inputText
+      })
     }
   }
 }
