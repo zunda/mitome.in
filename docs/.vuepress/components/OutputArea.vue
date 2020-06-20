@@ -57,8 +57,6 @@ export default {
       })
     },
     commitText: function() {
-    console.log('commitText: ' + this.section)
-    console.log(this.output)
       this.$store.commit('setOutputText', {
         section: this.section, text: this.output
       })
