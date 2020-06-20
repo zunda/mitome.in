@@ -1,20 +1,31 @@
 <template>
   <div>
-    <textarea v-model="privateKey" class="key" spellcheck="false" placeholder="受取人の私有鍵" @blur="commitPrivateKey" />
-    <button v-bind::disabled="processing" v-on:click="clearPrivateKey" title="私有鍵を消去する" style="float:right;">
-      <Fa-Eraser />
-    </button>
-    <input v-model="passphrase" type="password" placeholder="私有鍵のパスフレーズ" />
+    <InputArea section="DecryptionPrivateKey"
+      cssClass="key"
+      name="受取人の私有鍵"
+      v-bind:disabled="processing"
+    />
+    <input v-model="passphrase"
+      type="password" placeholder="私有鍵のパスフレーズ"
+    />
     <p>上記にペーストした私有鍵で下記にペーストした暗号文を
       <button v-bind:disabled="processing" v-on:click="decrypt">
         復号する
       </button>
+      <InputArea section="DecryptionEncryptedMessage"
+        cssClass="key"
+        name="暗号文"
+        v-bind:disabled="processing"
+      />
     </p>
-    <textarea v-model="encryptedMessage" class="encryptedtext" spellcheck="false" placeholder="暗号文" />
-    <button v-bind::disabled="processing" v-on:click="clearEncryptedMessage" title="暗号文を消去する" style="float:right;">
-      <Fa-Eraser />
-    </button>
-    <p>メッセージ<br><textarea v-model="message" class="cleartext" readonly /></p>
+    <p>
+      <OutputArea section="DecryptionDecryptedMessage"
+        cssClass="cleartext"
+        name="メッセージ"
+        v-bind:output="decryptedMessage"
+        v-bind:disabled="processing"
+      />
+    </p>
   </div>
 </template>
 
@@ -33,19 +44,19 @@ export default {
   },
   data() {
     return {
-      privateKey: "",
       passphrase: "",
       encryptedMessage: "",
-      message: "",
+      decryptedMessage: "",
       processing: false
     }
   },
   methods: {
     decrypt: function () {
       this.processing = true
+      const input = this.$store.state.inputText
       Promise.all([
-        OpenPgp.message.readArmored(this.encryptedMessage),
-        OpenPgp.key.readArmored(this.privateKey).then(data => {
+        OpenPgp.message.readArmored(input.DecryptionEncryptedMessage),
+        OpenPgp.key.readArmored(input.DecryptionPrivateKey).then(data => {
           if (data.keys.length < 1) {
             throw {message: "有効な私有鍵が見つかりませんでした"}
           }
@@ -63,26 +74,13 @@ export default {
       .then(([encryptedMessage, privateKeys]) =>
         OpenPgp.decrypt({message: encryptedMessage, privateKeys: privateKeys})
       )
-      .then(decrypted => this.message = decrypted.data)
+      .then(decrypted => this.decryptedMessage = decrypted.data)
       .catch(e => {
         console.log(e.message)
         Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
       })
       .finally(() => {
         this.processing = false
-      })
-    },
-    clearPrivateKey: function () {
-      this.privateKey = ""
-      this.passphrase = ""
-      this.commitPrivateKey()
-    },
-    clearEncryptedMessage: function () {
-      this.encryptedMessage = ""
-    },
-    commitPrivateKey: function() {
-      this.$store.commit('setPrivateKey', {
-        owner: this.section, key: this.privateKey
       })
     }
   },
