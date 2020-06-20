@@ -63,13 +63,9 @@ export default {
   data() {
     return {
       newPublicKey: "",
+      publicKeys: this.$store.state.publicKeys || [],
       encryptedMessage: "",
       processing: false
-    }
-  },
-  computed: {
-    publicKeys: function() {
-      return this.$store.state.publicKeys || []
     }
   },
   methods: {
