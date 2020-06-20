@@ -55,6 +55,7 @@ export default {
   methods: {
     decrypt: function () {
       this.processing = true
+      this.decryptedMessage = ''
       const input = this.$store.state.inputText
       Promise.all([
         OpenPgp.message.readArmored(input.DecryptionEncryptedMessage),
