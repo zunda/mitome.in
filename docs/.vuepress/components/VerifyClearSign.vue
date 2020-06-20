@@ -41,8 +41,7 @@ export default {
   },
   data() {
     return {
-      signedMessage: "",
-      result: "",
+      result: this.$store.state.outputText.VerifyClearSignResult || '',
       processing: false
     }
   },
@@ -77,6 +76,9 @@ export default {
         } else {
           this.result = "失敗"
         }
+        this.$store.commit('setOutputText', {
+          section: 'VerifyClearSignResult', text: this.result
+        })
       })
       .catch(e => {
         console.log(e.message)
