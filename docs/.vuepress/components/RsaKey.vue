@@ -1,27 +1,39 @@
 <template>
   <div>
     <p>
-      <input v-model="name" placeholder="ユーザーID">
-      <input v-model="email" class="email" placeholder="電子メールアドレス">
-      <input v-model="passphrase" class="email" placeholder="パスフレーズ">
+      <input
+        v-model="name"
+        v-on:input="commitName"
+        placeholder="ユーザーID"
+      >
+      <input
+        v-model="email"
+        v-on:input="commitEmail"
+        class="email"
+        placeholder="電子メールアドレス"
+      >
+      <input
+        v-model="passphrase"
+        v-on:input="commitPassphrase"
+        placeholder="パスフレーズ"
+      >
       の鍵対を
       <button v-bind:disabled="processing" v-on:click="generateKey">
         生成する
       </button>
     </p>
-    <p>公開鍵
-      <button @click="copyPublicKey" title="公開鍵をクリップボードにコピーする">
-        <Fa-Copy />
-      </button>
-      <br>
-      <textarea v-model="publicKey" class="key" spellcheck="false" readonly />
-    </p>
-    <p>私有鍵
-      <button @click="copyPrivateKey" title="私有鍵をクリップボードにコピーする">
-        <Fa-Copy />
-      </button>
-      <textarea v-model="privateKey" class="key" spellcheck="false" readonly />
-    </p>
+    <OutputArea v-bind:section="sectionPublicKey"
+      cssClass="key"
+      name="公開鍵"
+      v-bind:output="publicKey"
+      v-bind:disabled="processing"
+    />
+    <OutputArea v-bind:section="sectionPrivateKey"
+      cssClass="key"
+      name="私有鍵"
+      v-bind:output="privateKey"
+      v-bind:disabled="processing"
+    />
   </div>
 </template>
 
@@ -44,13 +56,16 @@ export default {
     defaultEmail: String
   },
   data() {
+    const input = this.$store.state.inputText
     return {
-      name: "",
-      email: "",
-      passphrase: "",
-      publicKey: "",
-      privateKey: "",
-      processing: false
+      name: input["RsaKey" + this.owner + "Name"] || this.defaultName,
+      email: input["RsaKey" + this.owner + "Email"] || this.defaultEmail,
+      passphrase: input["RsaKey" + this.owner + "Passphrase"] || "",
+      publicKey: undefined,
+      privateKey: undefined,
+      processing: false,
+      sectionPublicKey: "RsaKey" + this.owner + "PublicKey",
+      sectionPrivateKey: "RsaKey" + this.owner + "PrivateKey"
     }
   },
   methods: {
@@ -63,7 +78,6 @@ export default {
       }).then(key => {
         this.publicKey = key.publicKeyArmored
         this.privateKey = key.privateKeyArmored
-        this.commitKey()
       }).catch(e => {
         console.log(e)
         Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
@@ -71,52 +85,21 @@ export default {
         this.processing = false
       })
     },
-    commitKey: function() {
-      this.$store.commit('setKeyPair', {
-        owner: this.owner,
-        keyPair: {
-          name: this.name,
-          email: this.email,
-          privateKey: this.privateKey,
-          publicKey: this.publicKey
-        }
+    commitName: function() {
+      this.$store.commit('setInputText', {
+        section: "RsaKey" + this.owner + "Name", text: this.name
       })
     },
-    copyPublicKey: function() {
-      if (this.publicKey === "") {
-        Vue.$toast.open({message: '鍵対はまだ生成されていません', type: 'warning'})
-        return
-      }
-      this.$copyText(this.publicKey).then(() => {
-        Vue.$toast.open({message: '公開鍵をコピーしました', type: 'info'})
-      }).catch(e => {
-        console.log(e)
-        Vue.$toast.open({message: e, type: 'error', duration: 60000})
+    commitEmail: function() {
+      this.$store.commit('setInputText', {
+        section: "RsaKey" + this.owner + "Email", text: this.email
       })
     },
-    copyPrivateKey: function() {
-      if (this.publicKey === "") {
-        Vue.$toast.open({message: '鍵対はまだ生成されていません', type: 'warning'})
-        return
-      }
-      this.$copyText(this.privateKey).then(() => {
-        Vue.$toast.open({message: '私有鍵をコピーしました', type: 'info'})
-      }).catch(e => {
-        Vue.$toast.open({message: e, type: 'error', duration: 60000})
+    commitPassphrase: function() {
+      this.$store.commit('setInputText', {
+        section: "RsaKey" + this.owner + "Passphrase", text: this.passphrase
       })
-    }
-  },
-  mounted() {
-    const storedKeyPair = this.$store.state.keyPairs[this.owner]
-    if (storedKeyPair !== undefined) {
-      this.name = storedKeyPair.name
-      this.email = storedKeyPair.email
-      this.privateKey = storedKeyPair.privateKey
-      this.publicKey = storedKeyPair.publicKey
-    } else {
-      this.name = this.defaultName
-      this.email = this.defaultEmail
-    }
+    },
   }
 }
 </script>

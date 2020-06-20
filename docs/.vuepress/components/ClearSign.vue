@@ -1,22 +1,34 @@
 <template>
   <div>
-    <textarea v-model="privateKey" class="key" spellcheck="false" placeholder="署名に使う私有鍵" @blur="commitPrivateKey" />
-    <button v-bind::disabled="processing" v-on:click="clearPrivateKey" title="私有鍵を消去する" style="float:right;">
-      <Fa-Eraser />
-    </button>
-    <input v-model="passphrase" type="password" placeholder="私有鍵のパスフレーズ" />
     <p>上記にペーストした私有鍵で下記のメッセージに
+      <InputArea section="ClearSignPrivateKey"
+        cssClass="key"
+        name="署名に使う私有鍵"
+        v-bind:disabled="processing"
+        v-bind:onInput="clearSignedMessage"
+      />
+      <input
+        v-model="passphrase"
+        type="password"
+        placeholder="私有鍵のパスフレーズ"
+      />
       <button v-bind:disabled="processing" v-on:click="clearSign">
         署名する
       </button>
+      <InputArea section="ClearSignMessage"
+        cssClass="cleartext"
+        name="署名対象のメッセージ"
+        v-bind:disabled="processing"
+        v-bind:onInput="clearSignedMessage"
+      />
     </p>
-    <p>メッセージ<br><textarea v-model="message" class="cleartext" placeholder="署名されるメッセージ" /></p>
-    <p>クリアテキスト署名
-      <button @click="copySignedMessage" title="クリアテキスト署名をクリップボードにコピーする">
-        <Fa-Copy />
-      </button>
-      <br>
-      <textarea v-model="signedMessage" class="cleartext" readonly /></p>
+    <p>
+      <OutputArea section="ClearSignSignedMessage"
+        cssClass="cleartext"
+        name="クリアテキスト署名"
+        v-bind:output="signedMessage"
+        v-bind:disabled="processing"
+      />
     </p>
   </div>
 </template>
@@ -42,18 +54,23 @@ export default {
       privateKey: "",
       passphrase: "",
       message: "",
-      signedMessage: "",
+      signedMessage: undefined,
       processing: false
     }
   },
   methods: {
     clearSign: function () {
       this.processing = true
+      const input = this.$store.state.inputText
       Promise.all([
-        OpenPgp.cleartext.fromText(this.message),
-        OpenPgp.key.readArmored(this.privateKey).then(data => {
+        OpenPgp.cleartext.fromText(input.ClearSignMessage || ""),
+        OpenPgp.key.readArmored(input.ClearSignPrivateKey).then(data => {
           if (data.keys.length < 1) {
-            throw {message: "有効な私有鍵が見つかりませんでした"}
+            if (data.err.length > 0) {
+              throw data.err[0]
+            } else {
+              throw {message: "有効な私有鍵が見つかりませんでした"}
+            }
           }
           data.keys.forEach(key => {
             key.decrypt(this.passphrase)
@@ -78,28 +95,8 @@ export default {
         this.processing = false
       })
     },
-    clearPrivateKey: function () {
-      this.privateKey = ""
-      this.passphrase = ""
-      this.commitPrivateKey()
-    },
-    commitPrivateKey: function() {
-      this.$store.commit('setPrivateKey', {
-        owner: this.section, key: this.privateKey
-      })
-    },
-    copySignedMessage: function() {
-      this.$copyText(this.signedMessage).then(() => {
-        Vue.$toast.open({message: 'クリアテキスト署名をコピーしました', type: 'info'})
-      }).catch(e => {
-        console.log(e)
-        Vue.$toast.open({message: e, type: 'error', duration: 60000})
-      })
-    }
-  },
-  mounted() {
-    if (this.$store.state.privateKey[this.section] !== undefined) {
-      this.privateKey = this.$store.state.privateKey[this.section]
+    clearSignedMessage: function() {
+      this.signedMessage = ''
     }
   }
 }

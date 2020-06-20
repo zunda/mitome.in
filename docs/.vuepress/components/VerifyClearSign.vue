@@ -1,22 +1,22 @@
 <template>
   <div>
-    <p>
-      <textarea v-model="publicKey" class="key" spellcheck="false" placeholder="検証に使う公開鍵" @blur="commitPublicKey" v-on:input="clearResult" />
-      <button v-bind::disabled="processing" v-on:click="clearPublicKey" title="公開鍵を消去する" style="float:right;">
-        <Fa-Eraser />
-      </button>
-    </p>
-    <p>上記にペーストした公開鍵で下記にペーストしたメッセージの署名を
+    <InputArea section="VerifyClearSignPublicKey"
+      cssClass="key"
+      name="検証に使う公開鍵"
+      v-bind:onInput="clearResult"
+      v-bind:disabled="processing"
+    />
+    <p>上記にペーストした公開鍵で下記にペーストしたクリアテキスト署名を
       <button v-bind:disabled="processing" v-on:click="verify">
         検証する
       </button>
     </p>
-    <p>
-      クリアテキスト署名<br><textarea v-model="signedMessage" class="cleartext" spellcheck="false" placeholder="検証されるクリアテキスト署名" v-on:input="clearResult" />
-      <button v-bind::disabled="processing" v-on:click="clearSignedMessage" title="クリアテキスト署名を消去する" style="float:right;">
-        <Fa-Eraser />
-      </button>
-    </p>
+    <InputArea section="VerifyClearSignClearText"
+      cssClass="cleartext"
+      name="検証されるクリアテキスト署名"
+      v-bind:onInput="clearResult"
+      v-bind:disabled="processing"
+    />
     <p>検証結果: <span v-html="result" /></p>
   </div>
 </template>
@@ -41,9 +41,7 @@ export default {
   },
   data() {
     return {
-      publicKey: "",
-      signedMessage: "",
-      result: "",
+      result: this.$store.state.outputText.VerifyClearSignResult || '',
       processing: false
     }
   },
@@ -51,11 +49,16 @@ export default {
     verify: function () {
       this.result = ""
       this.processing = true
+      const input = this.$store.state.inputText
       Promise.all([
-        OpenPgp.cleartext.readArmored(this.signedMessage),
-        OpenPgp.key.readArmored(this.publicKey).then(data => {
+        OpenPgp.cleartext.readArmored(input.VerifyClearSignClearText),
+        OpenPgp.key.readArmored(input.VerifyClearSignPublicKey).then(data => {
           if (data.keys.length < 1) {
-            throw {message: "有効な公開鍵が見つかりませんでした"}
+            if (data.err.length > 0) {
+              throw data.err[0]
+            } else {
+              throw {message: "有効な私有鍵が見つかりませんでした"}
+            }
           }
           return data.keys
         })
@@ -73,6 +76,9 @@ export default {
         } else {
           this.result = "失敗"
         }
+        this.$store.commit('setOutputText', {
+          section: 'VerifyClearSignResult', text: this.result
+        })
       })
       .catch(e => {
         console.log(e.message)
@@ -82,25 +88,8 @@ export default {
         this.processing = false
       })
     },
-    clearPublicKey: function () {
-      this.publicKey = ""
-      this.commitPublicKey()
-    },
-    clearSignedMessage: function () {
-      this.signedMessage = ""
-    },
-    commitPublicKey: function() {
-      this.$store.commit('setPublicKey', {
-        owner: this.section, key: this.publicKey
-      })
-    },
     clearResult: function() {
       this.result = ""
-    }
-  },
-  mounted() {
-    if (this.$store.state.publicKey[this.section] !== undefined) {
-      this.publicKey = this.$store.state.publicKey[this.section]
     }
   }
 }

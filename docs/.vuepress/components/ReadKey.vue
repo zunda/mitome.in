@@ -1,20 +1,22 @@
 <template>
   <div>
     <p>下記の鍵を
-      <button v-bind:disabled="processing" @click="checkKey" >
-      確認する</button><br>
-      <textarea v-model="keyArmored" class="key" spellcheck="false" placeholder="確認したい鍵" />
-      <button v-bind::disabled="processing" v-on:click="clearKey" title="鍵を消去する" style="float:right;">
-        <Fa-Eraser />
-      </button>
+      <button v-bind:disabled="processing" @click="readKey" >
+      確認する</button>
     </p>
+    <InputArea section="ReadKey"
+      cssClass="key"
+      name="確認する鍵"
+      v-bind:disabled="processing"
+      v-bind:onInput="clearResult"
+    />
     <ul>
-      <li>種類: {{ type }}</li>
-      <li>名前: {{ name }}</li>
-      <li>電子メールアドレス: <span class="email">{{ email }}</span></li>
-      <li>生成時刻: {{ created }}</li>
-      <li>ID: <span class="key-id">{{ keyId }}</span></li>
-      <li>指紋(fingerprint): <span class="key-id">{{ fingerprint }}</span></li>
+      <li>種類: {{ details.type }}</li>
+      <li>名前: {{ details.name }}</li>
+      <li>電子メールアドレス: <span class="email">{{ details.email }}</span></li>
+      <li>生成時刻: {{ details.created }}</li>
+      <li>ID: <span class="key-id">{{ details.keyId }}</span></li>
+      <li>指紋(fingerprint): <span class="key-id">{{ details.fingerprint }}</span></li>
     </ul>
   </div>
 </template>
@@ -51,35 +53,36 @@ const packetTypes = {
 export default {
   data() {
     return {
-      keyArmored: "",
-      name: "",
-      email: "",
-      created: "",
-      type: "",
-      keyId: "",
-      fingerprint: "",
       processing: false,
-      processed: false
+      details: this.$store.state.outputText.ReadKeyDetails || {}
     }
   },
   methods: {
-    checkKey: function () {
+    readKey: function () {
       this.processing = true
-      OpenPgp.key.readArmored(this.keyArmored)
+      OpenPgp.key.readArmored( this.$store.state.inputText.ReadKey)
       .then(data => {
         if (data.keys.length < 1) {
-          throw {message: '有効な鍵が見つかりませんでした'}
+          if (data.err.length > 0) {
+            throw data.err[0]
+          } else {
+            throw {message: '有効な鍵が見つかりませんでした'}
+          }
         }
-        console.log(data.keys)
-        this.name = data.keys[0].users[0].userId.name
-        this.email = data.keys[0].users[0].userId.email
-        this.type = packetTypes[data.keys[0].keyPacket.tag]
-        this.created = moment(data.keys[0].keyPacket.created).format('YYYY年MM月DD日 HH:mm:ss Z')
-        this.keyId = data.keys[0].keyPacket.keyid.toHex()
-        this.fingerprint =
-          Array.from(data.keys[0].keyPacket.fingerprint)
-          .map(x => ('0' + x.toString(16).toUpperCase()).slice(-2)).join(' ')
-        this.processed = true
+        const details = {
+          name: data.keys[0].users[0].userId.name,
+          email:  data.keys[0].users[0].userId.email,
+          type: packetTypes[data.keys[0].keyPacket.tag],
+          created: moment(data.keys[0].keyPacket.created).format('YYYY年MM月DD日 HH:mm:ss Z'),
+          keyId: data.keys[0].keyPacket.keyid.toHex(),
+          fingerprint:
+            Array.from(data.keys[0].keyPacket.fingerprint)
+            .map(x => ('0' + x.toString(16).toUpperCase()).slice(-2)).join(' ')
+        }
+        this.$store.commit('setOutputText',
+          {section: 'ReadKeyDetails', text: details}
+        )
+        this.details = details
       }).catch(e => {
         console.log(e)
         Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
@@ -87,8 +90,9 @@ export default {
         this.processing = false
       })
     },
-    clearKey() {
-      this.keyArmored = ''
+    clearResult: function() {
+      this.$store.commit('setOutputText', {section: 'ReadKeyDetails', text: {}})
+      this.details = {}
     }
   }
 }
