@@ -17,9 +17,6 @@ export default new Vuex.Store({
     setOutputText: (state, payload) => {
       state.outputText[payload.section] = payload.text
     },
-    setKeyPair: (state, payload) => {
-      state.keyPairs[payload.owner] = payload.keyPair
-    },
     setPublicKeys: (state, publicKeys) => {
       state.publicKeys = publicKeys
     },

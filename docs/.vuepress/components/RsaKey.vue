@@ -9,19 +9,18 @@
         生成する
       </button>
     </p>
-    <p>公開鍵
-      <button @click="copyPublicKey" title="公開鍵をクリップボードにコピーする">
-        <Fa-Copy />
-      </button>
-      <br>
-      <textarea v-model="publicKey" class="key" spellcheck="false" readonly />
-    </p>
-    <p>私有鍵
-      <button @click="copyPrivateKey" title="私有鍵をクリップボードにコピーする">
-        <Fa-Copy />
-      </button>
-      <textarea v-model="privateKey" class="key" spellcheck="false" readonly />
-    </p>
+    <OutputArea v-bind:section="sectionPublicKey"
+      cssClass="key"
+      name="公開鍵"
+      v-bind:output="publicKey"
+      v-bind:disabled="processing"
+    />
+    <OutputArea v-bind:section="sectionPrivateKey"
+      cssClass="key"
+      name="私有鍵"
+      v-bind:output="privateKey"
+      v-bind:disabled="processing"
+    />
   </div>
 </template>
 
@@ -50,7 +49,9 @@ export default {
       passphrase: "",
       publicKey: "",
       privateKey: "",
-      processing: false
+      processing: false,
+      sectionPublicKey: "RsaKey" + this.owner + "PublicKey",
+      sectionPrivateKey: "RsaKey" + this.owner + "PrivateKey"
     }
   },
   methods: {
@@ -63,46 +64,11 @@ export default {
       }).then(key => {
         this.publicKey = key.publicKeyArmored
         this.privateKey = key.privateKeyArmored
-        this.commitKey()
       }).catch(e => {
         console.log(e)
         Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
       }).finally(() => {
         this.processing = false
-      })
-    },
-    commitKey: function() {
-      this.$store.commit('setKeyPair', {
-        owner: this.owner,
-        keyPair: {
-          name: this.name,
-          email: this.email,
-          privateKey: this.privateKey,
-          publicKey: this.publicKey
-        }
-      })
-    },
-    copyPublicKey: function() {
-      if (this.publicKey === "") {
-        Vue.$toast.open({message: '鍵対はまだ生成されていません', type: 'warning'})
-        return
-      }
-      this.$copyText(this.publicKey).then(() => {
-        Vue.$toast.open({message: '公開鍵をコピーしました', type: 'info'})
-      }).catch(e => {
-        console.log(e)
-        Vue.$toast.open({message: e, type: 'error', duration: 60000})
-      })
-    },
-    copyPrivateKey: function() {
-      if (this.publicKey === "") {
-        Vue.$toast.open({message: '鍵対はまだ生成されていません', type: 'warning'})
-        return
-      }
-      this.$copyText(this.privateKey).then(() => {
-        Vue.$toast.open({message: '私有鍵をコピーしました', type: 'info'})
-      }).catch(e => {
-        Vue.$toast.open({message: e, type: 'error', duration: 60000})
       })
     }
   },
@@ -111,8 +77,6 @@ export default {
     if (storedKeyPair !== undefined) {
       this.name = storedKeyPair.name
       this.email = storedKeyPair.email
-      this.privateKey = storedKeyPair.privateKey
-      this.publicKey = storedKeyPair.publicKey
     } else {
       this.name = this.defaultName
       this.email = this.defaultEmail
