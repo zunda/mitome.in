@@ -6,4 +6,5 @@
 - Keybase
 - Maskbook
 - Mastodon
+  - HTTP署名
 - その他
