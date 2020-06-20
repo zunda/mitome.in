@@ -5,7 +5,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     publicKeys: [], // for encryption
-    privateKey: {}, // for decrpytion and clear sign
     inputText: {},
     outputText: {}
   },
@@ -18,9 +17,6 @@ export default new Vuex.Store({
     },
     setPublicKeys: (state, publicKeys) => {
       state.publicKeys = publicKeys
-    },
-    setPrivateKey: (state, payload) => {
-      state.privateKey[payload.owner] = payload.key
     }
   }
 });
