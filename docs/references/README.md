@@ -22,3 +22,6 @@ OpenPGPの以前の版のRFCの日本語訳です。本稿の一部の用語に�
 
 ## [OpenPGP.js](https://openpgpjs.org/)
 本書で利用させていただいている、ウェブブラウ内で動作するOpenPGPのJavaScriptによる実装です。
+
+## [電子署名及び認証業務に関する法律](https://elaws.e-gov.go.jp/search/elawsSearch/elaws_search/lsg0500/detail?lawId=412AC0000000102)
+電子署名の定義や効力を定めた法律。電子署名法と略称されることもあります。

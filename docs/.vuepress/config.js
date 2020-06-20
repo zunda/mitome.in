@@ -37,7 +37,9 @@ module.exports = {
       '/email/',
       '/sns/',
       '/device/',
-      '/references/'
+      '/laws/',
+      '/references/',
+      '/changelog',
     ]
   },
   plugins: [
