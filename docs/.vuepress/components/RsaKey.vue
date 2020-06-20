@@ -1,9 +1,22 @@
 <template>
   <div>
     <p>
-      <input v-model="name" placeholder="ユーザーID">
-      <input v-model="email" class="email" placeholder="電子メールアドレス">
-      <input v-model="passphrase" class="email" placeholder="パスフレーズ">
+      <input
+        v-model="name"
+        v-on:input="commitName"
+        placeholder="ユーザーID"
+      >
+      <input
+        v-model="email"
+        v-on:input="commitEmail"
+        class="email"
+        placeholder="電子メールアドレス"
+      >
+      <input
+        v-model="passphrase"
+        v-on:input="commitPassphrase"
+        placeholder="パスフレーズ"
+      >
       の鍵対を
       <button v-bind:disabled="processing" v-on:click="generateKey">
         生成する
@@ -43,10 +56,11 @@ export default {
     defaultEmail: String
   },
   data() {
+    const input = this.$store.state.inputText
     return {
-      name: "",
-      email: "",
-      passphrase: "",
+      name: input["RsaKey" + this.owner + "Name"] || this.defaultName,
+      email: input["RsaKey" + this.owner + "Email"] || this.defaultEmail,
+      passphrase: input["RsaKey" + this.owner + "Passphrase"] || "",
       publicKey: "",
       privateKey: "",
       processing: false,
@@ -70,17 +84,22 @@ export default {
       }).finally(() => {
         this.processing = false
       })
-    }
-  },
-  mounted() {
-    const storedKeyPair = this.$store.state.keyPairs[this.owner]
-    if (storedKeyPair !== undefined) {
-      this.name = storedKeyPair.name
-      this.email = storedKeyPair.email
-    } else {
-      this.name = this.defaultName
-      this.email = this.defaultEmail
-    }
+    },
+    commitName: function() {
+      this.$store.commit('setInputText', {
+        section: "RsaKey" + this.owner + "Name", text: this.name
+      })
+    },
+    commitEmail: function() {
+      this.$store.commit('setInputText', {
+        section: "RsaKey" + this.owner + "Email", text: this.email
+      })
+    },
+    commitPassphrase: function() {
+      this.$store.commit('setInputText', {
+        section: "RsaKey" + this.owner + "Passphrase", text: this.passphrase
+      })
+    },
   }
 }
 </script>

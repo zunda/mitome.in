@@ -4,7 +4,6 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    keyPairs: {}, // genrated key pairs
     publicKeys: [], // for encryption
     privateKey: {}, // for decrpytion and clear sign
     inputText: {},
