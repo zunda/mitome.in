@@ -5,7 +5,7 @@
       v-bind:class="cssClass"
       v-bind:spellcheck="false"
       v-bind:placeholder="name"
-      @blur="commitText"
+      v-on:blur="commitText"
       v-on:input="onInput"
     />
     <button
