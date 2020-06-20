@@ -4,6 +4,7 @@
       cssClass="key"
       name="受取人の私有鍵"
       v-bind:disabled="processing"
+      v-bind:onInput="clearDecryptedMessage"
     />
     <input v-model="passphrase"
       type="password" placeholder="私有鍵のパスフレーズ"
@@ -16,6 +17,7 @@
         cssClass="key"
         name="暗号文"
         v-bind:disabled="processing"
+        v-bind:onInput="clearDecryptedMessage"
       />
     </p>
     <p>
@@ -46,7 +48,7 @@ export default {
     return {
       passphrase: "",
       encryptedMessage: "",
-      decryptedMessage: "",
+      decryptedMessage: undefined,
       processing: false
     }
   },
@@ -82,11 +84,9 @@ export default {
       .finally(() => {
         this.processing = false
       })
-    }
-  },
-  mounted() {
-    if (this.$store.state.privateKey[this.section] !== undefined) {
-      this.privateKey = this.$store.state.privateKey[this.section]
+    },
+    clearDecryptedMessage: function() {
+      this.decryptedMessage = ''
     }
   }
 }

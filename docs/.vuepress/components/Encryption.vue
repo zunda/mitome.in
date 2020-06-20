@@ -36,6 +36,7 @@
         cssClass="cleartext"
         name="暗号化するメッセージ"
         v-bind:disabled="processing"
+        v-bind:onInput="clearEncryptedMessage"
       />
     </p>
     <OutputArea section="Encryption"
@@ -64,7 +65,7 @@ export default {
     return {
       newPublicKey: "",
       publicKeys: this.$store.state.publicKeys || [],
-      encryptedMessage: "",
+      encryptedMessage: undefined,
       processing: false
     }
   },
@@ -129,6 +130,9 @@ export default {
       }).finally(() => {
         this.processing = false
       })
+    },
+    clearEncryptedMessage: function() {
+      this.encryptedMessage = ""
     }
   }
 }

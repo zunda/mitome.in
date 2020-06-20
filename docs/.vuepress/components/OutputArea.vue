@@ -39,7 +39,7 @@ export default {
   },
   computed: {
     outputText: function() {
-      if (this.output && this.output !== '') {
+      if (this.output !== undefined) {
         this.commitText()
         return this.output
       } else {

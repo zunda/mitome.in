@@ -61,8 +61,8 @@ export default {
       name: input["RsaKey" + this.owner + "Name"] || this.defaultName,
       email: input["RsaKey" + this.owner + "Email"] || this.defaultEmail,
       passphrase: input["RsaKey" + this.owner + "Passphrase"] || "",
-      publicKey: "",
-      privateKey: "",
+      publicKey: undefined,
+      privateKey: undefined,
       processing: false,
       sectionPublicKey: "RsaKey" + this.owner + "PublicKey",
       sectionPrivateKey: "RsaKey" + this.owner + "PrivateKey"
