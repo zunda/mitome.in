@@ -32,19 +32,18 @@
       <button v-bind:disabled="processing" v-on:click="encrypt">
         暗号化する
       </button>
+      <InputArea section="EncryptionMessage"
+        cssClass="cleartext"
+        name="暗号化するメッセージ"
+        v-bind:disabled="processing"
+      />
     </p>
-    <InputArea section="EncryptionMessage"
-      cssClass="cleartext"
-      name="暗号化するメッセージ"
+    <OutputArea section="Encryption"
+      cssClass="key"
+      name="暗号文"
+      v-bind:output="encryptedMessage"
       v-bind:disabled="processing"
     />
-    <p>暗号文
-      <button @click="copyEncryptedMessage" title="暗号文をクリップボードにコピーする">
-        <Fa-Copy />
-      </button>
-      <br>
-      <textarea v-model="encryptedMessage" class="encryptedtext" spellcheck="false" readonly />
-    </p>
   </div>
 </template>
 
@@ -133,14 +132,6 @@ export default {
         Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
       }).finally(() => {
         this.processing = false
-      })
-    },
-    copyEncryptedMessage: function() {
-      this.$copyText(this.encryptedMessage).then(() => {
-        Vue.$toast.open({message: '暗号文をコピーしました', type: 'info'})
-      }).catch(e => {
-        console.log(e)
-        Vue.$toast.open({message: e, type: 'error', duration: 60000})
       })
     }
   }
