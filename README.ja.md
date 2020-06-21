@@ -20,7 +20,7 @@ yarn install
 ```
 
 ## 原稿の執筆
-`doc/`ディレクトリ以下に`.md`ファイルを作成してください。サイドバーの目次に追加するには、`docs/.vuepress/config.js`ファイルの配列`themeConfig.sidebar`に追加してください。もしよろしければ、お名前と、差し支えなければご連絡先を、`docs/README.md`のリストに追加してださい。
+`docs/`ディレクトリ以下に`.md`ファイルを作成してください。サイドバーの目次に追加するには、`docs/.vuepress/config.js`ファイルの配列`themeConfig.sidebar`に追加してください。もしよろしければ、お名前と、差し支えなければご連絡先を、`docs/README.md`のリストに追加してださい。
 
 原稿から参照する画像は、`docs/.vuepress/public/`に置いてください。ルートディレクトリにあるように参照できます。
 
