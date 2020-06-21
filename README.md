@@ -38,10 +38,10 @@ yarn docs:build
 
 ## License
 ### The app code
-Copyright 2020 by zunda &lt;zundan at gmail.com&gt;, under [MIT License](LICENSE).
+Copyright 2020 by zunda &lt;zundan at gmail.com&gt; and the contributors, under [MIT License](LICENSE).
 
 ### Site content
-Copyright 2020 by zunda &lt;zundan at gmail.com&gt;, under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+Copyright 2020 by zunda &lt;zundan at gmail.com&gt; and the contributors, under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 ### Dependent packages
 See [LICENSES](LICENSES) file.
