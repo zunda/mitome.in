@@ -28,7 +28,7 @@ yarn install
 `assets/mitomein.svg`ファイルをInkscapeで編集して、pngファイルとして`docs/.vuepress/public/`にエクスポートしてください。
 
 ## ページの閲覧
-下記のコマンドを実行しておくことで変種中のページを http://localhost:8080/ 以下で確認できます。
+下記のコマンドを実行しておくことで編集中のページを http://localhost:8080/ 以下で確認できます。
 
 ```sh
 yarn docs:dev
@@ -41,4 +41,4 @@ yarn docs:build
 ```
 
 ## ライセンス
-[README#Lisence](英語版)で確認してください。
+[英語版](README.md#Lisence)で確認してください。

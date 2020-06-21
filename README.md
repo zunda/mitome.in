@@ -1,7 +1,7 @@
 # mitome.in
 [![Netlify Status](https://api.netlify.com/api/v1/badges/5b8126d8-1773-4ab4-8a4b-76c0f5839aa3/deploy-status)](https://app.netlify.com/sites/mitomein/deploys)
 
-Explore OpenPGP as an alternative for seals (mitome-in). このファイルの内容の一部は[日本語](README.ja)でご覧になれます。
+Explore OpenPGP as an alternative for seals (mitome-in). このファイルの内容の一部は[日本語](README.ja.md)でご覧になれます。
 
 This project makes use of [VuePress](https://vuepress.vuejs.org/) to format the pages as well as provide in-page functions. The [main repository](https://github.com/zunda/mitome.in) is configured to interact with [Netlify](https://www.netlify.com/) so that
 
