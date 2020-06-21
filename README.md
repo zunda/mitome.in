@@ -1,7 +1,9 @@
 # mitome.in
 [![Netlify Status](https://api.netlify.com/api/v1/badges/5b8126d8-1773-4ab4-8a4b-76c0f5839aa3/deploy-status)](https://app.netlify.com/sites/mitomein/deploys)
 
-Explore OpenPGP as an alternative for seals (mitome-in). The [main repository](https://github.com/zunda/mitome.in) is configured so that
+Explore OpenPGP as an alternative for seals (mitome-in). このファイルの内容の一部は[日本語](README.ja)でご覧になれます。
+
+The [main repository](https://github.com/zunda/mitome.in) is configured so that
 
 - the master branch is automatically deployed to https://mitome.in/
 - a pull request is automatically deployed as a deploy preview. Look for the link in the pull request conversation.
