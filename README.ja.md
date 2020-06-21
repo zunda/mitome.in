@@ -41,4 +41,4 @@ yarn docs:build
 ```
 
 ## ライセンス
-[英語版](README.md#Lisence)で確認してください。
+[英語版](README.md#lisence)で確認してください。
