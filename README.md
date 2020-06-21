@@ -1,9 +1,16 @@
 # mitome.in
 [![Netlify Status](https://api.netlify.com/api/v1/badges/5b8126d8-1773-4ab4-8a4b-76c0f5839aa3/deploy-status)](https://app.netlify.com/sites/mitomein/deploys)
 
-Explore OpenPGP as an alternative for seals (mitome-in). View the site alive at https://mitome.in/
+Explore OpenPGP as an alternative for seals (mitome-in). The [main repository](https://github.com/zunda/mitome.in) is configured so that
+
+- the master branch is automatically deployed to https://mitome.in/
+- a pull request is automatically deployed as a deploy preview. Look for the link in the pull request conversation.
 
 ## Project setup
+Install yarn following their [installation instruction](https://classic.yarnpkg.com/en/docs/install/).
+
+Install dependent packages with
+
 ```sh
 yarn install
 ```
@@ -13,23 +20,21 @@ Create and edit the `.md` files under `doc/`. Add them to the side bar to the `t
 
 Place images under `docs/.vuepress/public/`. They are available at the base path.
 
-### The mitomein icon
-Edit `assets/mitomein.svg` with Inkscape and export it as a 48x48 png image into `docs/.vuepress/public/`.
+### The mitomein logo and icon
+Edit `assets/mitomein.svg` with Inkscape and export it as png images into `docs/.vuepress/public/`.
 
 ## Serve the pages
-Locally:
+Previews of your edit will be available at http://localhost:8080/ with the command below running locally:
 
 ```sh
 yarn docs:dev
 ```
 
-Through static files:
+The command below generates static files to be served under `./docs/.vuepress/dist/`.
 
 ```sh
 yarn docs:build
 ```
-
-Static files are available under `./docs/.vuepress/dist/`.
 
 ## License
 ### The app code
