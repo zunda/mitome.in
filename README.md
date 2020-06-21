@@ -3,7 +3,7 @@
 
 Explore OpenPGP as an alternative for seals (mitome-in). このファイルの内容の一部は[日本語](README.ja)でご覧になれます。
 
-The [main repository](https://github.com/zunda/mitome.in) is configured so that
+This project makes use of [VuePress](https://vuepress.vuejs.org/) to format the pages as well as provide in-page functions. The [main repository](https://github.com/zunda/mitome.in) is configured to interact with [Netlify](https://www.netlify.com/) so that
 
 - the master branch is automatically deployed to https://mitome.in/
 - a pull request is automatically deployed as a deploy preview. Look for the link in the pull request conversation.
