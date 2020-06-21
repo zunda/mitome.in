@@ -1,7 +1,7 @@
 # はじめに
 認め印を使うくらい気軽に、電子署名や暗号でやりとりしたいな。というわけで、認め印の代わりとして広く使われている暗号技術を使い、文書に署名したり、文書を暗号化したりしてみます。電子メール、ソーシャルネットワークなどでの応用例にも触れます。
 
-本稿は書きかけです。追加点、誤りや改善点に気づいた方は、GitHub上のレポジトリの[Issue](https://github.com/zunda/mitome.in/issues)や[プルリクエスト](https://github.com/zunda/mitome.in/pulls)にお知らせいただけると著者が喜びます。
+本稿は書きかけです。追加点、誤りや改善点に気づいた方は、GitHubのレポジトリ[zunda/mitome.in](https://github.com/zunda/mitome.in)の[Issue](https://github.com/zunda/mitome.in/issues)や[プルリクエスト](https://github.com/zunda/mitome.in/pulls)にお知らせいただけると著者が喜びます。
 
 ## 著者・コントリビュータ
 本稿の内容は下記の人々(アルファベット順)によるものです。主著者であるzundaからお礼申し上げます。

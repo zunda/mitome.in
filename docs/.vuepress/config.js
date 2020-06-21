@@ -38,6 +38,7 @@ module.exports = {
       '/sns/',
       '/device/',
       '/laws/',
+      '/conclusion',
       '/references/',
       '/changelog',
     ]
