@@ -69,6 +69,7 @@ export default {
             throw {message: '有効な鍵が見つかりませんでした'}
           }
         }
+        console.log(data.keys)
         const details = {
           name: data.keys[0].users[0].userId.name,
           email:  data.keys[0].users[0].userId.email,
