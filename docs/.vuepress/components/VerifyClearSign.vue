@@ -24,9 +24,6 @@
 <script>
 import Vue from 'vue'
 
-import VueClipboard from 'vue-clipboard2'
-Vue.use(VueClipboard)
-
 import VueToast from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-default.css'
 Vue.use(VueToast)
