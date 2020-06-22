@@ -34,7 +34,13 @@ module.exports = {
           '/OpenPGP/wot'
         ]
       },
-      '/email/',
+      {
+        title: '電子メール',
+        children: [
+          '/email/',
+          '/email/keyManagement'
+        ]
+      },
       '/sns/',
       '/device/',
       '/laws/',
