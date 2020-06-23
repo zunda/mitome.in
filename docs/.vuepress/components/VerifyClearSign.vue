@@ -48,7 +48,11 @@ export default {
       this.processing = true
       const input = this.$store.state.inputText
       Promise.all([
-        OpenPgp.cleartext.readArmored(input.VerifyClearSignClearText),
+        OpenPgp.cleartext.readArmored(input.VerifyClearSignClearText)
+        .then(data => {
+          console.log(data)
+          return(data)
+        }),
         OpenPgp.key.readArmored(input.VerifyClearSignPublicKey).then(data => {
           if (data.keys.length < 1) {
             if (data.err.length > 0) {
