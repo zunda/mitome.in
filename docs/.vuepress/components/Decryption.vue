@@ -58,7 +58,11 @@ export default {
       this.decryptedMessage = ''
       const input = this.$store.state.inputText
       Promise.all([
-        OpenPgp.message.readArmored(input.DecryptionEncryptedMessage),
+        OpenPgp.message.readArmored(input.DecryptionEncryptedMessage)
+        .then(data => {
+          console.log(data.packets)
+          return data
+        }),
         OpenPgp.key.readArmored(input.DecryptionPrivateKey).then(data => {
           if (data.keys.length < 1) {
             throw {message: "有効な私有鍵が見つかりませんでした"}
