@@ -13,12 +13,17 @@
 |復号|復号化|
 
 ## [OpenPGP のメッセージフォーマット](https://www.ipa.go.jp/security/rfc/RFC2440JA.html)
-篠田佳奈・宮川寧夫翻訳、The Internet Society著、1998年、RFC-2440。
+篠田佳奈・宮川寧夫翻訳、The Internet Society著、1998年、RFC 2440。
 
-OpenPGPの以前の版のRFCの日本語訳です。本稿の一部の用語についてこの文書による日本語訳を参考にさせていただいています。
+OpenPGPの以前の規定だったRFC 2440の日本語訳です。本稿の一部の用語についてこの文書による日本語訳を参考にさせていただいています。
 
 ## [OpenPGP](https://www.openpgp.org/)
 本稿で解説する公開鍵暗号はOpenPGPとして規定されています。
+
+## [OpenPGP Message Format](https://tools.ietf.org/html/rfc4880)
+Network Working Group著、2007年、RFC 4880。
+
+OpenPGPの現行の規定です。
 
 ## [OpenPGP.js](https://openpgpjs.org/)
 本書で利用させていただいている、ウェブブラウ内で動作するOpenPGPのJavaScriptによる実装です。
