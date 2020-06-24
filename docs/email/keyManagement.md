@@ -78,7 +78,7 @@ sub   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 
 ![パスフレーズを入力する様子](/gpg-genkey-agent.png)
 
-今回生成された鍵対のIDは`F60960D80B224382CA8D831CB56C20316D6E8279`となりました。
+この操作で、`gpg`コマンドは2対の鍵対を生成しました。署名(`S`)と証明書(`C`)に利用するマスター鍵対と、暗号(`E`)に利用する副(sub)鍵対です。今回生成されたマスター鍵対のIDは`F60960D80B224382CA8D831CB56C20316D6E8279`となりました。
 
 生成された鍵対や鍵対を登録してある鍵束は、`~/.gnupg/`以下にファイルとして記録されます。下記では一部のIDを伏せ字にしてあります。
 
@@ -86,13 +86,13 @@ sub   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 $ find .gnupg -type f | xargs file
 .gnupg/openpgp-revocs.d/F60960D80B224382CA8D831CB56C20316D6E8279.rev:  ASCII text
 .gnupg/trustdb.gpg:                                                    GPG key trust database version 3
-.gnupg/private-keys-v1.d/****************************************.key: data
-.gnupg/private-keys-v1.d/****************************************.key: data
+.gnupg/private-keys-v1.d/23DB************************************.key: data
+.gnupg/private-keys-v1.d/1E7A************************************.key: data
 .gnupg/pubring.kbx:                                                    GPG keybox database version 1, created-at Wed Jun 24 05:23:42 2020, last-maintained Wed Jun 24 05:23:42 2020
 .gnupg/pubring.kbx~:                                                   GPG keybox database version 1, created-at Wed Jun 24 05:23:42 2020, last-maintained Wed Jun 24 05:23:42 2020
 ```
 
-鍵束に登録された鍵対の概要は、`gpg`コマンドに`--list-keys`を指定して実行することで確認できます。小さな信頼の網が形成され、自分自身が究極的に信頼されていることがわかります。
+鍵束に登録された公開鍵の概要を、`gpg`コマンドに`--list-keys`を指定して実行することで確認できます。`gpg`コマンドは必要に応じて信頼の網を再確認します。小さな信頼の網が形成され、自分自身が究極的に信頼されていることがわかります。
 
 ```
 $ gpg --list-keys
@@ -109,7 +109,24 @@ sub   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 
 ```
 
-TODO: 失効証明書の保管方法をここに書く
+対応する私有鍵が登録されていることも`--list-secret-keys`オプションで確認することができます。
+
+```
+$ gpg --list-secret-keys
+/home/zunda/.gnupg/pubring.kbx
+------------------------------
+sec   rsa3072 2020-06-24 [SC] [expires: 2022-06-24]
+      F60960D80B224382CA8D831CB56C20316D6E8279
+uid           [ultimate] zunda <zundan@gmail.com>
+ssb   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
+
+```
+
+私有鍵を失なってしまった場合に公開鍵を失効できるよう、生成された失効証明書を安全な場所に保管しておきましょう。
+
+::: warning
+失効証明書を漏洩してしまわないよう注意してください。悪意の第三者が失効証明書を入手すると、公開鍵を失効させてしまえるようになります。
+:::
 
 ## 公開鍵の公開
 TODO: 公開鍵の公開法をここに書く
