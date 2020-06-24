@@ -35,7 +35,11 @@ Compression: Uncompressed, ZIP, ZLIB, BZIP2
 ## 鍵対の生成
 GnuPGがインストールできたら鍵対を生成します。
 
-端末から`gpg`コマンドを`--generate-key`オプションを指定して実行して、GnuGPのデフォルトの設定で鍵対を生成してみます。有効期間は2年間となりました。端末からは名前と電子メールアドレスを入力し、GUIからパスフレーズを入力しました。
+::: warning
+ここで紹介するのは最小限の手順です。より安全な鍵の管理には、Debian GNU/Linuxの開発者向けの文書[Using OpenPGP subkeys in Debian development](https://wiki.debian.org/Subkeys)などを参照してください。
+:::
+
+端末から`gpg`コマンドを`--generate-key`オプションを指定して実行して、GnuGPのデフォルトの設定で鍵対を生成してみます。有効期間は2年間となりました。端末からは名前と電子メールアドレスを入力しました。
 
 ```
 $ gpg --generate-key
@@ -57,10 +61,6 @@ We need to generate a lot of random bytes. It is a good idea to perform
 some other action (type on the keyboard, move the mouse, utilize the
 disks) during the prime generation; this gives the random number
 generator a better chance to gain enough entropy.
-We need to generate a lot of random bytes. It is a good idea to perform
-some other action (type on the keyboard, move the mouse, utilize the
-disks) during the prime generation; this gives the random number
-generator a better chance to gain enough entropy.
 gpg: /home/zunda/.gnupg/trustdb.gpg: trustdb created
 gpg: key B56C20316D6E8279 marked as ultimately trusted
 gpg: directory '/home/zunda/.gnupg/openpgp-revocs.d' created
@@ -74,7 +74,7 @@ sub   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 
 ```
 
-パスフレーズは表示されたGUIから入力します。
+パスフレーズは表示されたGUIから入力しました。
 
 ![パスフレーズを入力する様子](/gpg-genkey-agent.png)
 
@@ -92,7 +92,7 @@ $ find .gnupg -type f | xargs file
 .gnupg/pubring.kbx~:                                                   GPG keybox database version 1, created-at Wed Jun 24 05:23:42 2020, last-maintained Wed Jun 24 05:23:42 2020
 ```
 
-鍵束に登録された鍵対の概要は、`gpg`コマンドに`--list-keys`を指定して実行することで確認できます。
+鍵束に登録された鍵対の概要は、`gpg`コマンドに`--list-keys`を指定して実行することで確認できます。小さな信頼の網が形成され、自分自身が究極的に信頼されていることがわかります。
 
 ```
 $ gpg --list-keys
@@ -109,7 +109,53 @@ sub   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 
 ```
 
-失効証明書の保管と利用方法をここに書く
+TODO: 失効証明書の保管方法をここに書く
 
-公開鍵の公開法をここに書く
+## 公開鍵の公開
+TODO: 公開鍵の公開法をここに書く
 
+```
+$ gpg --send-key F60960D80B224382CA8D831CB56C20316D6E8279
+```
+
+## 公開鍵の受領
+TODO: 公開鍵のインポートの詳細を以下に書く
+
+```
+$ gpg --recv-keys 鍵の指紋
+```
+
+### 受領した公開鍵への署名を公開する
+```
+$ gpg --sign-keys 鍵の指紋
+$ gpg --send-keys 鍵の指紋
+```
+
+他の人による署名を受け取る
+
+```
+$ gpg --refresh-keys
+```
+
+### 受領した公開鍵への署名を公開しない
+```
+$ gpg --lsign-keys 鍵の指紋
+```
+
+## 公開鍵の失効
+私有鍵のパスフレーズを忘れてしまって鍵対を利用できなくなってしまったり、私有鍵が漏洩して第三者によるなりすましの可能性が出てしまった場合には、公開鍵を失効させる必要があります。
+
+手元の鍵束で公開鍵を失効させるには、保管しておいた失効証明書を利用します。
+
+```
+$ gpg --import F60960D80B224382CA8D831CB56C20316D6E8279.rev
+$ gpg --list-keys
+```
+
+TODO: 公開鍵を失効させる様子をここに書く。失効前の状態を保存してくこと。
+
+::: tip
+手元の私有鍵が利用可能な場合には、`gpg -o 失効証明書のファイル名 --gen-revoke 鍵ID`コマンドで失効証明書を再生成することができます。
+:::
+
+公開鍵を公開している場合には、同様の手順で失効した公開鍵を公開しなおすことで、公開している公開鍵を失効させることができます。
