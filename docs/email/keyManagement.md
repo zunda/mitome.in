@@ -29,7 +29,7 @@ Compression: Uncompressed, ZIP, ZLIB, BZIP2
 ```
 
 ::: tip
-本稿での実行例は、Xubuntu 20.04、GnuGP 2.2.19でのものです。
+本稿での実行例は、Xubuntu 20.04、GnuPG 2.2.19でのものです。
 :::
 
 ## 鍵対の生成
@@ -39,7 +39,7 @@ GnuPGがインストールできたら鍵対を生成します。
 ここで紹介するのは最小限の手順です。より安全な鍵の管理が必要な場合には、Debian GNU/Linuxの開発者向けの文書[Using OpenPGP subkeys in Debian development](https://wiki.debian.org/Subkeys)などを参照してください。
 :::
 
-端末から`gpg`コマンドを`--generate-key`オプションを指定して実行して、GnuGPのデフォルトの設定で鍵対を生成してみます。有効期間は2年間となりました。端末からは名前と電子メールアドレスを入力しました。
+端末から`gpg`コマンドを`--generate-key`オプションを指定して実行して、GnuPGのデフォルトの設定で鍵対を生成してみます。有効期間は2年間となりました。端末からは名前と電子メールアドレスを入力しました。
 
 ```
 $ gpg --generate-key
