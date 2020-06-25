@@ -7,6 +7,7 @@
 本稿の内容は下記の方々によるものです。
 
 - zunda &lt;zundan at gmail.com&gt;
+- Nakaya &lt;eniehack at outlook dot jp&gt;
 
 ## ライセンス
 Copyright 2020 by zunda &lt;zundan at gmail.com&gt;
