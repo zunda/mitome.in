@@ -1,7 +1,11 @@
 # OpenPGP鍵の生成と管理
 OpenPGPを利用するには鍵対が必要です。本稿で紹介するツールの多くに鍵を管理する機能がありますので、これから使い始める人は自分が使うツールで鍵の生成から始めるのが良さそうです。
 
-ここでは、実際に公開鍵を生成し管理する例として、OpenPGPのコマンドラインでの実装として広く利用されている[GnuPG](https://gnupg.org/)を利用して、鍵対の生成と公開を試してみます。
+ここでは、実際に公開鍵を生成し管理する例として、OpenPGPのコマンドラインの実装として広く利用されている[GnuPG](https://gnupg.org/)を利用して、鍵対の生成と公開を試してみます。
+
+::: warning
+ここで紹介するのはGnuPGのデフォルトの設定に沿った最小限の手順です。より安全な鍵の管理が必要な場合には、Debian GNU/Linuxの開発者向けの文書[Using OpenPGP subkeys in Debian development](https://wiki.debian.org/Subkeys)などを参照してください。
+:::
 
 ## GnuPGのインストール
 GnuPGは手元のOSに標準でインストールされているかもしれません。端末を起動し、`gpg`コマンドを実行してみてください。
@@ -34,10 +38,6 @@ Compression: Uncompressed, ZIP, ZLIB, BZIP2
 
 ## 鍵対の生成
 GnuPGがインストールできたら鍵対を生成します。
-
-::: warning
-ここで紹介するのは最小限の手順です。より安全な鍵の管理が必要な場合には、Debian GNU/Linuxの開発者向けの文書[Using OpenPGP subkeys in Debian development](https://wiki.debian.org/Subkeys)などを参照してください。
-:::
 
 端末から`gpg`コマンドを`--generate-key`オプションを指定して実行して、GnuPGのデフォルトの設定で鍵対を生成してみます。有効期間は2年間となりました。端末からは名前と電子メールアドレスを入力しました。
 
@@ -129,11 +129,26 @@ ssb   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 :::
 
 ## 公開鍵の公開
-TODO: 公開鍵の公開法をここに書く
+生成した公開鍵は、USBフラッシュメモリなどにコピーして、やりとりする相手に渡すほか、PGP公開鍵サーバに公開することで広く利用してもらえるようになります。下記のようなコマンドで鍵IDを指定してPGP公開鍵サーバに登録することができます。登録した公開鍵は、鍵IDや指紋で検索することができます。
 
 ```
 $ gpg --send-key F60960D80B224382CA8D831CB56C20316D6E8279
+gpg: sending key B56C20316D6E8279 to hkps://keys.openpgp.org
 ```
+
+GnuPGがデフォルトで利用するPGP公開鍵サーバ`keys.openpgp.org`の[利用手順](https://keys.openpgp.org/about/usage)に従って電子メールアドレスを確認してもらうことで、電子メールアドレスで公開鍵を検索できるようになります。
+
+```
+$ gpg --export zundan@gmail.com | curl -T - https://keys.openpgp.org
+Key successfully uploaded. Proceed with verification here:
+https://keys.openpgp.org/upload/…
+```
+
+表示されたリンクをウェブブラウザで開くと下記のようなページが表示されます。
+
+![keys.openpgp.orgによる確認メール送信ページ](/keys-openpgp-email-verification.png)
+
+ボタンをクリックして確認のメールを送信してもらい、送られてきたメールに含まれるリンクを閲覧します。(本稿の執筆時点2020-06-24では、`gpg --send-key`コマンドでも確認のメールを送信してもらえるようです。)
 
 ## 公開鍵の受領
 TODO: 公開鍵のインポートの詳細を以下に書く
