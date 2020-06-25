@@ -1,7 +1,7 @@
 # OpenPGP鍵の生成と管理
 OpenPGPを利用するには鍵対が必要です。本稿で紹介するツールの多くに鍵を管理する機能がありますので、これから使い始める人は自分が使うツールで鍵の生成から始めるのが良さそうです。
 
-ここでは、実際に公開鍵を生成し管理する例として、OpenPGPのコマンドラインの実装として広く利用されている[GnuPG](https://gnupg.org/)を利用して、鍵対の生成と公開を試してみます。
+ここでは、実際に公開鍵を生成し管理する一般的な手順として、OpenPGPのコマンドラインの実装として広く利用されている[GnuPG](https://gnupg.org/)を利用して、鍵対の生成と公開を試してみます。
 
 ::: warning
 ここで紹介するのはGnuPGのデフォルトの設定に沿った最小限の手順です。より安全な鍵の管理が必要な場合には、Debian GNU/Linuxの開発者向けの文書[Using OpenPGP subkeys in Debian development](https://wiki.debian.org/Subkeys)などを参照してください。
@@ -74,7 +74,7 @@ sub   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 
 ```
 
-パスフレーズは表示されたGUIから入力しました。
+パスフレーズは表示されたGUIから入力しました。今後、私有鍵が必要な場面では適宜パスフレーズの入力を促されます。
 
 ![パスフレーズを入力する様子](/gpg-genkey-agent.png)
 
@@ -150,28 +150,89 @@ https://keys.openpgp.org/upload/…
 
 ボタンをクリックして確認のメールを送信してもらい、送られてきたメールに含まれるリンクを閲覧します。(本稿の執筆時点2020-06-24では、`gpg --send-key`コマンドでも確認のメールを送信してもらえるようです。)
 
-## 公開鍵の受領
-TODO: 公開鍵のインポートの詳細を以下に書く
+## 公開鍵の受領と署名
+他の人の公開鍵は、鍵IDなどを指定してPGP公開鍵サーバから受領することができます。
 
 ```
-$ gpg --recv-keys 鍵の指紋
+$ gpg --recv-keys C31D6E888EEB6DACEA881A8C7BF7154E0B170373
+gpg: key 7BF7154E0B170373: public key "zunda <zundan@gmail.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
 ```
 
-### 受領した公開鍵への署名を公開する
+受領した公開鍵には信頼度を署名しておきましょう。
+
 ```
-$ gpg --sign-keys 鍵の指紋
-$ gpg --send-keys 鍵の指紋
+$ gpg --sign-key C31D6E888EEB6DACEA881A8C7BF7154E0B170373
+
+pub  rsa4096/7BF7154E0B170373
+     created: 2017-03-13  expires: never       usage: SC
+     trust: unknown       validity: unknown
+sub  rsa2048/3058EB92337633FD
+     created: 2017-03-13  expires: 2025-03-11  usage: SA
+sub  rsa2048/166945FDA87229FE
+     created: 2017-03-13  expires: 2025-03-11  usage: E
+[ unknown] (1). zunda <zundan@gmail.com>
+[ unknown] (2)  zunda <zunda@freeshell.org>
+
+Really sign all user IDs? (y/N) y
+
+pub  rsa4096/7BF7154E0B170373
+     created: 2017-03-13  expires: never       usage: SC
+     trust: unknown       validity: unknown
+ Primary key fingerprint: C31D 6E88 8EEB 6DAC EA88  1A8C 7BF7 154E 0B17 0373
+
+     zunda <zundan@gmail.com>
+     zunda <zunda@freeshell.org>
+
+Are you sure that you want to sign this key with your
+key "zunda <zundan@gmail.com>" (B56C20316D6E8279)
+
+Really sign? (y/N) y
+
 ```
 
-他の人による署名を受け取る
+::: tip
+署名したことを公開したくない場合には、`--sign-key`オプションの代わりに`--lsign-key`オプションを指定します。
+:::
+
+鍵束の状況を確認してみます。`full`の信頼度で署名できました。
+
+```
+$ gpg --list-keys
+/home/zunda/.gnupg/pubring.kbx
+------------------------------
+pub   rsa3072 2020-06-24 [SC] [expires: 2022-06-24]
+      F60960D80B224382CA8D831CB56C20316D6E8279
+uid           [ultimate] zunda <zundan@gmail.com>
+sub   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
+
+pub   rsa4096 2017-03-13 [SC]
+      C31D6E888EEB6DACEA881A8C7BF7154E0B170373
+uid           [  full  ] zunda <zundan@gmail.com>
+uid           [  full  ] zunda <zunda@freeshell.org>
+sub   rsa2048 2017-03-13 [SA] [expires: 2025-03-11]
+sub   rsa2048 2017-03-13 [E] [expires: 2025-03-11]
+
+```
+
+署名した公開鍵をPGP公開鍵サーバに登録することで、他の人が信頼度の参考にすることができます。
+
+```
+$ gpg --send-key C31D6E888EEB6DACEA881A8C7BF7154E0B170373
+gpg: sending key 7BF7154E0B170373 to hkps://keys.openpgp.org
+```
+
+#### 他の人の署名を受領する
+他の人が公開鍵に署名した際には、下記のコマンドで署名を受領し、信頼の網を更新することができます。今回は変更はなかったようです。
 
 ```
 $ gpg --refresh-keys
-```
-
-### 受領した公開鍵への署名を公開しない
-```
-$ gpg --lsign-keys 鍵の指紋
+gpg: refreshing 2 keys from hkps://keys.openpgp.org
+gpg: key 7BF7154E0B170373: "zunda <zundan@gmail.com>" not changed
+gpg: key B56C20316D6E8279: "zunda <zundan@gmail.com>" not changed
+gpg: Total number processed: 2
+gpg:              unchanged: 2
 ```
 
 ## 公開鍵の失効
@@ -220,4 +281,4 @@ uid           [ revoked] zunda <zundan@gmail.com>
 手元の私有鍵が利用可能な場合には、`gpg -o 失効証明書のファイル名 --gen-revoke 鍵ID`コマンドで失効証明書を再生成することができます。
 :::
 
-公開鍵を公開している場合には、失効させた公開鍵を公開しなおすことで、公開している公開鍵を失効させることができます。
+公開鍵を公開している場合には、失効させた公開鍵を公開しなおすことで、公開している公開鍵を失効させることができます。(今回失効させた公開鍵は公開しなおしていませんので、公開鍵は有効なままです。)

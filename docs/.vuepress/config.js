@@ -41,7 +41,13 @@ module.exports = {
           '/email/keyManagement'
         ]
       },
-      '/sns/',
+      {
+        title: 'ソーシャルネットワーク',
+        children: [
+          '/sns/',
+          '/sns/keybase'
+        ]
+      },
       '/device/',
       '/laws/',
       '/conclusion',
