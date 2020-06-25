@@ -1,4 +1,4 @@
-# OpenPGP鍵の生成と管理
+# GnuPGによる鍵対の生成と管理
 OpenPGPを利用するには鍵対が必要です。本稿で紹介するツールの多くに鍵を管理する機能がありますので、これから使い始める人は自分が使うツールで鍵の生成から始めるのが良さそうです。
 
 ここでは、実際に公開鍵を生成し管理する一般的な手順として、OpenPGPのコマンドラインの実装として広く利用されている[GnuPG](https://gnupg.org/)を利用して、鍵対の生成と公開を試してみます。
@@ -74,22 +74,22 @@ sub   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 
 ```
 
-パスフレーズは表示されたGUIから入力しました。今後、私有鍵が必要な場面では適宜パスフレーズの入力を促されます。
+パスフレーズは下記のようなウインドウから入力しました。今後、私有鍵が必要な場面で適宜パスフレーズの入力を促されます。
 
 ![パスフレーズを入力する様子](/gpg-genkey-agent.png)
 
-この操作で、`gpg`コマンドは2対の鍵対を生成しました。署名(`S`)と証明書(`C`)に利用するマスター鍵対と、暗号(`E`)に利用する副(sub)鍵対です。今回生成されたマスター鍵対のIDは`F60960D80B224382CA8D831CB56C20316D6E8279`となりました。
+この操作で、`gpg`コマンドは2対の鍵対を生成しました。署名(`S`)と証明書(`C`)に利用するマスター鍵対と、暗号(`E`)に利用する副(sub)鍵対です。今回生成されたマスター鍵対のIDは`F60960D80B224382CA8D831CB56C20316D6E8279`となりました。副鍵も同じIDで取り扱います。
 
-生成された鍵対や鍵対を登録してある鍵束は、`~/.gnupg/`以下にファイルとして記録されます。下記では一部のIDを伏せ字にしてあります。
+生成された鍵対や鍵対を登録してある鍵束は、`~/.gnupg/` (ホームディレクトリ以下の`.gnupg`ディレクトリ)以下にファイルとして記録されます。下記では一部のIDを伏せ字にしてあります。
 
 ```
-$ find .gnupg -type f | xargs file
-.gnupg/openpgp-revocs.d/F60960D80B224382CA8D831CB56C20316D6E8279.rev:  ASCII text
-.gnupg/trustdb.gpg:                                                    GPG key trust database version 3
-.gnupg/private-keys-v1.d/23DB************************************.key: data
-.gnupg/private-keys-v1.d/1E7A************************************.key: data
-.gnupg/pubring.kbx:                                                    GPG keybox database version 1, created-at Wed Jun 24 05:23:42 2020, last-maintained Wed Jun 24 05:23:42 2020
-.gnupg/pubring.kbx~:                                                   GPG keybox database version 1, created-at Wed Jun 24 05:23:42 2020, last-maintained Wed Jun 24 05:23:42 2020
+$ find ~/.gnupg -type f | xargs file
+~/.gnupg/openpgp-revocs.d/F60960D80B224382CA8D831CB56C20316D6E8279.rev:  ASCII text
+~/.gnupg/trustdb.gpg:                                                    GPG key trust database version 3
+~/.gnupg/private-keys-v1.d/23DB************************************.key: data
+~/.gnupg/private-keys-v1.d/1E7A************************************.key: data
+~/.gnupg/pubring.kbx:                                                    GPG keybox database version 1, created-at Wed Jun 24 05:23:42 2020, last-maintained Wed Jun 24 05:23:42 2020
+~/.gnupg/pubring.kbx~:                                                   GPG keybox database version 1, created-at Wed Jun 24 05:23:42 2020, last-maintained Wed Jun 24 05:23:42 2020
 ```
 
 鍵束に登録された公開鍵の概要を、`gpg`コマンドに`--list-keys`を指定して実行することで確認できます。`gpg`コマンドは必要に応じて信頼の網を再確認します。小さな信頼の網が形成され、自分自身が究極的に信頼されていることがわかります。
