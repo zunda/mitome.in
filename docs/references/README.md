@@ -30,3 +30,6 @@ OpenPGPの現行の規定です。
 
 ## [電子署名及び認証業務に関する法律](https://elaws.e-gov.go.jp/search/elawsSearch/elaws_search/lsg0500/detail?lawId=412AC0000000102)
 電子署名の定義や効力を定めた法律。電子署名法と略称されることもあります。
+
+## [OpenPGP 鍵管理に関する考察](https://text.baldanders.info/openpgp/openpgp-key-management/)
+OpenPGP鍵の管理の実際について詳しく解説されている。
