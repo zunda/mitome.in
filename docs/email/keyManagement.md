@@ -36,7 +36,7 @@ Compression: Uncompressed, ZIP, ZLIB, BZIP2
 GnuPGがインストールできたら鍵対を生成します。
 
 ::: warning
-ここで紹介するのは最小限の手順です。より安全な鍵の管理には、Debian GNU/Linuxの開発者向けの文書[Using OpenPGP subkeys in Debian development](https://wiki.debian.org/Subkeys)などを参照してください。
+ここで紹介するのは最小限の手順です。より安全な鍵の管理が必要な場合には、Debian GNU/Linuxの開発者向けの文書[Using OpenPGP subkeys in Debian development](https://wiki.debian.org/Subkeys)などを参照してください。
 :::
 
 端末から`gpg`コマンドを`--generate-key`オプションを指定して実行して、GnuGPのデフォルトの設定で鍵対を生成してみます。有効期間は2年間となりました。端末からは名前と電子メールアドレスを入力しました。
@@ -122,10 +122,10 @@ ssb   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 
 ```
 
-私有鍵を失なってしまった場合に公開鍵を失効できるよう、生成された失効証明書を安全な場所に保管しておきましょう。
+私有鍵を失なってしまった場合に鍵対を失効できるよう、生成された失効証明書を安全な場所に保管しておきましょう。
 
 ::: warning
-失効証明書を漏洩してしまわないよう注意してください。悪意の第三者が失効証明書を入手すると、公開鍵を失効させてしまえるようになります。
+失効証明書を漏洩してしまわないよう注意してください。悪意の第三者が失効証明書を入手すると、鍵対を失効させてしまえるようになります。
 :::
 
 ## 公開鍵の公開
@@ -160,19 +160,49 @@ $ gpg --lsign-keys 鍵の指紋
 ```
 
 ## 公開鍵の失効
-私有鍵のパスフレーズを忘れてしまって鍵対を利用できなくなってしまったり、私有鍵が漏洩して第三者によるなりすましの可能性が出てしまった場合には、公開鍵を失効させる必要があります。
+私有鍵のパスフレーズを忘れてしまって鍵対を利用できなくなってしまったり、私有鍵が漏洩して第三者によるなりすましの可能性が出てしまった場合には、鍵対を失効させる必要があります。
 
-手元の鍵束で公開鍵を失効させるには、保管しておいた失効証明書を利用します。
+手元の鍵束で鍵対を失効させるには、保管しておいた失効証明書を利用します。
+
+まず、失効証明書の下記の行の最初のコロン`:`をエディタで削除しておきます。
+
+```
+:-----BEGIN PGP PUBLIC KEY BLOCK-----
+```
+
+失効証明書をインポートすることで鍵対が失効します。
 
 ```
 $ gpg --import F60960D80B224382CA8D831CB56C20316D6E8279.rev
-$ gpg --list-keys
+gpg: key B56C20316D6E8279: "zunda <zundan@gmail.com>" revocation certificate imported
+gpg: Total number processed: 1
+gpg:    new key revocations: 1
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
+gpg: next trustdb check due at 2022-06-24
 ```
 
-TODO: 公開鍵を失効させる様子をここに書く。失効前の状態を保存してくこと。
+鍵対が失効したことを確認できます。
+
+```
+$ gpg --list-keys
+/home/zunda/.gnupg/pubring.kbx
+------------------------------
+pub   rsa3072 2020-06-24 [SC] [revoked: 2020-06-24]
+      F60960D80B224382CA8D831CB56C20316D6E8279
+uid           [ revoked] zunda <zundan@gmail.com>
+
+$ gpg --list-secret-keys
+/home/zunda/.gnupg/pubring.kbx
+------------------------------
+sec   rsa3072 2020-06-24 [SC] [revoked: 2020-06-24]
+      F60960D80B224382CA8D831CB56C20316D6E8279
+uid           [ revoked] zunda <zundan@gmail.com>
+
+```
 
 ::: tip
 手元の私有鍵が利用可能な場合には、`gpg -o 失効証明書のファイル名 --gen-revoke 鍵ID`コマンドで失効証明書を再生成することができます。
 :::
 
-公開鍵を公開している場合には、同様の手順で失効した公開鍵を公開しなおすことで、公開している公開鍵を失効させることができます。
+公開鍵を公開している場合には、失効させた公開鍵を公開しなおすことで、公開している公開鍵を失効させることができます。
