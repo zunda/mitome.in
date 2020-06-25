@@ -7,6 +7,7 @@
 本稿の内容は下記の人々(アルファベット順)によるものです。主著者であるzundaからお礼申し上げます。
 
 - estpls
+- Nakaya &lt;eniehack at outlook dot jp&gt;
 - zunda &lt;zundan at gmail.com&gt;
 - この他の著者
 

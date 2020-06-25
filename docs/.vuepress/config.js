@@ -38,7 +38,8 @@ module.exports = {
         title: '電子メール',
         children: [
           '/email/',
-          '/email/keyManagement'
+          '/email/keyManagement',
+          '/email/mailvelope'
         ]
       },
       {
