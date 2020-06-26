@@ -7,7 +7,6 @@
 [GnuPGによるOpenPGP鍵対の生成](../email/keyManagement)が完了している環境で、`commit`コマンドに`-S`オプションを追加することで電子署名できます。
 
 ```
-$ git add docs/misc/README.md
 $ git commit -S
 [master fd70ab6] Start writing about signing on Git
  1 file changed, 7 insertions(+)
