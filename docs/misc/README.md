@@ -28,3 +28,20 @@ gpg:                using RSA key F60960D80B224382CA8D831CB56C20316D6E8279
 gpg:                issuer "zundan@gmail.com"
 gpg: Good signature from "zunda <zundan@gmail.com>" [ultimate]
 ```
+
+[GitHubにOpenPGP公開鍵をアップロードする](https://help.github.com/ja/github/authenticating-to-github/adding-a-new-gpg-key-to-your-github-account)ことで、GitHub上で電子署名が検証されるようになります。公開鍵は[ASCII Armor](../OpenPGP/keyPair#ascii-armor)にしてコピーする必要があります。
+
+```
+$ gpg --export --armor F60960D80B224382CA8D831CB56C20316D6E8279
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mQGNBF7y5CEBDADCBGI+RhNbXWjHOhIwBX9k1kxr6t/nTcec97vMNMxLYn3qxaWc
+  (中略)
+z53RAXLlDXUjh5wQPrsASA==
+=ELpI
+-----END PGP PUBLIC KEY BLOCK-----
+```
+
+GitHub上で電子署名の検証に成功すると「Verified」というマークが表示されます。
+
+![GitHubが電子署名の検証に成功した様子](/github-sign-verified.png)
