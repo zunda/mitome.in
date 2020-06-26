@@ -49,6 +49,7 @@ module.exports = {
           '/sns/keybase'
         ]
       },
+      '/misc/',
       '/device/',
       '/laws/',
       '/conclusion',
