@@ -4,7 +4,7 @@
 ## Git
 [Git](https://git-scm.com/)はバージョン管理システムのひとつで、本稿の管理にも利用しています。変更内容に電子署名をすることで、管理されているプログラムコードなどの利用者が変更内容の検証をすることができるようになります。
 
-[GnuPGによるOpenPGP鍵対の生成](../email/keyManagement)が完了している環境で、`commit`コマンドに`-S`オプションを追加することで電子署名できます。
+[GnuPGによるOpenPGP鍵対の生成](../email/keyManagement.md)が完了している環境で、`commit`コマンドに`-S`オプションを追加することで電子署名できます。
 
 ```
 $ git commit -S
@@ -29,7 +29,7 @@ gpg:                issuer "zundan@gmail.com"
 gpg: Good signature from "zunda <zundan@gmail.com>" [ultimate]
 ```
 
-[GitHubにOpenPGP公開鍵をアップロードする](https://help.github.com/ja/github/authenticating-to-github/adding-a-new-gpg-key-to-your-github-account)ことで、GitHub上で電子署名が検証されるようになります。公開鍵は[ASCII Armor](../OpenPGP/keyPair#ascii-armor)にしてコピーする必要があります。
+[GitHubにOpenPGP公開鍵をアップロードする](https://help.github.com/ja/github/authenticating-to-github/adding-a-new-gpg-key-to-your-github-account)ことで、GitHub上で電子署名が検証されるようになります。公開鍵は[ASCII Armor](../OpenPGP/keyPair.md#ascii-armor)にしてコピーする必要があります。
 
 ```
 $ gpg --export --armor F60960D80B224382CA8D831CB56C20316D6E8279
