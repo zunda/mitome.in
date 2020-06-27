@@ -45,3 +45,5 @@ z53RAXLlDXUjh5wQPrsASA==
 GitHub上で電子署名の検証に成功すると「Verified」というマークが表示されます。
 
 ![GitHubが電子署名の検証に成功した様子](/github-sign-verified.png)
+
+GitHubに登録されているOpenPGP公開鍵は、[GitHubのREST API v3](https://developer.github.com/v3/) (`https://api.github.com`)の[`GET /users/:username/gpg_keys`](https://developer.github.com/v3/users/gpg_keys/#list-gpg-keys-for-a-user)から取得することができます。

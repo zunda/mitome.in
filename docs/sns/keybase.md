@@ -22,3 +22,5 @@ $ keybase pgp export | curl -T - https://keys.openpgp.org
 Key successfully uploaded. Proceed with verification here:
 https://keys.openpgp.org/upload/…
 ```
+
+Keybaseに登録されているOpenPGP公開鍵は、[`curl`コマンドで`https://keybase.io/[them]/key.asc`から取得したり`keybase pgp pull [them]`コマンドでGnuPG鍵束にインポートすることもできます](https://keybase.io/encrypt)。
