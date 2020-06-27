@@ -5,7 +5,6 @@
 
 ここでは、まずOpenPGP鍵対の管理の実際について述べ、続いて、電子メールを暗号化したり署名したりするツールについて紹介します。ここで紹介するものも含めて、OpenPGPによる文書[Email Encryption](https://www.openpgp.org/software/)にも多くのツールが紹介されています。
 
-- Mutt
 - Thunderbird
 - ProtonMail
 - flowcrypt https://twitter.com/h_okumura/status/1272351192970977280
