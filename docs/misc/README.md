@@ -16,7 +16,7 @@ $ git commit -S
 常に電子署名するよう設定することもできます。
 
 ```
-git config --global commit.gpgsign true
+$ git config --global commit.gpgsign true
 ```
 
 公開鍵がインポートされている環境で、電子署名を検証することができます。
