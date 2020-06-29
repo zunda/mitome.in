@@ -37,3 +37,38 @@ Secure Composeボタンから、メールを書き、暗号化や電子署名を
 FlowCryptによって暗号化された電子メールは、FlowCryptによって自動的に復号されます。残念ながら、現状では、Muttでは自動的な処理はおこなわないようです。
 
 ![FlowCryptからの電子メールのMuttでの閲覧](/flowcrypt-mutt.png)
+
+メールをファイルにコピーして`gpg`コマンドで復号することができます。
+
+Muttでメールを閲覧しながら`C`キーで存在しないメールボックスにメールをコピーするとオリジナルな状態で保存されたメールのファイルを作成してくれます。`gpg`コマンドで復号・検証してくれます。
+
+```
+$ cat mbox | gpg
+gpg: WARNING: no command supplied.  Trying to guess what you mean ...
+gpg: encrypted with 3072-bit RSA key, ID 164F21FF001C8CD1, created 2020-06-24
+      "zunda <zundan@gmail.com>"
+gpg: encrypted with 3072-bit RSA key, ID 164F21FF001C8CD1, created 2020-06-24
+      "zunda <zundan@gmail.com>"
+こんにちは、世界
+gpg: Signature made Fri 26 Jun 2020 05:26:29 PM HST
+gpg:                using RSA key B56C20316D6E8279
+gpg: Good signature from "zunda <zundan@gmail.com>" [ultimate]
+gpg: quoted printable character in armor - probably a buggy MTA has been used
+```
+
+FlowCryptからのメールは、下記のようにMIMEタイプ`text/plain`で届きますが、OpenPGPのMIMEを規定している[RFC 3156](https://tools.ietf.org/html/rfc3156)では`multipart/encrypted; protocol="application/pgp-encrypted"`など(内容によって`protocol`が変化する)を要求しています。
+
+```
+------sinikael-?=_1-15932283891110.14178318234457787
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP MESSAGE-----
+Version: FlowCrypt 7.7.9 Gmail Encryption
+Comment: Seamlessly send and receive encrypted email
+
+wcDMAxZPIf8AHIzRAQwAuuHsBqUDGDimD9CHBXfDSFuQB0VRRP0UFyfBsvww
+  :
+```
+
+FlowCryptではこの件を把握してくれていています。そのうちMuttなどでもスムーズに復号できるようになるといいな。

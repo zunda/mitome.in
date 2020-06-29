@@ -25,6 +25,11 @@ Network Working Group著、2007年、RFC 4880。
 
 OpenPGPの現行の規定です。
 
+## [MIME Security with OpenPGP](https://tools.ietf.org/html/rfc3156)
+Network Working Group著、2001年、RFC 3156。
+
+OpenPGPのMIMEでの規定です。
+
 ## [OpenPGP.js](https://openpgpjs.org/)
 本書で利用させていただいている、ウェブブラウ内で動作するOpenPGPのJavaScriptによる実装です。
 
