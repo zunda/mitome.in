@@ -1,5 +1,6 @@
 # 改定履歴
 
+- 2020-06-29 「[FlowCrypt](/email/flowcrypt)」公開
 - 2020-06-28 「[ProtonMail](/email/protonmail)」公開
 - 2020-06-26 「[Mutt](/email/mutt)」公開
 - 2020-06-25 「[Mailvelope](/email/mailvelope)」公開
