@@ -40,7 +40,8 @@ module.exports = {
           '/email/',
           '/email/keyManagement',
           '/email/mailvelope',
-          '/email/mutt'
+          '/email/mutt',
+          '/email/protonmail'
         ]
       },
       {
