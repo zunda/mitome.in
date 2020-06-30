@@ -1,9 +1,14 @@
 # LibreOffice
+[LibreOffice](https://ja.libreoffice.org/)は豊富な機能を備えたオフィススイートです。認証局に電子署名されたクライアント証明書を利用することで、作成した文書の電子署名したり、電子署名を検証したりできます。
+
+ここではテスト用のルート認証局を作成し、FirefoxにルートCA証明書とクライアント証明書をインポートし、それをLibreOfficeから参照することで、LibreOfficeでの文書への電子署名を試してみます。
 
 ## クライアント証明書の準備
-ここではFirefoxにクライアント証明書をインポートし、それをLibreOfficeから参照することで、LibreOfficeでの文書への電子署名を実現します。
+ルート認証局を作成し、クライアント証明書に電子署名します。
 
 ### ルート認証局
+ここでは`openssl`コマンドで種々の証明書を作成します。まずルートCA証明書です。
+
 ```
 $ openssl req -newkey rsa:4096 -keyform PEM -keyout ca.key -x509 -days 30 -outform PEM -out ca.cer
 ```
@@ -30,7 +35,7 @@ $ openssl req -new -key client.key -out client.req
 $ openssl x509 -req -in client.req -CA ca.cer -CAkey ca.key -set_serial 101 -extensions client -days 30 -outform PEM -out client.cer
 ```
 
-ルートCA証明書のパスフレーズを入力すると、下記のような感じでクライアント証明書が生成されました。
+ルートCA証明書のパスフレーズを入力すると、下記のようにクライアント証明書が生成されました。
 
 ```
 $ openssl x509 -in client.cer -noout -issuer -subject
@@ -45,7 +50,7 @@ $ openssl pkcs12 -export -inkey client.key -in client.cer -out client.p12
 ```
 
 ## 証明書のインポート
-Firefoxの右上のハンバーガーメニューからPreferencesをクリックし、左ペインからPrivacy & Securityをクリックします。
+Firefoxを起動し、右上のハンバーガーメニューからPreferencesをクリックし、左のペインからPrivacy & Securityをクリックします。
 
 クライアント証明書をインポートします。Certificatesの項のView Certificates...をボタンをクリックし、Your CertificatesのImport...ボタンをクリックします。
 
@@ -58,7 +63,7 @@ Firefoxの右上のハンバーガーメニューからPreferencesをクリッ�
 ルートCA証明書もインポートします。
 
 ::: danger
-この操作で、FirefoxはインポートされたルートCA証明書を信用することになります。これは、このルートCA証明書とペアになっている私有鍵によって電子署名された全ての証明書を信用することを意味します。私有鍵が適切に管理されていないルートCA証明書をインポートしてしまわないように注意してください。
+この操作の結果、FirefoxはインポートされたルートCA証明書を信用することになります。これは、このルートCA証明書とペアになっている私有鍵によって電子署名された全ての証明書を信用することを意味します。私有鍵が適切に管理されていないルートCA証明書をインポートしてしまわないように注意してください。
 :::
 
 Certificatesの項のView Certificates...をボタンをクリックし、Authorities...のImport...ボタンをクリックします。
@@ -89,10 +94,14 @@ $ find ~/.mozilla -name cert*.db -printf "%h\n"
 $ MOZILLA_CERTIFICATE_FOLDER=`find ~/.mozilla -name cert*.db -printf "%h\n"` libreoffice
 ```
 
-文書を作成、保存しておくことで、電子署名が可能です。文書を保存したら、File-Digital Signatures-Digital Signatures...とメニューをたどります。Sign Document...メニューをクリックし、先ほどインポートしたクライアント証明書を選択し、Signボタンをクリックします。
+文書を作成保存すると、電子署名が可能です。文書を保存したら、File - Digital Signatures - Digital Signatures...とメニューをたどります。Sign Document...メニューをクリックし、先ほどインポートしたクライアント証明書を選択し、Signボタンをクリックします。
 
 ![LibreOfficeでの文書への電子署名](/libreoffice-sign.png)
 
 これで、文書への署名が完了し、LibreOfficeが文書の内容を検証するようになりました。
 
 ![LibreOfficeによる電子署名の検証](/libreoffice-verify.png)
+
+電子署名の検証が失敗することで、電子署名後に内容が編集されたことがわかります。
+
+![LibreOfficeによる電子署名の検証の失敗](/libreoffice-verify-failed.png)
