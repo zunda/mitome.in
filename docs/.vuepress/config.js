@@ -52,7 +52,14 @@ module.exports = {
           '/sns/keybase'
         ]
       },
-      '/misc/',
+      {
+        title: 'その他のツール',
+        children: [
+          '/misc/',
+          '/misc/git',
+          '/misc/libreOffice'
+        ]
+      },
       '/device/',
       '/laws/',
       '/conclusion',
