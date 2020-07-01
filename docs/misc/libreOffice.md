@@ -105,3 +105,7 @@ $ MOZILLA_CERTIFICATE_FOLDER=`find ~/.mozilla -name cert*.db -printf "%h\n"` lib
 電子署名の検証が失敗することで、電子署名後に内容が編集されたことがわかります。
 
 ![LibreOfficeによる電子署名の検証の失敗](/libreoffice-verify-failed.png)
+
+クライアント証明書は文書に添付されて保存されるようです。クライアント証明書やルートCA証明書の無い環境では、電子署名の検証には成功しますが、クライアント証明書の検証はできません。
+
+![LibreOfficeによるクライアント証明書の検証の失敗](/libreoffice-sign-noca.png)
