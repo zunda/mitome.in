@@ -1,7 +1,12 @@
 # LibreOffice
 [LibreOffice](https://ja.libreoffice.org/)は豊富な機能を備えたオフィススイートです。認証局に電子署名されたクライアント証明書を利用することで、作成した文書の電子署名したり、電子署名を検証したりできます。
 
-ここではテスト用のルート認証局を作成し、FirefoxにルートCA証明書とクライアント証明書をインポートし、それをLibreOfficeから参照することで、LibreOfficeでの文書への電子署名を試してみます。
+ここではテスト用のルート認証局とクライアント証明書を作成し、Firefoxにインポートし、それをLibreOfficeから参照することで、LibreOfficeでの文書への電子署名とPKIによる検証を試してみます。
+
+## インストール
+LibreOfficeは利用中のOSにデフォルトでインストールされているかもしれません。Xubuntu 20.04ではLibreOffice 6.4.3.2 40(Build:2)がインストールされていました。[LibreOfficeのダウンロードページ](https://ja.libreoffice.org/download/download/)からダウンロードすることもできます。
+
+手元でテスト用のルート認証局やクライアント証明書を生成する場合には、`openssl`コマンドを利用します。Xubuntu 20.04ではOpenSSL 1.1.1fがインストールされていました。インストールする必要がある場合には手元のOSのマニュアル等を参照するか、[OpenSSLのダウンロードページ](https://www.openssl.org/source/)や[LibreSSLのホームページ](https://www.libressl.org/)を参照してください。
 
 ## クライアント証明書の準備
 ルート認証局を作成し、クライアント証明書に電子署名します。
@@ -79,20 +84,13 @@ Firefoxが信用する範囲をできるだけ限定しておきます。
 ![FirefoxにインポートされたルートCA証明書](/firefox-view-ca.png)
 
 ## LibreOfficeの起動と電子署名
-Firefoxにインポートしたクライアント証明書をLibreOfficeから参照するには、Firefoxがインポートした証明書を保存しているパスをLibreOfficeに知らせる必要があります。
+Xubuntu 20.04のLibreOfficeはデフォルトではThuderbirdにインポートされた証明書を参照するようです。
 
-下記のようなコマンドでパスを見つけることができます(一部マスクしてあります)。
+LibreOfficeを起動し、Tools - Options... - Securityとメニューをたどり、Certificateボタンを押してFirefoxのものを参照するように設定を変更します。
 
-```
-$ find ~/.mozilla -name cert*.db -printf "%h\n"
-/home/zunda/.mozilla/firefox/********.default
-```
+![LibreOfficeの証明書へのパスの変更](/libreoffice-cert-path.png)
 
-これを利用して、`MOZILLA_CERTIFICATE_FOLDER`環境変数に証明書のパスを設定して`libreoffice`を起動することで、LibreOfficeがクライアント証明書を参照できるようになります。
-
-```
-$ MOZILLA_CERTIFICATE_FOLDER=`find ~/.mozilla -name cert*.db -printf "%h\n"` libreoffice
-```
+設定を変更すると、LibreOfficeの再起動を促されます。再起動したら文書を新規作成してみましょう。
 
 文書を作成保存すると、電子署名が可能です。文書を保存したら、File - Digital Signatures - Digital Signatures...とメニューをたどります。Sign Document...メニューをクリックし、先ほどインポートしたクライアント証明書を選択し、Signボタンをクリックします。
 
