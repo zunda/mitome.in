@@ -1,8 +1,8 @@
 # LibreOffice
-[LibreOffice](https://ja.libreoffice.org/)は豊富な機能を備えたオフィススイートです。[GnuPGに登録](../email/keyManagement.md)した鍵対や認証局に電子署名されたクライアント証明書を利用することで、作成した文書の暗号化や電子署名が可能です。
+[LibreOffice](https://ja.libreoffice.org/)は豊富な機能を備えたオフィススイートです。認証局に電子署名されたクライアント証明書や[GnuPGに登録](../email/keyManagement.md)した鍵対を利用することで、作成した文書の暗号化や電子署名が可能です。
 
 ## インストール
-LibreOfficeは利用中のOSにデフォルトでインストールされているかもしれません。Xubuntu 20.04ではLibreOffice 6.4.3.2 40(Build:2)がインストールされていましたが、起動時のエラーの抑制のために`default-jre`と`libreoffice-java-common`を追加でインストールする必要がありました。[LibreOfficeのダウンロードページ](https://ja.libreoffice.org/download/download/)からダウンロードすることもできます。
+LibreOfficeは利用中のOSにデフォルトでインストールされているかもしれません。Xubuntu 20.04ではLibreOffice 6.4.3.2 40(Build:2)がインストールされていましたが、起動時のエラーの抑制のために`default-jre`パッケージと`libreoffice-java-common`パッケージを追加でインストールする必要がありました。[LibreOfficeのダウンロードページ](https://ja.libreoffice.org/download/download/)からダウンロードすることもできます。
 
 ## クライアント証明書の利用
 ここではテスト用のルート認証局とクライアント証明書を作成し、Firefoxにインポートし、それをLibreOfficeから参照することで、LibreOfficeでの文書への電子署名とPKIによる検証を試してみます。
@@ -55,7 +55,7 @@ Firefoxにインポートできるよう、PKCS #12形式に変換します。
 $ openssl pkcs12 -export -inkey client.key -in client.cer -out client.p12
 ```
 
-### 証明書のインポート
+### Firefoxへの証明書のインポート
 Firefoxを起動し、右上のハンバーガーメニューからPreferencesをクリックし、左のペインからPrivacy & Securityをクリックします。
 
 クライアント証明書をインポートします。Certificatesの項のView Certificates...をボタンをクリックし、Your CertificatesのImport...ボタンをクリックします。
@@ -72,7 +72,7 @@ Firefoxを起動し、右上のハンバーガーメニューからPreferences�
 この操作の結果、FirefoxはインポートされたルートCA証明書を信用することになります。これは、このルートCA証明書とペアになっている私有鍵によって電子署名された全ての証明書を信用することを意味します。私有鍵が適切に管理されていないルートCA証明書をインポートしてしまわないように注意してください。
 :::
 
-Certificatesの項のView Certificates...をボタンをクリックし、Authorities...のImport...ボタンをクリックします。
+先程と同様、Firefoxの右上のハンバーガーメニューからPreferencesをクリックし、左のペインからPrivacy & Securityをクリックします。Certificatesの項のView Certificates...をボタンをクリックし、Authorities...のImport...ボタンをクリックします。
 
 ![FirefoxにルートCA証明書をインポートする](/firefox-import-ca.png)
 
