@@ -49,7 +49,8 @@ module.exports = {
         title: 'ソーシャルネットワーク',
         children: [
           '/sns/',
-          '/sns/keybase'
+          '/sns/keybase',
+          '/sns/mastodon'
         ]
       },
       {
