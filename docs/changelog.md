@@ -1,6 +1,7 @@
 # 改定履歴
 
-- 2020-07-03 「[Mastodon](/misc/mastodon.md)」公開
+- 2020-07-03 「[Keybase](/sns/keybase.md)」公開
+- 2020-07-03 「[Mastodon](/sns/mastodon.md)」公開
 - 2020-06-30 「[LibreOffice](/misc/libreOffice.md)」公開
 - 2020-06-29 「[FlowCrypt](/email/flowcrypt.md)」公開
 - 2020-06-28 「[ProtonMail](/email/protonmail.md)」公開
