@@ -1,10 +1,10 @@
 # Keybase
-Keybaseの概要とクライアントデバイス間での鍵のやりとりを概観する予定です。
+[Keybase](https://keybase.io/)はエンドツーエンドの暗号化によって安全にメッセージをやりとりしたりファイルを共有したりするサービスです。WebUIの他、Android、iOS、Linux、macOS、Windows用のアプリでも利用できます。
 
-## PGP公開鍵の登録
-Keybaseの利用を始めるとOpenPGP公開鍵が生成されます。
+## OpenPGP鍵対
+Keybaseの利用を始めるとOpenPGP鍵対が生成あるいはインポートされ、CLIから利用可能になります。詳細については、`keybase help gpg`などを参照してください。生成された私有鍵のパスフレーズは、Keybaseのパスワードと同じです。
 
-下記のような手順で鍵IDを確認できます。
+Keybaseに登録してある鍵対のIDを、下記のような手順で確認できます。
 
 ```
 $ keybase pgp export | gpg
