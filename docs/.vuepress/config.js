@@ -102,5 +102,10 @@ module.exports = {
       regular: [''],
       solid: ['copy', 'eraser']
     }
+  },
+  markdown: {
+    extendMarkdown: md => {
+      md.use(require('markdown-it-footnote'))
+    }
   }
 }

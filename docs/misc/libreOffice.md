@@ -112,7 +112,7 @@ LibreOfficeを起動し、Tools - Options... - Securityとメニューをたど�
 ## GnuPGに登録した鍵対の利用
 LibreOfficeは、GnuPGに登録した鍵対や公開鍵を文書の暗号化や電子署名に利用することもできます。
 
-Xubuntu 20.04では、LibreOfficeのgpg-agentとのやりとりがapparmorで許可されていません。`/etc/apparmor.d/usr.lib.libreoffice.program.soffice.bin`を下記のように編集する必要がありました([Ubuntu Launchpadに登録させていただきました](https://bugs.launchpad.net/ubuntu/+source/libreoffice/+bug/1886092))。
+Xubuntu 20.04では、LibreOfficeのgpg-agentとのやりとりがapparmorで許可されていません。`/etc/apparmor.d/usr.lib.libreoffice.program.soffice.bin`を下記のように編集する必要がありました^[[Ubuntu Launchpadに登録](https://bugs.launchpad.net/ubuntu/+source/libreoffice/+bug/1886092)させていただきました]。
 
 ```diff
 --- /etc/apparmor.d.20200702/usr.lib.libreoffice.program.soffice.bin	2019-10-03 10:31:21.000000000 -1000
