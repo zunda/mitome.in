@@ -12,5 +12,5 @@
 ## 今後紹介したいツール
 本稿は書きかけです。今後、下記の電子メールツールについても紹介したいと考えています。
 
-- Thunderbird
+- Thunderbird^[[2020年夏ごろに本体でOpenPGPをサポートする](https://wiki.mozilla.org/Thunderbird:OpenPGP:2020)ようになってから執筆予定です]
 - その他 ([GitHub](https://github.com/zunda/mitome.in)等でお知らせください!)
