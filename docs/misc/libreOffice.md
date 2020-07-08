@@ -19,7 +19,7 @@ LibreOfficeは利用中のOSにデフォルトでインストールされてい�
 $ openssl req -newkey rsa:4096 -keyform PEM -keyout ca.key -x509 -days 30 -outform PEM -out ca.cer
 ```
 
-パスフレーズを入力し、その他の情報を適宜入力します。自己署名したルートCA証明書が生成されました。
+パスフレーズを入力し、その他の情報を適宜入力します。ルートCA証明書が生成されました。
 
 ```
 $ openssl x509 -in ca.cer -noout -issuer -subject
@@ -49,7 +49,7 @@ issuer=O = mitome.in test, CN = mitome.in test CA
 subject=O = mitome.in test, CN = zunda, emailAddress = zundan@gmail.com
 ```
 
-Firefoxにインポートできるよう、PKCS #12形式に変換します。
+Firefoxにインポートできるよう、私有鍵と併せてPKCS #12形式に変換します。
 
 ```
 $ openssl pkcs12 -export -inkey client.key -in client.cer -out client.p12
@@ -131,6 +131,6 @@ Xubuntu 20.04では、LibreOfficeのgpg-agentとのやりとりがapparmorで許
 
 ![LibreOfficeでの文書へのGnuPGによる電子署名](/libreoffice-sign-gpg.png)
 
-また、文書の保存時に、左下のEncrypt with GPG keyをチェックすることで、GnuPGに登録している公開鍵で暗号化することもできます。公開鍵は複数選ぶこともできます。
+また、文書の保存時に、左下のEncrypt with GPG keyをチェックすることで、GnuPGに登録している公開鍵で暗号化することもできます。複数の受取人が復号できるよう、公開鍵は複数選ぶこともできます。
 
 ![LibreOfficeでの文書のGnuPGによる暗号化](/libreoffice-encrypt-gpg.png)

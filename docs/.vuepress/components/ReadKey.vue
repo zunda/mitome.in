@@ -16,7 +16,7 @@
       <li>電子メールアドレス: <span class="email">{{ details.email }}</span></li>
       <li>生成時刻: {{ details.created }}</li>
       <li>ID: <span class="key-id">{{ details.keyId }}</span></li>
-      <li>指紋(fingerprint): <span class="key-id">{{ details.fingerprint }}</span></li>
+      <li>指紋: <span class="key-id">{{ details.fingerprint }}</span></li>
     </ul>
   </div>
 </template>
