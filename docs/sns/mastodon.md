@@ -5,7 +5,7 @@ Mastodonは[ActivityPub](https://www.w3.org/TR/activitypub/)の[Server to Server
 Mastodonでは、アカウントの作成時にOpenPGP鍵を生成しておき、他のサーバに投稿を配達する際に投稿元のアカウントの私有鍵で投稿内容に電子署名します。このHTTP署名については、[IETFで標準化に向けて議論が続けられています](https://www.ietf.org/archive/id/draft-cavage-http-signatures-12.txt)。配達先のサーバは、投稿元のアカウントの公開鍵を投稿元のサーバから取得することで、投稿内容の正当性を検証します。
 
 ## ダイレクトメッセージのエンドツーエンド暗号化
-開発版のMastodonでは[ダイレクトメッセージをエンドツーエンド暗号化するAPI](https://github.com/tootsuite/mastodon/pull/13820)が利用可能です。このAPIは[Matrixのエンドツーエンド暗号化](https://matrix.org/docs/guides/end-to-end-encryption-implementation-guide)に似た手順エンドツーエンド暗号化を実現するもので、クライアントデバイスは下記の手順でエンドツーエンド暗号したダイレクトメッセージを送信します。サーバに知られることなく共通鍵を算出することで、サーバにダイレクトメッセージの内容を知られることなく、クライアントデバイスどうしでのダイレクトメッセージをやりとりします。
+開発版のMastodonでは[ダイレクトメッセージをエンドツーエンド暗号化するAPI](https://github.com/tootsuite/mastodon/pull/13820)が利用可能です。このAPIは[Matrixのエンドツーエンド暗号化](https://matrix.org/docs/guides/end-to-end-encryption-implementation-guide)に似た手順エンドツーエンド暗号化を実現するもので、クライアントデバイスは下記の手順でエンドツーエンド暗号したダイレクトメッセージを送信します^[クライアントアプリ開発の混乱を防ぐため、このAPIで送る暗号化メッセージの内容について同意が形成されるまで、[このAPIエンドポイントは無効化](https://github.com/tootsuite/mastodon/pull/14283#issuecomment-656879953)されました]。サーバに知られることなく共通鍵を算出することで、サーバにダイレクトメッセージの内容を知られることなく、クライアントデバイスどうしでのダイレクトメッセージをやりとりします。
 
 1. クライアントデバイスで電子署名用と共通鍵生成用の2ペアの鍵対を生成し2つの公開鍵をサーバにアップロードしておく。また、いくつかのワンタイム鍵対を生成し公開鍵をサーバにアップロードしておく
 1. ダイレクトメッセージの送信先のユーザーのクライアントデバイスのリストを公開鍵と共に取得する
