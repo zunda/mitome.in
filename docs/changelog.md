@@ -1,5 +1,6 @@
 # 改定履歴
 
+- 2020-07-12 「[Maskbook](/sns/maskbook.md)」公開
 - 2020-07-03 「[Keybase](/sns/keybase.md)」公開
 - 2020-07-03 「[Mastodon](/sns/mastodon.md)」公開
 - 2020-06-30 「[LibreOffice](/misc/libreOffice.md)」公開
