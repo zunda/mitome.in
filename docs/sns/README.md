@@ -5,7 +5,6 @@
 
 今後、下記のようなサービスやソフトウェアも紹介していきたいところです。
 
-- Maskbook
 - Matrix
 - Signal
 - その他 ([GitHub](https://github.com/zunda/mitome.in)等でお知らせください!)
