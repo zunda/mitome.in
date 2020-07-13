@@ -49,6 +49,21 @@ Maskbookをインストールしていないブラウザからは、ツイート
 
 ![View without eextension](/maskbook-twitter-noinstall.png)
 
+## ステガノグラフィー
+Maskbookはツイートを暗号化して添付画像に隠すこともできます。
+
+Compose encrypted postからImage Payloadを有効にして、ツイートを作成します。
+
+![Enable Image Payload](/maskbook-twitter-image.png)
+
+ツイートと一緒に画像が投稿されます。
+
+![Tweet with an image](/maskbook-twitter-post.png)
+
+Maskbookをインストールしたブラウザからは、URLに暗号化したものと同様、ツイートの内容が復号され電子署名も検証された状態でツイートの内容を閲覧できます。
+
+![Decrypted tweet from image](/maskbook-twitter-image-decrypt.png)
+
 ## 設定のバックアップ
 Maskbookの私有鍵はブラウザ拡張機能の設定として保存されています。失なわれてしまわないように、バックアップしておきます。ブラウザ拡張機能の設定メニューからMaskbookのOptionをクリックし、スクロールしてBackupボタンを押します。
 
