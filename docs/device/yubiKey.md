@@ -6,7 +6,7 @@
 ![パッケージに入ったYubiKey 5 NFC](/YubiKey5NFC.jpg)
 
 ## インストール
-Xubuntu 20.04では、デフォルトでインストールされている`gpg`パッケージの他に、スマートカードとのやりとりのためのデーモン`pcscd`と、OpenPGPにマートカードのサポートを提供する`scdaemon`を追加でインストールします。`pcscd`のために`libccid`もインストールされました。
+Xubuntu 20.04では、デフォルトでインストールされている`gpg`パッケージの他に、スマートカードとのやりとりのためのデーモン`pcscd`と、GnuPGにスマートカードのサポートを提供する`scdaemon`を追加でインストールする必要がありました。`pcscd`のために`libccid`もインストールされました。
 
 ```
 $ sudo apt install pcscd scdaemon
