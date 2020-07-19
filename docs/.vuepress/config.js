@@ -62,7 +62,13 @@ module.exports = {
           '/misc/libreOffice'
         ]
       },
-      '/device/',
+      {
+        title: '暗号デバイス',
+        children: [
+          '/device/',
+          '/device/yubiKey'
+        ]
+      },
       '/laws/',
       '/conclusion',
       '/references/',
