@@ -31,7 +31,7 @@ GnuPGからはスマートカードとして認識されます。シリアル番
 ```
 $ gpg --card-status
 Reader ...........: 1050:0407:X:0
-Application ID ...: D2760001240103040006134605900000
+Application ID ...: D2760001240103040006********0000
 Application type .: OpenPGP
 Version ..........: 3.4
 Manufacturer .....: Yubico
@@ -142,12 +142,23 @@ ssb   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 
 ```
 
+公開鍵のURLを登録しておきます。
+
+```
+$ gpg --card-edit
+gpg/card> admin
+Admin commands are allowed
+gpg/card> url
+URL to retrieve public key: https://keys.openpgp.org/vks/v1/by-fingerprint/F60960D80B224382CA8D831CB56C20316D6E8279
+gpg/card> quit
+```
+
 YubiKeyのOpenPGPアプレットの状態も確認できます。電子署名を生成した回数も記録されているようです。
 
 ```
 $ gpg --card-status
-Reader ...........: Yubico YubiKey OTP FIDO CCID 00 00
-Application ID ...: D2760001240103040006134605900000
+Reader ...........: 1050:0407:X:0
+Application ID ...: D2760001240103040006********0000
 Application type .: OpenPGP
 Version ..........: 3.4
 Manufacturer .....: Yubico
@@ -155,13 +166,13 @@ Serial number ....: ********
 Name of cardholder: [not set]
 Language prefs ...: [not set]
 Salutation .......:
-URL of public key : [not set]
+URL of public key : https://keys.openpgp.org/vks/v1/by-fingerprint/F60960D80B224382CA8D831CB56C20316D6E8279
 Login data .......: [not set]
 Signature PIN ....: not forced
 Key attributes ...: rsa3072 rsa2048 rsa3072
 Max. PIN lengths .: 127 127 127
 PIN retry counter : 3 0 3
-Signature counter : 3
+Signature counter : 7
 KDF setting ......: off
 Signature key ....: F609 60D8 0B22 4382 CA8D  831C B56C 2031 6D6E 8279
       created ....: 2020-06-24 05:26:57
@@ -182,3 +193,50 @@ ssb   rsa3072/164F21FF001C8CD1  created: 2020-06-24  expires: 2022-06-24
 YubiKeyを接続して、YubiKeyのUser PIN ([デフォルト](https://support.yubico.com/support/solutions/articles/15000006420-using-your-yubikey-with-openpgp)では123456)を入力します。
 
 ![YubiKeyのUser PIN](/yubiKey-user-pin.png)
+
+## YubiKeyの設定
+PINがデフォルトのままなのは鍵を紛失してしまった場合に心許無いので、変更しておきます。既存のUser PINと新しいUser PINを、GUIから入力します。
+
+```
+$ gpg --card-edit
+
+gpg/card> admin
+Admin commands are allowed
+
+gpg/card> passwd
+gpg: OpenPGP card no. D2760001240103040006********0000 detected
+
+1 - change PIN
+2 - unblock PIN
+3 - change Admin PIN
+4 - set the Reset Code
+Q - quit
+
+Your selection? 1
+```
+
+同様にAdmin PINを変更します。
+
+```
+1 - change PIN
+2 - unblock PIN
+3 - change Admin PIN
+4 - set the Reset Code
+Q - quit
+
+Your selection? 3
+```
+
+終了します。
+
+```
+1 - change PIN
+2 - unblock PIN
+3 - change Admin PIN
+4 - set the Reset Code
+Q - quit
+
+Your selection? q
+
+gpg/card> q
+```
