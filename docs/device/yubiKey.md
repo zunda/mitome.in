@@ -240,3 +240,122 @@ Your selection? q
 
 gpg/card> q
 ```
+
+## YubiKeyに移動された私有鍵を他の環境で使う
+Ubuntu 16.04で試してみます。上と同様、まず追加で必要なパッケージをインストールします。デーモンの起動のためにインストール後にログアウトして再ログインしておくと良いでしょう。
+
+```
+$ sudo apt install pcscd scdaemon
+```
+
+Ubuntu 16.04でバージョン2のGnuPGは`gpg2`コマンドで利用できます。2.1.11がインストールされていました。
+
+まず自分の公開鍵をインポートしておきます。Ubuntu 16.04のGnuPG 2.1.11ではhttpsで公開鍵をインポートすることができないようなので、curlで代用します。
+
+```
+$ curl -s https://keys.openpgp.org/vks/v1/by-fingerprint/F60960D80B224382CA8D831CB56C20316D6E8279 | gpg2 --import
+gpg: keybox '/home/zunda/.gnupg/pubring.kbx' created
+gpg: /home/zunda/.gnupg/trustdb.gpg: trustdb created
+gpg: key 6D6E8279: public key "zunda <zundan@gmail.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+```
+
+GnuPGに私有鍵がYubiKeyにあることを知らせます。YubiKeyをUSBポートに挿入し`gpg2 --card-status`コマンドを実行することで、鍵束にスタブが生成され、私有鍵のあるYubiKeyのシリアル番号が記録されます。
+
+```
+$ gpg2 --card-status
+
+Reader ...........: Yubico Yubikey 4 OTP U2F CCID 00 00
+Application ID ...: D2760001240103040006********0000
+Version ..........: 3.4
+Manufacturer .....: Yubico
+Serial number ....: ********
+Name of cardholder: [not set]
+Language prefs ...: [not set]
+Sex ..............: unspecified
+URL of public key : https://keys.openpgp.org/vks/v1/by-fingerprint/F60960D80B224382CA8D831CB56C20316D6E8279
+Login data .......: [not set]
+Signature PIN ....: not forced
+Key attributes ...: rsa3072 rsa2048 rsa3072
+Max. PIN lengths .: 127 127 127
+PIN retry counter : 3 0 3
+Signature counter : 9
+Signature key ....: F609 60D8 0B22 4382 CA8D  831C B56C 2031 6D6E 8279
+      created ....: 2020-06-24 05:26:57
+Encryption key....: [none]
+Authentication key: F609 60D8 0B22 4382 CA8D  831C B56C 2031 6D6E 8279
+      created ....: 2020-06-24 05:26:57
+General key info..: pub  rsa3072/6D6E8279 2020-06-24 zunda <zundan@gmail.com>
+sec>  rsa3072/6D6E8279  created: 2020-06-24  expires: 2022-06-24
+                        card-no: 0006 ********
+ssb#  rsa3072/001C8CD1  created: 2020-06-24  expires: 2022-06-24
+```
+
+Yubicoの私有鍵で自分の公開鍵に署名しておきます。`trust`コマンドで`5` (I trust ultimately)します。
+
+```
+$ gpg2 --edit-key F60960D80B224382CA8D831CB56C20316D6E8279
+gpg (GnuPG) 2.1.11; Copyright (C) 2016 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Secret key is available.
+
+sec  rsa3072/6D6E8279
+     created: 2020-06-24  expires: 2022-06-24  usage: SC  
+     card-no: 0006 13460590
+     trust: unknown       validity: unknown
+sub  rsa3072/001C8CD1
+     created: 2020-06-24  expires: 2022-06-24  usage: E   
+[ unknown] (1). zunda <zundan@gmail.com>
+
+gpg> trust
+sec  rsa3072/6D6E8279
+     created: 2020-06-24  expires: 2022-06-24  usage: SC  
+     card-no: 0006 13460590
+     trust: unknown       validity: unknown
+sub  rsa3072/001C8CD1
+     created: 2020-06-24  expires: 2022-06-24  usage: E   
+[ unknown] (1). zunda <zundan@gmail.com>
+
+Please decide how far you trust this user to correctly verify other users' keys
+(by looking at passports, checking fingerprints from different sources, etc.)
+
+  1 = I don't know or won't say
+  2 = I do NOT trust
+  3 = I trust marginally
+  4 = I trust fully
+  5 = I trust ultimately
+  m = back to the main menu
+
+Your decision? 5
+Do you really want to set this key to ultimate trust? (y/N) y
+
+sec  rsa3072/6D6E8279
+     created: 2020-06-24  expires: 2022-06-24  usage: SC  
+     card-no: 0006 13460590
+     trust: ultimate      validity: unknown
+sub  rsa3072/001C8CD1
+     created: 2020-06-24  expires: 2022-06-24  usage: E   
+[ unknown] (1). zunda <zundan@gmail.com>
+Please note that the shown key validity is not necessarily correct
+unless you restart the program.
+
+gpg> quit
+```
+
+これで、YubiKeyに移動された私有鍵を、私有鍵を生成したのとは異なる環境で利用できるようになりました。公開鍵の信頼の網は別途確立する必要があります。
+
+Ubuntu 16.04では、[Gitでの変更内容への電子署名](../misc/git.md)に`gpg2`コマンドを利用する必要がありそうです。
+
+
+```
+$ git config --global gpg.program gpg2
+```
+
+Gitで変更内容へ電子署名してみましょう。
+
+```
+$ git commit -S
+```
