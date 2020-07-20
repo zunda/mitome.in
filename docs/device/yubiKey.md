@@ -358,4 +358,14 @@ Gitで変更内容へ電子署名してみましょう。
 
 ```
 $ git commit -S
+[move-yubikey 3a27355] Use YubiKey at a separate environment
+ 1 file changed, 119 insertions(+)
+```
+
+電子署名の検証に成功しました。
+
+```
+$ git verify-commit 3a27355
+gpg: Signature made Sun 19 Jul 2020 02:33:49 PM HST using RSA key ID 6D6E8279
+gpg: Good signature from "zunda <zundan@gmail.com>" [ultimate]
 ```
