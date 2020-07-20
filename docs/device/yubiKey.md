@@ -304,7 +304,7 @@ Secret key is available.
 
 sec  rsa3072/6D6E8279
      created: 2020-06-24  expires: 2022-06-24  usage: SC  
-     card-no: 0006 13460590
+     card-no: 0006 ********
      trust: unknown       validity: unknown
 sub  rsa3072/001C8CD1
      created: 2020-06-24  expires: 2022-06-24  usage: E   
@@ -313,7 +313,7 @@ sub  rsa3072/001C8CD1
 gpg> trust
 sec  rsa3072/6D6E8279
      created: 2020-06-24  expires: 2022-06-24  usage: SC  
-     card-no: 0006 13460590
+     card-no: 0006 ********
      trust: unknown       validity: unknown
 sub  rsa3072/001C8CD1
      created: 2020-06-24  expires: 2022-06-24  usage: E   
@@ -334,7 +334,7 @@ Do you really want to set this key to ultimate trust? (y/N) y
 
 sec  rsa3072/6D6E8279
      created: 2020-06-24  expires: 2022-06-24  usage: SC  
-     card-no: 0006 13460590
+     card-no: 0006 ********
      trust: ultimate      validity: unknown
 sub  rsa3072/001C8CD1
      created: 2020-06-24  expires: 2022-06-24  usage: E   
