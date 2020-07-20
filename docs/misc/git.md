@@ -10,6 +10,14 @@ $ git commit -S
  create mode 100644 docs/misc/README.md
 ```
 
+::: details gpg2の利用
+Ubuntu 16.04など、OSによっては、最近のGnuPGが`gpg2`コマンドとして提供されている場合があります。下記のコマンドで、Gitが`gpg`コマンドの代わりに`gpg2`コマンドを利用するようになります。
+
+```
+$ git config --global gpg.program gpg2
+```
+:::
+
 常に電子署名するよう設定することもできます。
 
 ```
