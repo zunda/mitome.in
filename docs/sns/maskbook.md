@@ -1,5 +1,5 @@
 # Maskbook
-[Maskbook](https://maskbook.com/)はFacebookやTwitterを通じて暗号化されたメッセージをやりとりすることのできるブラウザ拡張機能で、執筆時にはChrome系、Ecge、Firefoxで利用できます。ここでは、Chromeの拡張機能をTwitterで利用する例を紹介します。
+[Maskbook](https://maskbook.com/)はFacebookやTwitterを通じて暗号化されたメッセージをやりとりすることのできるブラウザ拡張機能で、執筆時にはChrome系、Ecge、Firefoxで利用できます。ここでは、Chromeの拡張機能をTwitterで利用^[[2020年7月15日に起きたセキュリティインシデント](https://blog.twitter.com/en_us/topics/company/2020/an-update-on-our-security-incident.html)を受けて、[MaskbookによるTwitterへの投稿ができなくなっている](https://twitter.com/realmaskbook/status/1283772518508052480)可能性があります]する例を紹介します。
 
 ## インストール
 Maskbookのブラウザ拡張機能は、[Maskbookのホームページ](https://maskbook.com/)から「Install」ボタンをクリックすることで、Chrome Web Storeからインストールできます。[Maskbookのプライバシーポリシー](https://legal.maskbook.com/maskbook/)に同意すると、新規に設定を始めるかバックアップから設定をインポートするか選択できます。
