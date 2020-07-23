@@ -185,7 +185,7 @@ sec>  rsa3072/B56C20316D6E8279  created: 2020-06-24  expires: 2022-06-24
 ssb   rsa3072/164F21FF001C8CD1  created: 2020-06-24  expires: 2022-06-24
 ```
 
-## YubiKeyに移動された私有鍵の利用
+## 私有鍵の利用
 これまで通り電子署名や復号します。私有鍵が必要になった時に、YubiKeyのUSBポートへの接続を求められます。
 
 ![YubiKeyの接続](/yubiKey-insert.png)
@@ -241,7 +241,7 @@ Your selection? q
 gpg/card> q
 ```
 
-## YubiKeyに移動された私有鍵を他の環境で使う
+## 他のLinuxでの私有鍵の利用
 Ubuntu 16.04で試してみます。上と同様、まず追加で必要なパッケージをインストールします。デーモンの起動のためにインストール後にログアウトして再ログインしておくと良いでしょう。
 
 ```
@@ -369,3 +369,48 @@ $ git verify-commit 3a27355
 gpg: Signature made Sun 19 Jul 2020 02:33:49 PM HST using RSA key ID 6D6E8279
 gpg: Good signature from "zunda <zundan@gmail.com>" [ultimate]
 ```
+
+## macOSでの私有鍵の利用
+[GPG Suiteをインストール](../email/keyManagement.md#gnupg%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)したmacOSでもYubiKeyに格納された私有鍵を利用することができます。
+
+GPG SuiteでインストールされるGPG Keychainで、Lookup KeyからPGP公開鍵サーバに登録した公開鍵を、メールアドレスなどで検索してインポートします。
+
+GPG Suiteに私有鍵がYubiKeyにあることを知らせます。YubiKeyをUSBポートに挿入し`gpg --card-status`コマンドを実行することで、鍵束にスタブが生成され、私有鍵のあるYubiKeyのシリアル番号が記録されます。
+
+```
+$ gpg --card-status
+Reader ...........: 1050:0407:X:0
+Application ID ...: D2760001240103040006********0000
+Application type .: OpenPGP
+Version ..........: 3.4
+Manufacturer .....: Yubico
+Serial number ....: ********
+Name of cardholder: [not set]
+Language prefs ...: [not set]
+Salutation .......:
+URL of public key : https://keys.openpgp.org/vks/v1/by-fingerprint/F60960D80B224382CA8D831CB56C20316D6E8279
+Login data .......: [not set]
+Signature PIN ....: not forced
+Key attributes ...: rsa3072 rsa2048 rsa3072
+Max. PIN lengths .: 127 127 127
+PIN retry counter : 3 0 3
+Signature counter : 10
+KDF setting ......: off
+Signature key ....: F609 60D8 0B22 4382 CA8D  831C B56C 2031 6D6E 8279
+      created ....: 2020-06-24 05:26:57
+Encryption key....: [none]
+Authentication key: F609 60D8 0B22 4382 CA8D  831C B56C 2031 6D6E 8279
+      created ....: 2020-06-24 05:26:57
+General key info..: pub  rsa3072/B56C20316D6E8279 2020-06-24 zunda <zundan@gmail.com>
+sec>  rsa3072/B56C20316D6E8279  created: 2020-06-24  expires: 2022-06-24
+                                card-no: 0006 ********
+ssb#  rsa3072/164F21FF001C8CD1  created: 2020-06-24  expires: 2022-06-24
+```
+
+GPG Keychainで、公開鍵をダブルタップして、Detailsメニューから公開鍵の指紋が自分のものであることを確認して、Owner TrustをUltimateにします。
+
+![GPG Keychainでの信頼度の設定](/gpg-suite-keychain.png)
+
+電子署名や復号などで私有鍵が必要になった場合には、YubiKeyのUser PINをPinentryに入力します。
+
+![Pinentry MacへのPINの入力](/gpg-suite-pinentry.png)
