@@ -36,6 +36,30 @@ Compression: Uncompressed, ZIP, ZLIB, BZIP2
 本稿での実行例は、Xubuntu 20.04、GnuPG 2.2.19でのものです。
 :::
 
+macOSでは、[GPG Suite](https://gpgtools.org/)からインストーラをダウンロードしてインストールすることができました。
+
+![GPG Suiteのインストール](/gpg-suite-install.png)
+
+macOS 10.5.6 Catalinaで、2020年7月の執筆当時には、下記のようなバージョンがインストールされました。
+
+```
+$ gpg --version
+gpg (GnuPG/MacGPG2) 2.2.20
+libgcrypt 1.8.5
+Copyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Home: /Users/zunda/.gnupg
+Supported algorithms:
+Pubkey: RSA, ELG, DSA, ECDH, ECDSA, EDDSA
+Cipher: IDEA, 3DES, CAST5, BLOWFISH, AES, AES192, AES256, TWOFISH,
+        CAMELLIA128, CAMELLIA192, CAMELLIA256
+Hash: SHA1, RIPEMD160, SHA256, SHA384, SHA512, SHA224
+Compression: Uncompressed, ZIP, ZLIB, BZIP2
+```
+
 ## 鍵対の生成
 GnuPGがインストールできたら鍵対を生成します。
 
