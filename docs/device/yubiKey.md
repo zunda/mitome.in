@@ -261,7 +261,7 @@ gpg: Total number processed: 1
 gpg:               imported: 1
 ```
 
-GnuPGに私有鍵がYubiKeyにあることを知らせます。YubiKeyをUSBポートに挿入し`gpg2 --card-status`コマンドを実行することで、鍵束にスタブが生成され、私有鍵のあるYubiKeyのシリアル番号が記録されます。
+私有鍵がYubiKeyにあることを、GnuPGに知らせます。YubiKeyをUSBポートに挿入し`gpg2 --card-status`コマンドを実行することで、鍵束にスタブが生成され、私有鍵のあるYubiKeyのシリアル番号が記録されます。
 
 ```
 $ gpg2 --card-status
@@ -375,7 +375,7 @@ gpg: Good signature from "zunda <zundan@gmail.com>" [ultimate]
 
 GPG SuiteでインストールされるGPG Keychainで、Lookup KeyからPGP公開鍵サーバに登録した公開鍵を、メールアドレスなどで検索してインポートします。
 
-GPG Suiteに私有鍵がYubiKeyにあることを知らせます。YubiKeyをUSBポートに挿入し`gpg --card-status`コマンドを実行することで、鍵束にスタブが生成され、私有鍵のあるYubiKeyのシリアル番号が記録されます。
+私有鍵がYubiKeyにあることを、GPG Suiteに知らせます。YubiKeyをUSBポートに挿入し`gpg --card-status`コマンドを実行することで、鍵束にスタブが生成され、私有鍵のあるYubiKeyのシリアル番号が記録されます。
 
 ```
 $ gpg --card-status
