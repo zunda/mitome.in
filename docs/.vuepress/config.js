@@ -10,7 +10,7 @@ module.exports = {
   description: description,
   head: [
     ['link', {rel: 'icon', href: logoPath }],
-    ['meta', {name: 'keywords', content: 'OpenPGP, 暗号化, 電子署名, 認め印'}],
+    ['meta', {name: 'keywords', content: 'OpenPGP, S/MIME, 暗号化, 電子署名, 認め印, はんこ, 印鑑'}],
     ['meta', {name: 'og:title', content: title + ' - 電子署名と暗号を気軽に'}],
     ['meta', {name: 'og:description', content: description}],
     ['meta', {name: 'og:type', content: 'website'}],
