@@ -1,7 +1,7 @@
 # YubiKey
 [YubiKey](https://www.yubico.com/products/)は[Yubico社](https://www.yubico.com/)のハードウェア認証デバイスで、種々の認証プロトコルに対応しています。
 
-本稿では、2020年7月に購入した[YubiKey 5 NFC](https://www.yubico.com/product/yubikey-5-nfc)でOpenPGPを試してみます。
+本稿では、2020年7月に購入した[YubiKey 5 NFC](https://www.yubico.com/product/yubikey-5-nfc)^[2020年9月には[YubiKey 5C NFC](https://www.yubico.com/product/yubikey-5c-nfc/)が発売されました。コネクタの形状以外はYubiKey 5 NFCと同じ仕様のようです。USB-Cを利用している場合はYubiKey 5C NFCを購入するのが良さそうです。]でOpenPGPを試してみます。
 
 ![パッケージに入ったYubiKey 5 NFC](/YubiKey5NFC.jpg)
 
