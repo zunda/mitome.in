@@ -11,6 +11,9 @@ $ sudo snap install thunderbird
 [Thunderbirdのホームページ](http://www.thunderbird.net/ja/)の「無料ダウンロード」ボタンからダウンロードすることもできます。
 
 ## 設定
+Thunderbirdを起動してウィザードに必要な情報を記入することで、利用を始めることができます。
+
+![Thunderbirdの設定ウィザード](/thunderbird-config-wizard.png)
 
 この例で利用するGmailアカウントでは2段階認証を有効にしているので、Thunderbirdでの[ログインにはアプリ パスワードを利用](https://support.google.com/mail/answer/185833?hl=ja)します。
 
