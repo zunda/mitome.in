@@ -1,5 +1,5 @@
 # Thunderbird
-[Thunderbird](http://www.thunderbird.net/ja/)はGUIで利用しやすい電子メールクライアントで、[2020年夏にリリースされたバージョン78からOpenPGPの利用にプラグインが不要になりました](https://wiki.mozilla.org/Thunderbird:OpenPGP:2020)。
+[Thunderbird](http://www.thunderbird.net/ja/)は利用しやすいGUIの電子メールクライアントで、[2020年夏にリリースされたバージョン78からOpenPGPの利用にプラグインが不要になりました](https://wiki.mozilla.org/Thunderbird:OpenPGP:2020)。本稿で紹介する他にも様々な場面での利用手順が、[OpenPGP in Thunderbird - HOWTO and FAQ](https://support.mozilla.org/en-US/kb/openpgp-thunderbird-howto-and-faq)にまとめられています。必要に応じて参照してください。
 
 ## インストール
 バージョン78以上のThunderbirdは利用中のOSのパッケージとしてインストールできるかもしれません。Ubuntu 20.04では下記のコマンドでインストールできました。
@@ -17,7 +17,7 @@ Thunderbirdを起動してウィザードに必要な情報を記入すること
 
 この例で利用するGmailアカウントでは2段階認証を有効にしているので、Thunderbirdでの[ログインにはアプリ パスワードを利用](https://support.google.com/mail/answer/185833?hl=ja)します。
 
-さらに、[Gmailを設定してIMAPを有効に](https://support.google.com/mail/answer/7126229?hl=ja)します。
+[Gmailを設定してIMAPを有効に](https://support.google.com/mail/answer/7126229?hl=ja)する必要もあります。
 
 ### 私有鍵の登録
 まず、下記のような手順で自分の私有鍵をThunderbirdにインポートします。
@@ -32,7 +32,6 @@ sec   rsa3072 2020-06-24 [SC] [expires: 2022-06-24]
       F60960D80B224382CA8D831CB56C20316D6E8279
 uid           [ultimate] zunda <zundan@gmail.com>
 ssb   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
-
 ```
 
 確認したIDの私有鍵をGnuPGからエキスポートします。生成されたファイルは私有鍵を含みますので、漏洩してしまわないよう取り扱いに注意が必要です。
@@ -96,9 +95,7 @@ Writeボタンなどからメールを書くことができます。公開鍵を
 
 ![利用する暗号技術](/thunderbird-encryption-technology.png)
 
-## 受信したメールの復号
-私有鍵のある環境でメールを確認することで、メールを復号して読むことができます。
+## 受信したメールの復号と電子署名の検証
+暗号化や電子署名されたメールを確認すると、自動的に復号や電子署名の検証をします。
 
-## 受信したメールの電子署名の検証
-
-https://support.mozilla.org/en-US/kb/openpgp-thunderbird-howto-and-faq
+![受信したメールの確認](/thunderbird-decrypt.png)
