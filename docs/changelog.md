@@ -1,6 +1,7 @@
 # 改定履歴
 詳細な変更履歴は[zunda/mitome.in](https://github.com/zunda/mitome.in)を参照してください。
 
+- 2020-10-28 「[ Thunderbird](/email/thunderbird.md)」公開
 - 2020-07-18 「[YubiKey](/device/yubiKey.md)」公開
 - 2020-07-12 「[Maskbook](/sns/maskbook.md)」公開
 - 2020-07-03 「[Keybase](/sns/keybase.md)」公開

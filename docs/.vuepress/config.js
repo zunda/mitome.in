@@ -42,7 +42,8 @@ module.exports = {
           '/email/flowCrypt',
           '/email/mailvelope',
           '/email/mutt',
-          '/email/protonmail'
+          '/email/protonmail',
+          '/email/thunderbird'
         ]
       },
       {
