@@ -56,7 +56,6 @@ Thunderbirdのメインウインドウの右上のハンバーガーメニュー
 私有鍵を含むファイルは確実に消しておきましょう。
 
 ```
-$ shred private.pgp
 $ rm private.pgp
 ```
 
