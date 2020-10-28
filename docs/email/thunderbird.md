@@ -41,17 +41,21 @@ ssb   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 $ gpg --export-secret-keys F60960D80B224382CA8D831CB56C20316D6E8279 > private.pgp
 ```
 
-Thunderbirdのメインウインドウの右上のハンバーガーメニューから、Tools - OpenPGP Key Managerを選択します。開いたウインドウのメニューから、File - Import Secret Key(s) From Fileを選択します。先ほど生成したファイルを選択し、Openボタンをクリックします。
+Thunderbirdのメインウインドウの右上のハンバーガーメニューから、Account Settingsを選択し、操作対象のアカウントのEnd-To-End Encryptionを選択し、OpenPGP欄の右のAdd Key...ボタンをクリックします。Create a new OpenPGP Keyを選択することもできますが、本稿ではImport an existing OpenPGP Keyを選択して、作成しておいた私有鍵をインポートします。
 
-![Thunderbirdの設定ウィザード](/thunderbird-import-select.png)
+![Thunderbirdへの私有鍵のインポート開始](/thunderbird-seckey-import-start.png)
 
-確認ダイアログが表示されるのでContinueボタンをクリックし、もう一度パスフレーズを入力します。
+Select File to Import...ボタンをクリックし、先ほど私有鍵をエキスポートして生成したファイルを選択し、Openボタンをクリックします。
 
-![Thunderbirdの設定ウィザード](/thunderbird-import-confirm.png)
+![Thunderbirdへの私有鍵のインポートの確認](/thunderbird-import-select.png)
 
-これでインポートが完了しました。もう一度Continueボタンを押し、ウインドウを閉じます。
+確認ダイアログが表示されるのでContinueボタンをクリックし、パスフレーズを入力します。
 
-![Thunderbirdの設定ウィザード](/thunderbird-import-complete.png)
+![Thunderbirdの私有鍵のインポートの完了](/thunderbird-import-confirm.png)
+
+これでインポートが完了しました。もう一度Continueボタンを押します。今インポートした私有鍵をこのアカウントで利用するようラジオボタンを選択します。
+
+![私有鍵のインポート後のアカウントの設定](/thunderbird-import-complete.png)
 
 私有鍵を含むファイルは確実に消しておきましょう。
 
@@ -59,17 +63,42 @@ Thunderbirdのメインウインドウの右上のハンバーガーメニュー
 $ rm private.pgp
 ```
 
-## 暗号化したメールの送信
-送信したメールの内容は下記のようになります。
+## 暗号化・電子署名したメールの送信
+### 公開鍵の登録
+送信先の公開鍵をThunderbirdに登録します。
 
-::: warning
-電子メールをOpenPGPで暗号化しても、ヘッダ部分は暗号化されません。
-:::
+Thunderbirdのメインウインドウの右上のハンバーガーメニューから、Tools - OpenPGP Key Managerを選択します。開いたウインドウのメニューから、Keyserver - Discover Keys Onlineを選択し、送信先のメールアドレスを入力します。
+
+![送信先のメールアドレスの入力](/thunderbird-pubkey-email.png)
+
+公開鍵サーバに公開鍵があれば、インポートするかどうか確認されます。
+
+![インポートする公開鍵の確認](/thunderbird-pubkey-confirm.png)
+
+公開鍵の指紋が正しいことを確認して、OKボタンをクリックします。
+
+![インポートされた公開鍵の概要](/thunderbird-pubkey-complete.png)
+
+インポートした公開鍵を右クリックし、Key Propertiesをクリックします。
+
+![インポートされた公開鍵のプロパティ](/thunderbird-prop-pubkey.png)
+
+公開鍵の指紋を確認して、信頼度を設定します。
+
+![インポートされた公開鍵の信頼度の設定](/thunderbird-trust-pubkey.png)
+
+### メールの作成
+Writeボタンなどからメールを書くことができます。公開鍵を登録した送信先の場合には、Options - Require Encryptionを選択することができます。メールへの電子署名も有効になりました。
+
+![メールの作成と暗号化の設定](/thunderbird-compose.png)
+
+現状ではS/MIMEの設定はしていないので、暗号化にはOpenPGPを利用するようになっています。下のステータスバーの右端のアイコンでも確認できます。
+
+![利用する暗号技術](/thunderbird-encryption-technology.png)
 
 ## 受信したメールの復号
 私有鍵のある環境でメールを確認することで、メールを復号して読むことができます。
 
-
-## メールへの電子署名
-
 ## 受信したメールの電子署名の検証
+
+https://support.mozilla.org/en-US/kb/openpgp-thunderbird-howto-and-faq
