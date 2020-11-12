@@ -51,4 +51,4 @@ GitHub上で電子署名の検証に成功すると「Verified」というマー
 
 ![GitHubが電子署名の検証に成功した様子](/github-sign-verified.png)
 
-GitHubに登録されているOpenPGP公開鍵は、[GitHubのREST API v3](https://developer.github.com/v3/) (`https://api.github.com`)の[`GET /users/:username/gpg_keys`](https://developer.github.com/v3/users/gpg_keys/#list-gpg-keys-for-a-user)から取得することができます。また、`https://github.com/:username.gpg`から取得することもできるようです。後者では、1つのASCII Armorに登録されているすべての公開鍵が同梱されるようです。
+GitHubに登録されているOpenPGP公開鍵は、[GitHubのREST API v3](https://developer.github.com/v3/) (`https://api.github.com`)の[`GET /users/:username/gpg_keys`](https://developer.github.com/v3/users/gpg_keys/#list-gpg-keys-for-a-user)から取得することができます。また、`https://github.com/:username.gpg`から取得することもできるようです。後者では、登録されているすべての公開鍵が1つのASCII Armorに同梱されるようです。
