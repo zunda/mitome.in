@@ -70,6 +70,7 @@ module.exports = {
           '/device/yubiKey'
         ]
       },
+      '/services/',
       '/laws/',
       '/conclusion',
       '/references/',
