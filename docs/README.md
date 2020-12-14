@@ -10,6 +10,7 @@
 ## 著者・コントリビュータ
 本稿の内容は下記の人々(アルファベット順)によるものです。主著者であるzundaからお礼申し上げます。
 
+- Coro365 &lt;coro.365 at gmail.com&gt;
 - estpls
 - Nakaya &lt;eniehack at outlook dot jp&gt;
 - zunda &lt;zundan at gmail.com&gt;
