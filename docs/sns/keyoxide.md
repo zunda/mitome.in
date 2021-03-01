@@ -83,7 +83,7 @@ $ gpg --show-keys --with-sig-list ~/Downloads/F60960D80B224382CA8D831CB56C20316D
    Signature notation: proof@metacode.biz=https://mastodon.zunda.ninja/@zundan
 ```
 
-自分の鍵対に追加されている公開鍵について確認する場合
+自分の鍵束に追加されている公開鍵について確認する場合
 
 ```sh
 $ gpg --list-keys --with-sig-list --list-options show-notations F60960D80B224382CA8D831CB56C20316D6E8279 | grep proof@metacode.biz=
