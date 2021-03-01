@@ -51,6 +51,7 @@ module.exports = {
         children: [
           '/sns/',
           '/sns/keybase',
+          '/sns/keyoxide',
           '/sns/maskbook',
           '/sns/mastodon'
         ]
