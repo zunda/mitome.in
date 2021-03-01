@@ -17,7 +17,7 @@ Keyoxideでは、identity proofとSNSアカウントに掲示されたproofと�
 ### Identity Proofの追加
 まず、自分の公開鍵にidentity proofを追加します。鍵対の指紋は`F60960D80B224382CA8D831CB56C20316D6E8279`で、主著者のMastodonアカウントは`https://mastodon.zunda.ninja/@zundan`にあります。
 
-```sh
+```
 $ gpg --edit-key F60960D80B224382CA8D831CB56C20316D6E8279
 gpg> notation
 Enter the notation: proof@metacode.biz=https://mastodon.zunda.ninja/@zundan
@@ -26,7 +26,7 @@ gpg> save
 
 追加したnotationは下記のように確認することができます。
 
-```sh
+```
 $ gpg --list-keys --with-sig-list --list-options show-notations F60960D80B224382CA8D831CB56C20316D6E8279
 pub   rsa3072 2020-06-24 [SC] [expires: 2022-06-24]
       F60960D80B224382CA8D831CB56C20316D6E8279
@@ -39,7 +39,7 @@ sig          B56C20316D6E8279 2020-06-24  zunda <zundan@gmail.com>
 
 追加したnotationを含む公開鍵をOpenPGP公開鍵サーバに公開します。
 
-```sh
+```
 $ gpg --send-key F60960D80B224382CA8D831CB56C20316D6E8279
 gpg: sending key B56C20316D6E8279 to hkps://keys.openpgp.org
 ```
@@ -78,14 +78,14 @@ OpenPGP公開鍵サーバなどから取得した公開鍵に追加されてい�
 
 ダウンロードした公開鍵について確認する場合
 
-```sh
+```
 $ gpg --show-keys --with-sig-list ~/Downloads/F60960D80B224382CA8D831CB56C20316D6E8279.asc | grep proof@metacode.biz=
    Signature notation: proof@metacode.biz=https://mastodon.zunda.ninja/@zundan
 ```
 
 自分の鍵束に追加されている公開鍵について確認する場合
 
-```sh
+```
 $ gpg --list-keys --with-sig-list --list-options show-notations F60960D80B224382CA8D831CB56C20316D6E8279 | grep proof@metacode.biz=
    Signature notation: proof@metacode.biz=https://mastodon.zunda.ninja/@zundan
 ```
