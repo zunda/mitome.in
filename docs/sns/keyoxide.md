@@ -94,3 +94,7 @@ $ gpg --list-keys --with-sig-list --list-options show-notations F60960D80B224382
 上記で得られたSNSアカウントをブラウザなどで閲覧し、確認対象の鍵対の指紋をページ内検索で見つけます。
 
 ![Mastodonに表示されたproof](/keyoxide-sns-proof.png)
+
+::: warning
+なりすましを防ぐため、確認対象のSNSアカウントのみが書きこめる場所に鍵対の指紋が書いてあることの確認が必要です。
+:::
