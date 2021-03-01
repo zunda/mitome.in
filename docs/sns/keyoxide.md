@@ -1,5 +1,5 @@
 # Keyoxide
-[Keyoxide](https://keyoxide.org/)は、分散型オンラインアイデンティティを確立する方法のひとつで、[Yarmo Mackenbach](https://yarmo.eu/)によって開発されました。Keyoxideに則って電子署名を追加した公開鍵を[OpenPGP](../openpgp/)に則って公開すれば、特定のサービスに依存せずオンラインのアイデンティティを確立し確認できるという特長があります。
+[Keyoxide](https://keyoxide.org/)は、分散されたオンラインアイデンティティを確立する方法のひとつです。Keyoxideに則って電子署名を追加した公開鍵を[OpenPGP](../openpgp/)に則って公開すれば、特定のサービスに依存せずオンラインのアイデンティティを確立し確認できるという特長があります。
 
 自分の公開鍵にはidentity proofとして下記のような形式のnotationを添付した電子署名を追加してOpenPGP公開鍵サーバに公開します。
 
@@ -12,10 +12,10 @@ proof@metacode.biz=自分の管理するSNSアカウントのURL
 Keyoxideでは、identity proofとSNSアカウントに掲示されたproofとに一貫性があることを確認することで、identity proofを追加した鍵対を管理している人と、SNSアカウントにproofを掲示する権限のある人とが同一であることを確認できます。日常的にSNSで交流している相手の公開鍵を[信頼の網](../OpenPGP/wot.md#openpgpによる信頼の網)に追加する場合には、Keyoxideによるアイデンティティの確認を参考にできそうです。
 
 ## Keyoxideによるアイデンティティの確立
-例として、筆者の[Mastodonアカウントのproofを追加](https://keyoxide.org/guides/mastodon)してみます。
+例として、主著者の[Mastodonアカウントのproofを追加](https://keyoxide.org/guides/mastodon)してみます。
 
 ### Identity Proofの追加
-まず、自分の公開鍵にidentity proofを追加します。筆者のMastodonアカウントは`https://mastodon.zunda.ninja/@zundan`にあります。
+まず、自分の公開鍵にidentity proofを追加します。鍵対の指紋は`F60960D80B224382CA8D831CB56C20316D6E8279`で、主著者のMastodonアカウントは`https://mastodon.zunda.ninja/@zundan`にあります。
 
 ```sh
 $ gpg --edit-key F60960D80B224382CA8D831CB56C20316D6E8279
@@ -50,11 +50,11 @@ Mastodonのproofを追加する場合には、アカウントのプロフィー�
 ![Mastodonのアカウントのプロフィール補足情報への鍵対の指紋の設定](/keyoxide-add-proof.png)
 
 ## Keyoxideによるアイデンティティの確認
-Keyoxideによる[Profile URL generator](https://keyoxide.org/util/profile-url)で得られるProfile URL (`https://keyoxide.org/鍵対の指紋`)を閲覧することでアイデンティティの確認ができます。 今回の例では[`https://keyoxide.org/F60960D80B224382CA8D831CB56C20316D6E8279`](https://keyoxide.org/F60960D80B224382CA8D831CB56C20316D6E8279)です。
+Keyoxideによる[Profile URL generator](https://keyoxide.org/util/profile-url)で得られるProfile URL (`https://keyoxide.org/鍵対の指紋`)を閲覧することでアイデンティティの確認ができます。 今回の例では`https://keyoxide.org/F60960D80B224382CA8D831CB56C20316D6E8279`です。
 
 ![Keyoxideによるアイデンティティの確認](/keyoxide-verified.png)
 
-筆者のMastodonアカウントの右に「verified ✔」と表示されていて、identity proofとMastodonに掲示したproofとの間に矛盾がないことがわかります。
+主著者のMastodonアカウントの右に「verified ✔」と表示されていて、identity proofとMastodonに掲示したproofとの間に矛盾がないことがわかります^[本稿の執筆後にnotationの追加や削除をおこなっています。現状ではアイデンティティの確認ができない状態になっているかもしれません。]。
 
 ::: warning
 公開鍵のidentity proofとSNSアカウントのproofはそれぞれなりすましをしたい人でも設定することができてしまいます。アイデンティティの確認のためには、identity proofに設定されているSNSアカウントと、そのSNSアカウントに掲示されているproofの鍵対の指紋との両方が一致する必要があります。
@@ -90,7 +90,7 @@ $ gpg --list-keys --with-sig-list --list-options show-notations F60960D80B224382
    Signature notation: proof@metacode.biz=https://mastodon.zunda.ninja/@zundan
 ```
 
-### SNSに掲示されたproofの確認
+### SNSに掲示されたProofの確認
 上記で得られたSNSアカウントをブラウザなどで閲覧し、確認対象の鍵対の指紋をページ内検索で見つけます。
 
 ![Mastodonに表示されたproof](/keyoxide-sns-proof.png)
