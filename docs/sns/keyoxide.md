@@ -1,5 +1,5 @@
 # Keyoxide
-[Keyoxide](https://keyoxide.org/)は、分散されたオンラインアイデンティティを確立する方法のひとつです。Keyoxideに則って電子署名を追加した公開鍵を[OpenPGP](../openpgp/)に則って公開すれば、特定のサービスに依存せずオンラインのアイデンティティを確立し確認できるという特長があります。
+[Keyoxide](https://keyoxide.org/)は、分散されたオンラインアイデンティティを確立する方法のひとつです。Keyoxideに則って電子署名を追加した公開鍵を[OpenPGP](../openpgp/)に則って公開すれば、特定のサービスに依存せずオンラインのアイデンティティを確立し確認できます。
 
 自分の公開鍵にはidentity proofとして下記のような形式のnotationを添付した電子署名を追加してOpenPGP公開鍵サーバに公開します。
 
@@ -11,11 +11,11 @@ proof@metacode.biz=自分の管理するSNSアカウントのURL
 
 Keyoxideでは、identity proofとSNSアカウントに掲示されたproofとに一貫性があることを確認することで、identity proofを追加した鍵対を管理している人と、SNSアカウントにproofを掲示する権限のある人とが同一であることを確認できます。日常的にSNSで交流している相手の公開鍵を[信頼の網](../OpenPGP/wot.md#openpgpによる信頼の網)に追加する場合には、Keyoxideによるアイデンティティの確認を参考にできそうです。
 
-## Keyoxideによるアイデンティティの確立
+## アイデンティティの確立
 例として、主著者の[Mastodonアカウントのproofを追加](https://keyoxide.org/guides/mastodon)してみます。
 
 ### Identity Proofの追加
-まず、自分の公開鍵にidentity proofを追加します。鍵対の指紋は`F60960D80B224382CA8D831CB56C20316D6E8279`で、主著者のMastodonアカウントは`https://mastodon.zunda.ninja/@zundan`にあります。
+まず、自分の公開鍵にidentity proofを追加します。鍵対の指紋は`F60960D80B224382CA8D831CB56C20316D6E8279`で、Mastodonアカウントは`https://mastodon.zunda.ninja/@zundan`にあります。
 
 ```
 $ gpg --edit-key F60960D80B224382CA8D831CB56C20316D6E8279
@@ -24,17 +24,32 @@ Enter the notation: proof@metacode.biz=https://mastodon.zunda.ninja/@zundan
 gpg> save
 ```
 
-追加したnotationは下記のように確認することができます。
+追加したnotationは下記のように`--edit-key`の`showpref`コマンドで表示される内容の`Notations:`の行で確認することができます^[Notationはインポートした公開鍵に対する`gpg --check-sigs --list-options show-notations`コマンドやファイルに対する`gpg --show-key --with-sig-list`コマンドで表示することもできますが、[公開鍵から取り除かれたnotationを表示してしまう場合もある](https://zenn.dev/zunda/scraps/b93fa981ee68d2#comment-30a11b4c0a465c)ようなので注意が必要です。]。
 
 ```
-$ gpg --list-keys --with-sig-list --list-options show-notations F60960D80B224382CA8D831CB56C20316D6E8279
-pub   rsa3072 2020-06-24 [SC] [expires: 2022-06-24]
-      F60960D80B224382CA8D831CB56C20316D6E8279
-uid           [ultimate] zunda <zundan@gmail.com>
-sig 3    N   B56C20316D6E8279 2021-02-17  zunda <zundan@gmail.com>
-   Signature notation: proof@metacode.biz=https://mastodon.zunda.ninja/@zundan
-sub   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
-sig          B56C20316D6E8279 2020-06-24  zunda <zundan@gmail.com>
+$ gpg --edit-key F60960D80B224382CA8D831CB56C20316D6E8279
+gpg (GnuPG) 2.2.19; Copyright (C) 2019 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Secret key is available.
+
+sec  rsa3072/B56C20316D6E8279
+     created: 2020-06-24  expires: 2022-06-24  usage: SC
+     trust: ultimate      validity: ultimate
+ssb  rsa3072/164F21FF001C8CD1
+     created: 2020-06-24  expires: 2022-06-24  usage: E
+[ultimate] (1). zunda <zundan@gmail.com>
+
+gpg> showpref
+[ultimate] (1). zunda <zundan@gmail.com>
+     Cipher: AES256, AES192, AES, 3DES
+     Digest: SHA512, SHA384, SHA256, SHA224, SHA1
+     Compression: ZLIB, BZIP2, ZIP, Uncompressed
+     Features: MDC, Keyserver no-modify
+     Notations: proof@metacode.biz=https://mastodon.zunda.ninja/@zundan
+
+gpg> quit
 ```
 
 追加したnotationを含む公開鍵をOpenPGP公開鍵サーバに公開します。
@@ -45,11 +60,11 @@ gpg: sending key B56C20316D6E8279 to hkps://keys.openpgp.org
 ```
 
 ### SNS Proofの追加
-Mastodonのproofを追加する場合には、アカウントのプロフィール補足情報に、自分の鍵対の指紋を設定します。この他のSNSへのproofの追加手順は、[Keyoxideによるガイド](https://keyoxide.org/guides)のAdding proofs項を参考にしてみてください。
+Mastodonにproofを追加する場合には、アカウントのプロフィール補足情報に、自分の鍵対の指紋を設定します。この他のSNSへのproofの追加手順は、[Keyoxideによるガイド](https://keyoxide.org/guides)のAdding proofs項を参考にしてみてください。
 
 ![Mastodonのアカウントのプロフィール補足情報への鍵対の指紋の設定](/keyoxide-add-proof.png)
 
-## Keyoxideによるアイデンティティの確認
+## アイデンティティの確認
 Keyoxideによる[Profile URL generator](https://keyoxide.org/util/profile-url)で得られるProfile URL (`https://keyoxide.org/鍵対の指紋`)を閲覧することでアイデンティティの確認ができます。 今回の例では`https://keyoxide.org/F60960D80B224382CA8D831CB56C20316D6E8279`です。
 
 ![Keyoxideによるアイデンティティの確認](/keyoxide-verified.png)
@@ -68,26 +83,45 @@ Keyoxideによるプロファイルページに表示されているアイコン
 Keyoxideによるプロファイルページに表示されているアイコンは、[Gravatar](https://ja.gravatar.com/)から設定することができます。
 :::
 
-KeyoxideのProfile URL generatorに指定した公開鍵にidentity proofが追加されていない場合には「No claims associated」と、notationに指定したSNSアカウントにproofが掲示されていない場合には「unvefified」と表示されます。
+KeyoxideのProfile URL generatorに指定した公開鍵にidentity proofが追加されていない場合には「No claims associated」と、notationに指定したSNSアカウントにproofが掲示されていない場合には「unverified」と表示されます。
 
-## 手作業でのアイデンティティの確認
+## 手作業での確認
 Keyoxideによるアイデンティティの確認は、万が一Keyoxideのウェブサイトが停止してしまっている場合でも可能です。
 
 ### Identity Proofの取得
 OpenPGP公開鍵サーバなどから取得した公開鍵に追加されているidentity proofは、下記のように確認することができます。
 
-ダウンロードした公開鍵について確認する場合
+ダウンロードした公開鍵について確認する場合^[[公開鍵から取り除かれたnotationを表示してしまう場合もある](https://zenn.dev/zunda/scraps/b93fa981ee68d2#comment-30a11b4c0a465c)ようなので注意が必要です。]。
 
 ```
 $ gpg --show-keys --with-sig-list ~/Downloads/F60960D80B224382CA8D831CB56C20316D6E8279.asc | grep proof@metacode.biz=
    Signature notation: proof@metacode.biz=https://mastodon.zunda.ninja/@zundan
 ```
 
-自分の鍵束に追加されている公開鍵について確認する場合
+自分の鍵束に追加されている公開鍵について確認する場合。下記のコマンドの出力の`Notations: proof@metacode.biz=`で始まる行を参照します。
 
 ```
-$ gpg --list-keys --with-sig-list --list-options show-notations F60960D80B224382CA8D831CB56C20316D6E8279 | grep proof@metacode.biz=
-   Signature notation: proof@metacode.biz=https://mastodon.zunda.ninja/@zundan
+$ echo showpref | gpg --command-fd=0 --edit-key F60960D80B224382CA8D831CB56C20316D6E8279
+gpg (GnuPG) 2.2.19; Copyright (C) 2019 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Secret key is available.
+
+sec  rsa3072/B56C20316D6E8279
+     created: 2020-06-24  expires: 2022-06-24  usage: SC
+     trust: ultimate      validity: ultimate
+ssb  rsa3072/164F21FF001C8CD1
+     created: 2020-06-24  expires: 2022-06-24  usage: E
+[ultimate] (1). zunda <zundan@gmail.com>
+
+[ultimate] (1). zunda <zundan@gmail.com>
+     Cipher: AES256, AES192, AES, 3DES
+     Digest: SHA512, SHA384, SHA256, SHA224, SHA1
+     Compression: ZLIB, BZIP2, ZIP, Uncompressed
+     Features: MDC, Keyserver no-modify
+     Notations: proof@metacode.biz=https://mastodon.zunda.ninja/@zundan
+
 ```
 
 ### SNSに掲示されたProofの確認
