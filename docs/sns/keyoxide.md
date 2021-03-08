@@ -24,7 +24,7 @@ Enter the notation: proof@metacode.biz=https://mastodon.zunda.ninja/@zundan
 gpg> save
 ```
 
-追加したnotationは下記のように`--edit-key`の`showpref`コマンドで表示される内容の`Notations:`の行で確認することができます^[Notationはインポートした公開鍵に対する`gpg --check-sigs --list-options show-notations`コマンドやファイルに対する`gpg --show-key --with-sig-list`コマンドで表示することもできますが、[公開鍵から取り除かれたnotationを表示してしまう場合もある](https://zenn.dev/zunda/scraps/b93fa981ee68d2#comment-30a11b4c0a465c)ようなので注意が必要です。]。
+追加したnotationは下記のように`--edit-key`の`showpref`コマンドで表示される内容の`Notations:`の行で確認することができます。
 
 ```
 $ gpg --edit-key F60960D80B224382CA8D831CB56C20316D6E8279
@@ -51,6 +51,11 @@ gpg> showpref
 
 gpg> quit
 ```
+
+::: tip
+Notationは、自己署名として、公開鍵に付随しているユーザーID (メールアドレス)のいずれかに添付されます。公開鍵に付随しているすべてのnotationは、インポートした公開鍵に対する`gpg --check-sigs --list-options show-notations`コマンドやファイルに対する`gpg --show-key --with-sig-list`コマンドで表示することができますが、[あるユーザーIDに複数の自己署名が添付されている場合には、最新のもののみが有効になる場合が多く](https://tools.ietf.org/html/rfc4880#section-5.2.3.3)、表示されたnotationの一部には[公開鍵から取り除かれたものもある](https://zenn.dev/zunda/scraps/b93fa981ee68d2#comment-30a11b4c0a465c)場合があります。
+:::
+
 
 追加したnotationを含む公開鍵をOpenPGP公開鍵サーバに公開します。
 
@@ -91,17 +96,25 @@ Keyoxideによるアイデンティティの確認は、万が一Keyoxideのウ�
 ### Identity Proofの取得
 OpenPGP公開鍵サーバなどから取得した公開鍵に追加されているidentity proofは、下記のように確認することができます。
 
-ダウンロードした公開鍵について確認する場合^[[公開鍵から取り除かれたnotationを表示してしまう場合もある](https://zenn.dev/zunda/scraps/b93fa981ee68d2#comment-30a11b4c0a465c)ようなので注意が必要です。]。
+ダウンロードした公開鍵について確認する場合は、確認対象のユーザーID (下記では`uid zunda <zundan@gmail.com>`)に添付された自己署名のうち最新のもの(下記では`2021-03-06`)のみが有効です。その自己署名に含まれる`Signature notation proof@metacode.biz=`で始まる行が有効なidentity proofです。
 
 ```
-$ gpg --show-keys --with-sig-list ~/Downloads/F60960D80B224382CA8D831CB56C20316D6E8279.asc | grep proof@metacode.biz=
+$ gpg --show-keys --with-sig-list ~/Downloads/F60960D80B224382CA8D831CB56C20316D6E8279\(5\).asc
+pub   rsa3072 2020-06-24 [SC] [expires: 2022-06-24]
+      F60960D80B224382CA8D831CB56C20316D6E8279
+uid                      zunda <zundan@gmail.com>
+sig 3    N   B56C20316D6E8279 2021-03-06  zunda <zundan@gmail.com>
    Signature notation: proof@metacode.biz=https://mastodon.zunda.ninja/@zundan
+sig 3        B56C20316D6E8279 2021-03-01  zunda <zundan@gmail.com>
+  :
+sub   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
+sig          B56C20316D6E8279 2020-06-24  zunda <zundan@gmail.com>
 ```
 
-自分の鍵束に追加されている公開鍵について確認する場合。下記のコマンドの出力の`Notations: proof@metacode.biz=`で始まる行を参照します。
+自分の鍵束に追加されている公開鍵について確認する場合は、下記の手順で有効なnotationのみを表示させることができます。`Notations: proof@metacode.biz=`で始まる行がidentity proofです。
 
 ```
-$ echo showpref | gpg --command-fd=0 --edit-key F60960D80B224382CA8D831CB56C20316D6E8279
+$ gpg --edit-key F60960D80B224382CA8D831CB56C20316D6E8279
 gpg (GnuPG) 2.2.19; Copyright (C) 2019 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
@@ -115,6 +128,7 @@ ssb  rsa3072/164F21FF001C8CD1
      created: 2020-06-24  expires: 2022-06-24  usage: E
 [ultimate] (1). zunda <zundan@gmail.com>
 
+gpg> showpref
 [ultimate] (1). zunda <zundan@gmail.com>
      Cipher: AES256, AES192, AES, 3DES
      Digest: SHA512, SHA384, SHA256, SHA224, SHA1
@@ -122,6 +136,7 @@ ssb  rsa3072/164F21FF001C8CD1
      Features: MDC, Keyserver no-modify
      Notations: proof@metacode.biz=https://mastodon.zunda.ninja/@zundan
 
+gpg> quit
 ```
 
 ### SNSに掲示されたProofの確認
