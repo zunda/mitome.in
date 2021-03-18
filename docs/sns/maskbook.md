@@ -1,13 +1,13 @@
-# Maskbook
-[Maskbook](https://maskbook.com/)はFacebookやTwitterを通じて暗号化されたメッセージをやりとりすることのできるブラウザ拡張機能で、執筆時にはChrome系、Ecge、Firefoxで利用できます。ここでは、Chromeの拡張機能をTwitterで利用^[[2020年7月15日に起きたセキュリティインシデント](https://blog.twitter.com/en_us/topics/company/2020/an-update-on-our-security-incident.html)を受けて、[MaskbookによるTwitterへの投稿ができなくなっている](https://twitter.com/realmaskbook/status/1283772518508052480)可能性があります]する例を紹介します。
+# Mask Network
+[Mask Network](https://mask.io/) (Maskbook)はFacebookやTwitterを通じて暗号化されたメッセージをやりとりすることのできるブラウザ拡張機能で、執筆時にはChrome系、Ecge、Firefoxで利用できます。ここでは、Chromeの拡張機能をTwitterで利用^[[2020年7月15日に起きたセキュリティインシデント](https://blog.twitter.com/en_us/topics/company/2020/an-update-on-our-security-incident.html)を受けて、[Mask NetworkによるTwitterへの投稿ができなくなっている](https://twitter.com/realmaskbook/status/1283772518508052480)可能性があります]する例を紹介します。
 
 ## インストール
-Maskbookのブラウザ拡張機能は、[Maskbookのホームページ](https://maskbook.com/)から「Install」ボタンをクリックすることで、Chrome Web Storeからインストールできます。[Maskbookのプライバシーポリシー](https://legal.maskbook.com/maskbook/)に同意すると、新規に設定を始めるかバックアップから設定をインポートするか選択できます。
+Mask Networkのブラウザ拡張機能は、[Mask Networkのホームページ](https://mask.io/)から「Install」ボタンをクリックすることで、Chrome Web Storeからインストールできます。[Mask Networkのプライバシーポリシー](https://legal.mask.io/maskbook/)に同意すると、新規に設定を始めるかバックアップから設定をインポートするか選択できます。
 
-![Welcome to Maskbook](/maskbook-start.png)
+![Welcome to Mask Network](/maskbook-start.png)
 
 ## 初期設定
-今回はNew UserとしてSet upボタンをクリックします。まずMaskbookでのペルソナの名前を入力します。新しい鍵対も生成されるようです。
+今回はNew UserとしてSet upボタンをクリックします。まずMask Networkでのペルソナの名前を入力します。新しい鍵対も生成されるようです。
 
 ![Persona name](/maskbook-persona.png)
 
@@ -41,16 +41,16 @@ Twitterのツイートする部分にCompose encrypted postというリンクが
 ![Encrypted tweet](/maskbook-twitter-encrypted.png)
 
 ## 暗号化したツイートの閲覧
-Maskbookをインストールしたブラウザからは、ツイートの内容が復号され電子署名も検証された状態でツイートの内容を閲覧できます。
+Mask Networkをインストールしたブラウザからは、ツイートの内容が復号され電子署名も検証された状態でツイートの内容を閲覧できます。
 
 ![Decrypted tweet](/maskbook-twitter-decrypted.png)
 
-Maskbookをインストールしていないブラウザからは、ツイートの内容に含まれるURLでMaskbookのインストールを促されます。
+Mask Networkをインストールしていないブラウザからは、ツイートの内容に含まれるURLでMask Networkのインストールを促されます。
 
 ![View without eextension](/maskbook-twitter-noinstall.png)
 
 ## ステガノグラフィー
-Maskbookはツイートを暗号化して添付画像に隠すこともできます。
+Mask Networkはツイートを暗号化して添付画像に隠すこともできます。
 
 Compose encrypted postからImage Payloadを有効にして、ツイートを作成します。
 
@@ -60,12 +60,12 @@ Compose encrypted postからImage Payloadを有効にして、ツイートを作
 
 ![Tweet with an image](/maskbook-twitter-post.png)
 
-Maskbookをインストールしたブラウザからは、URLに暗号化したものと同様、ツイートの内容が復号され電子署名も検証された状態でツイートの内容を閲覧できます。
+Mask Networkをインストールしたブラウザからは、URLに暗号化したものと同様、ツイートの内容が復号され電子署名も検証された状態でツイートの内容を閲覧できます。
 
 ![Decrypted tweet from image](/maskbook-twitter-image-decrypt.png)
 
 ## 設定のバックアップ
-Maskbookの私有鍵はブラウザ拡張機能の設定として保存されています。失なわれてしまわないように、バックアップしておきます。ブラウザ拡張機能の設定メニューからMaskbookのOptionをクリックし、スクロールしてBackupボタンを押します。
+Mask Networkの私有鍵はブラウザ拡張機能の設定として保存されています。失なわれてしまわないように、バックアップしておきます。ブラウザ拡張機能の設定メニューからMask NetworkのOptionをクリックし、スクロールしてBackupボタンを押します。
 
 ![Backup](/maskbook-backup.png)
 
