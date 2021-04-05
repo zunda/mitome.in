@@ -19,6 +19,10 @@
     "vuepress-plugin-font-awesome": "^1.90.6",
     "vuex": "^3.4.0"
   },
+  "resolutions": {
+    "ssri": "^8.0.1",
+    "is-svg": "^4.2.2"
+  },
   "scripts": {
     "docs:dev": "yarn fa:build --dest=docs && vuepress dev docs",
     "docs:build": "yarn fa:build --dest=docs && vuepress build docs",
