@@ -8,7 +8,7 @@ FirefoxやEdge、Google Chromeを公式にサポートしています。
 ## 初期設定
 
 最初、MailvelopeはあなたのOpenPGP鍵を知りません。
-ですから、鍵を作成するか、鍵をファイルなどからインポートするか、GnuPGと連携させます。
+ですから、鍵を生成するか、鍵をファイルなどからインポートするか、GnuPGと連携させます。
 
 ![](/mailvelope/find_mailvelope_icon_in_window.png)
 拡張機能をインストールしたら、上図のようにアドレスバーの横からMailvelopeのアイコンをクリックしてください。

@@ -40,7 +40,7 @@ ssb   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 $ gpg --export-secret-keys F60960D80B224382CA8D831CB56C20316D6E8279 > private.pgp
 ```
 
-Thunderbirdのメインウインドウの右上のハンバーガーメニューから、Account Settingsを選択し、操作対象のアカウントのEnd-To-End Encryptionを選択し、OpenPGP欄の右のAdd Key...ボタンをクリックします。Create a new OpenPGP Keyを選択することもできますが、本稿ではImport an existing OpenPGP Keyを選択して、作成しておいた私有鍵をインポートします。
+Thunderbirdのメインウインドウの右上のハンバーガーメニューから、Account Settingsを選択し、操作対象のアカウントのEnd-To-End Encryptionを選択し、OpenPGP欄の右のAdd Key...ボタンをクリックします。Create a new OpenPGP Keyを選択することもできますが、本稿ではImport an existing OpenPGP Keyを選択して、生成しておいた私有鍵をインポートします。
 
 ![Thunderbirdへの私有鍵のインポート開始](/thunderbird-seckey-import-start.png)
 
