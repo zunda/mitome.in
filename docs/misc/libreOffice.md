@@ -5,15 +5,15 @@
 LibreOfficeは利用中のOSにデフォルトでインストールされているかもしれません。Xubuntu 20.04ではLibreOffice 6.4.3.2 40(Build:2)がインストールされていましたが、起動時のエラーの抑制のために`default-jre`パッケージと`libreoffice-java-common`パッケージを追加でインストールする必要がありました。[LibreOfficeのダウンロードページ](https://ja.libreoffice.org/download/download/)からダウンロードすることもできます。
 
 ## クライアント証明書の利用
-ここではテスト用のルート認証局とクライアント証明書を作成し、Firefoxにインポートし、それをLibreOfficeから参照することで、LibreOfficeでの文書への電子署名とPKIによる検証を試してみます。
+ここではテスト用のルート認証局とクライアント証明書を生成し、Firefoxにインポートし、それをLibreOfficeから参照することで、LibreOfficeでの文書への電子署名とPKIによる検証を試してみます。
 
 手元でテスト用のルート認証局やクライアント証明書を生成する場合には、`openssl`コマンドを利用します。Xubuntu 20.04ではOpenSSL 1.1.1fがインストールされていました。インストールする必要がある場合には手元のOSのマニュアル等を参照するか、[OpenSSLのダウンロードページ](https://www.openssl.org/source/)や[LibreSSLのホームページ](https://www.libressl.org/)を参照してください。
 
 ### クライアント証明書の準備
-ルート認証局を作成し、クライアント証明書に電子署名します。
+ルート認証局を生成し、クライアント証明書に電子署名します。
 
 #### ルート認証局
-ここでは`openssl`コマンドで種々の証明書を作成します。まずルートCA証明書です。
+ここでは`openssl`コマンドで種々の証明書を生成します。まずルートCA証明書です。
 
 ```
 $ openssl req -newkey rsa:4096 -keyform PEM -keyout ca.key -x509 -days 30 -outform PEM -out ca.cer
