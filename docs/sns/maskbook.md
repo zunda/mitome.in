@@ -1,4 +1,6 @@
 # Mask Network
+この記事の内容の大部分は2020年7月頃のものです。
+
 [Mask Network](https://mask.io/) (Maskbook)はFacebookやTwitterを通じて暗号化されたメッセージをやりとりすることのできるブラウザ拡張機能で、執筆時にはChrome系、Ecge、Firefoxで利用できます。ここでは、Chromeの拡張機能をTwitterで利用^[[2020年7月15日に起きたセキュリティインシデント](https://blog.twitter.com/en_us/topics/company/2020/an-update-on-our-security-incident.html)を受けて、[Mask NetworkによるTwitterへの投稿ができなくなっている](https://twitter.com/realmaskbook/status/1283772518508052480)可能性があります]する例を紹介します。
 
 ## インストール

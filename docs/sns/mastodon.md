@@ -1,4 +1,6 @@
 # Mastodon
+この記事の内容は2020年7月頃のものです。
+
 Mastodonは[ActivityPub](https://www.w3.org/TR/activitypub/)の[Server to Server Interactions](https://www.w3.org/TR/activitypub/#server-to-server-interactions)に準拠した分散ソーシャルネットワークサービスのひとつです。分散ソーシャルネットワークサービスでは、ユーザーを代理して、ユーザーがログインしていない場面で、サーバどうしが投稿をやりとりしますので、[投稿内容を検証しなりすましを防ぐ必要](https://www.w3.org/TR/activitypub/#obj)があります。Mastodonの詳細については、[紹介サイト](https://joinmastodon.org/)(右上のメニューから日本語にできます)を参照してください。
 
 ## HTTP署名した投稿の配送

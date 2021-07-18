@@ -1,4 +1,6 @@
 # Keybase
+この記事の内容は2020年7月頃のものです。
+
 [Keybase](https://keybase.io/)はエンドツーエンドの暗号化によって安全にメッセージをやりとりしたりファイルを共有したりするサービス^[2020年5月に[ZoomはKeybaseを買収](https://keybase.io/blog/keybase-joins-zoom)しました。Keybaseサービスの今後の動向に注視が必要かもしれません]です。ウェブブラウザの他、Android、iOS、Linux、macOS、Windows用のアプリでも利用できます。
 
 ## サーバやクライアントどうしのやりとり
