@@ -1,4 +1,6 @@
 # Thunderbird
+この記事の内容は2020年10月頃のものです。
+
 [Thunderbird](http://www.thunderbird.net/ja/)は利用しやすいGUIの電子メールクライアントで、[2020年夏にリリースされたバージョン78からOpenPGPの利用にプラグインが不要になりました](https://wiki.mozilla.org/Thunderbird:OpenPGP:2020)。本稿で紹介する他にも様々な場面での利用手順が、[OpenPGP in Thunderbird - HOWTO and FAQ](https://support.mozilla.org/en-US/kb/openpgp-thunderbird-howto-and-faq)にまとめられています。必要に応じて参照してください。
 
 ## インストール

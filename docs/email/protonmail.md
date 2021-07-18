@@ -1,4 +1,6 @@
 # ProtonMail
+この記事の内容は2020年6月頃のものです。
+
 [ProtonMail](https://protonmail.com/)はユーザーのプライバシーに配慮した電子メーサービスで、アカウント([無料から](https://protonmail.com/pricing))を作成して、Androidアプリ、iOSアプリ、Webから利用します。[オープンソース](https://github.com/ProtonMail)で開発されていて、[寄付](https://protonmail.com/donate)も受け付けています。また、本稿でも利用している[OpenPGP.js](https://openpgpjs.org/)もメンテナンスしています。
 
 `protonmail.com`あるいは`protonmail.ch`のドメインでユーザー名を選んでアカウントを作成できます。

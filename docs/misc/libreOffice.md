@@ -1,4 +1,6 @@
 # LibreOffice
+この記事の内容は2020年7月頃のものです。
+
 [LibreOffice](https://ja.libreoffice.org/)は豊富な機能を備えたオフィススイートです。認証局に電子署名されたクライアント証明書や[GnuPGに登録](../email/keyManagement.md)したOpenPGP鍵対を利用することで、作成した文書の暗号化や電子署名が可能です。
 
 ## インストール

@@ -1,4 +1,6 @@
 # Mailvelope
+この記事の内容は2020年6月頃のものです。
+
 [Mailvelope](https://mailvelope.com/en)はブラウザの拡張機能です。
 Mailvelopeを導入すればgmail.comやoutlook.comなどのサイトでも、OpenPGPを使って暗号化されたメールを送受信できるようになります。
 FirefoxやEdge、Google Chromeを公式にサポートしています。

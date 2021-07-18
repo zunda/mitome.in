@@ -1,4 +1,6 @@
 # FlowCrypt
+この記事の内容は2020年6月頃のものです。
+
 [FlowCrypt](https://flowcrypt.com/)はGmailでPGP暗号を利用できるようにするブラウザ拡張機能で、執筆時には[FirefoxやChromeのエクステンションやAndroidのアプリとして利用可能](https://flowcrypt.com/download)です。ここでは、Chromeの拡張機能の利用例を紹介します。
 
 ## インストール
