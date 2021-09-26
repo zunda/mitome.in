@@ -101,7 +101,7 @@ OpenPGP公開鍵サーバなどから取得した公開鍵に追加されてい�
 ダウンロードした公開鍵について確認する場合は、確認対象のユーザーID (下記では`uid zunda <zundan@gmail.com>`)に添付された自己署名のうち最新のもの(下記では`2021-03-06`)のみが有効です。その自己署名に含まれる`Signature notation proof@metacode.biz=`で始まる行が有効なidentity proofです。
 
 ```
-$ gpg --show-keys --with-sig-list ~/Downloads/F60960D80B224382CA8D831CB56C20316D6E8279\(5\).asc
+$ gpg --show-keys --with-sig-list ~/Downloads/F60960D80B224382CA8D831CB56C20316D6E8279.asc
 pub   rsa3072 2020-06-24 [SC] [expires: 2022-06-24]
       F60960D80B224382CA8D831CB56C20316D6E8279
 uid                      zunda <zundan@gmail.com>
