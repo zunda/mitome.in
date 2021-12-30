@@ -1,6 +1,7 @@
 # 改定履歴
 詳細な変更履歴は[zunda/mitome.in](https://github.com/zunda/mitome.in)を参照してください。
 
+- 2021-12-29 「[公開鍵の正当性の確認](/OpenPGP/wot.md)」に信頼の網についての説明を追加
 - 2021-11-18 「[参考文献](/references/)」にκeenさんによる記事を追加
 - 2021-07-17 一部の記事に執筆月を追加
 - 2021-03-17 Maskbookの呼称をURLと併せて[Mask Network](/sns/maskbook.md)に更新
