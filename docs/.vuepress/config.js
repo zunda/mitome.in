@@ -2,10 +2,10 @@ const title = 'mitome.in'
 const domain = 'https://' + title
 const logoPath = '/mitomein.png'
 const biggerLogoPath = '/mitomein-144x144.png'
-const description = '認め印を使うくらい気軽に、電子署名や暗号でやりとりしたい'
+const description = '認め印を使うくらい気軽に、暗号でやりとりしたり電子署名したい'
 
 module.exports = {
-  title: 'mitome.in',
+  title: title,
   lang: 'ja',
   description: description,
   head: [
