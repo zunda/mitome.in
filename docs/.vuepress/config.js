@@ -52,7 +52,6 @@ module.exports = {
           '/sns/',
           '/sns/keybase',
           '/sns/keyoxide',
-          '/sns/maskbook',
           '/sns/mastodon'
         ]
       },
