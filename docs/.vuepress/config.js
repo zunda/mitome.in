@@ -6,7 +6,7 @@ const description = '認め印を使うくらい気軽に、暗号でやりと�
 
 module.exports = {
   title: title,
-  lang: 'ja',
+  locales: {'/': {lang: 'ja'}},
   description: description,
   head: [
     ['link', {rel: 'icon', href: logoPath }],
