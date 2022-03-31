@@ -414,3 +414,16 @@ GPG Keychainで、公開鍵をダブルタップして、Detailsメニューか�
 電子署名や復号などで私有鍵が必要になった場合には、YubiKeyのUser PINをPinentryに入力します。
 
 ![Pinentry MacへのPINの入力](/gpg-suite-pinentry.png)
+
+## エアギャップ環境での鍵対の管理
+私有鍵の秘匿性を高めるため、ネットワーク接続のない環境で鍵対を生成しYubiKeyへ保管したい場合があります。このような場合、[Tails OS](https://tails.boum.org/)などを利用し、USBフラッシュメモリに収めたOSを起動しネットワークに接続せずに鍵対の生成とYubiKeyの管理が可能です。
+
+2022年3月現在、Tails 4.28では下記のバージョンのパッケージが利用できました。
+
+- gpg-2.2.12-1+deb10u1
+- scdaemon-2.2.12-1+deb10u1
+- pcscd-1.8.24-1
+- libccid-1.4.30-1
+
+なお、私有鍵を紙に印刷して保管するためのパッケージpaperkeyはインストールされていませんでした。
+
