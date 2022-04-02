@@ -60,7 +60,8 @@ module.exports = {
         children: [
           '/misc/',
           '/misc/git',
-          '/misc/libreOffice'
+          '/misc/libreOffice',
+          '/misc/vCard'
         ]
       },
       {
