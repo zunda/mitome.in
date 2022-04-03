@@ -3,6 +3,11 @@
 
 本稿では、2020年7月に購入した[YubiKey 5 NFC](https://www.yubico.com/product/yubikey-5-nfc)^[2020年9月には[YubiKey 5C NFC](https://www.yubico.com/product/yubikey-5c-nfc/)が発売されました。コネクタの形状以外はYubiKey 5 NFCと同じ仕様のようです。USB-Cを利用している場合はYubiKey 5C NFCを購入するのが良さそうです。]でOpenPGPを試してみます。
 
+:::warning
+下記の手順ではYubiKeyには暗号鍵対の私有鍵が保管されないことがわかりました。近日中に改訂できるようがんばります。
+:::
+
+
 ![パッケージに入ったYubiKey 5 NFC](/YubiKey5NFC.jpg)
 
 ## インストール
