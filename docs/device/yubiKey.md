@@ -3,11 +3,6 @@
 
 本稿では、2020年7月に購入した[YubiKey 5 NFC](https://www.yubico.com/product/yubikey-5-nfc)^[2020年9月には[YubiKey 5C NFC](https://www.yubico.com/product/yubikey-5c-nfc/)が発売されました。コネクタの形状以外はYubiKey 5 NFCと同じ仕様のようです。USB-Cを利用している場合はYubiKey 5C NFCを購入するのが良さそうです。]でOpenPGPを試してみます。
 
-:::warning
-下記の手順ではYubiKeyには暗号鍵対の私有鍵が保管されないことがわかりました。近日中に改訂できるようがんばります。
-:::
-
-
 ![パッケージに入ったYubiKey 5 NFC](/YubiKey5NFC.jpg)
 
 ## インストール
@@ -94,7 +89,7 @@ ssb  rsa3072/164F21FF001C8CD1
 
 ```
 
-`keytocard`コマンドで、まず署名鍵をYubiKeyに移動します。私有鍵のパスフレーズを入力した後、YubiKeyのAdmin PIN ([デフォルト](https://support.yubico.com/support/solutions/articles/15000006420-using-your-yubikey-with-openpgp)では12345678)を入力します。
+まず主鍵をYubiKeyの署名鍵スロットに移動します。私有鍵のパスフレーズを入力した後、YubiKeyのAdmin PIN ([デフォルト](https://support.yubico.com/support/solutions/articles/15000006420-using-your-yubikey-with-openpgp)では12345678)を入力します。
 
 ```
 gpg> keytocard
@@ -107,7 +102,7 @@ Your selection? 1
 
 ![Admin PINの入力](/yubiKey-admin-pin.png)
 
-次に`keytocard`コマンドで認証鍵をYubiKeyに移動します。
+主鍵をYubiKeyの認証鍵スロットにも移動します。
 
 ```
 gpg> keytocard
@@ -126,6 +121,32 @@ ssb  rsa3072/164F21FF001C8CD1
 
 ```
 
+次に暗号鍵をYubiKeyの暗号鍵スロットに移動します。
+
+```
+gpg> key 1
+
+sec  rsa3072/B56C20316D6E8279
+     created: 2020-06-24  expires: 2022-06-24  usage: SC
+     trust: ultimate      validity: ultimate
+ssb* rsa3072/164F21FF001C8CD1
+     created: 2020-06-24  expires: 2022-06-24  usage: E
+[ultimate] (1). zunda <zundan@gmail.com>
+
+gpg> keytocard
+Please select where to store the key:
+   (2) Encryption key
+Your selection? 2
+
+sec  rsa3072/B56C20316D6E8279
+     created: 2020-06-24  expires: 2022-06-24  usage: SC
+     trust: ultimate      validity: ultimate
+ssb* rsa3072/164F21FF001C8CD1
+     created: 2020-06-24  expires: 2022-06-24  usage: E
+[ultimate] (1). zunda <zundan@gmail.com>
+
+```
+
 最後に移動した鍵を`~/.gnupg/`から取り除いて終了します。
 
 ```
@@ -133,7 +154,7 @@ gpg> quit
 Save changes? (y/N) y
 ```
 
-私有鍵がYubiKeyに移動されたことを確認します。
+私有鍵がYubiKeyに移動された(`sec`や`ssb`の後ろに`>`マークがある)ことを確認します。
 
 ```
 $ gpg --list-secret-keys
@@ -143,7 +164,7 @@ sec>  rsa3072 2020-06-24 [SC] [expires: 2022-06-24]
       F60960D80B224382CA8D831CB56C20316D6E8279
       Card serial no. = 0006 ********
 uid           [ultimate] zunda <zundan@gmail.com>
-ssb   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
+ssb>  rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 
 ```
 
@@ -181,13 +202,15 @@ Signature counter : 7
 KDF setting ......: off
 Signature key ....: F609 60D8 0B22 4382 CA8D  831C B56C 2031 6D6E 8279
       created ....: 2020-06-24 05:26:57
-Encryption key....: [none]
+Encryption key....: CAE6 B476 3A84 A557 2636  25CE 164F 21FF 001C 8CD1
+      created ....: 2020-06-24 05:26:57
 Authentication key: F609 60D8 0B22 4382 CA8D  831C B56C 2031 6D6E 8279
       created ....: 2020-06-24 05:26:57
 General key info..: pub  rsa3072/B56C20316D6E8279 2020-06-24 zunda <zundan@gmail.com>
 sec>  rsa3072/B56C20316D6E8279  created: 2020-06-24  expires: 2022-06-24
                                 card-no: 0006 ********
-ssb   rsa3072/164F21FF001C8CD1  created: 2020-06-24  expires: 2022-06-24
+ssb>  rsa3072/164F21FF001C8CD1  created: 2020-06-24  expires: 2022-06-24
+                                card-no: 0006 ********
 ```
 
 ## 私有鍵の利用
@@ -288,7 +311,8 @@ PIN retry counter : 3 0 3
 Signature counter : 9
 Signature key ....: F609 60D8 0B22 4382 CA8D  831C B56C 2031 6D6E 8279
       created ....: 2020-06-24 05:26:57
-Encryption key....: [none]
+Encryption key....: CAE6 B476 3A84 A557 2636  25CE 164F 21FF 001C 8CD1
+      created ....: 2020-06-24 05:26:57
 Authentication key: F609 60D8 0B22 4382 CA8D  831C B56C 2031 6D6E 8279
       created ....: 2020-06-24 05:26:57
 General key info..: pub  rsa3072/6D6E8279 2020-06-24 zunda <zundan@gmail.com>
@@ -403,7 +427,8 @@ Signature counter : 10
 KDF setting ......: off
 Signature key ....: F609 60D8 0B22 4382 CA8D  831C B56C 2031 6D6E 8279
       created ....: 2020-06-24 05:26:57
-Encryption key....: [none]
+Encryption key....: CAE6 B476 3A84 A557 2636  25CE 164F 21FF 001C 8CD1
+      created ....: 2020-06-24 05:26:57
 Authentication key: F609 60D8 0B22 4382 CA8D  831C B56C 2031 6D6E 8279
       created ....: 2020-06-24 05:26:57
 General key info..: pub  rsa3072/B56C20316D6E8279 2020-06-24 zunda <zundan@gmail.com>

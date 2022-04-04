@@ -1,6 +1,7 @@
 # 改定履歴
 詳細な変更履歴は[zunda/mitome.in](https://github.com/zunda/mitome.in)を参照してください。
 
+- 2022-04-03 「[YubiKey](/device/yubiKey.md)」に漏れていたYubiKeyへの暗号副鍵の移動を追記
 - 2022-04-01 「[名刺](/misc/vCard.md)」公開
 - 2022-03-30 「[YubiKey](/device/yubiKey.md)」にエアギャップ環境での鍵対の管理についての記述を追加
 - 2022-02-07 NFT関連の混乱の拡散を避けるためMask Networkに関する記述を削除
