@@ -61,6 +61,7 @@ module.exports = {
           '/misc/',
           '/misc/git',
           '/misc/libreOffice',
+          '/misc/openKeychain',
           '/misc/vCard'
         ]
       },

@@ -22,6 +22,6 @@ _END
 
 ![生成されたQRコード](/vcard.png)
 
-このQRコードを[OpenKeychain](https://www.openkeychain.org/)などのアプリケーションで読み込むことで、自動的に公開鍵サーバから公開鍵をインポートすることができます。
+このQRコードを[OpenKeychain](openKeychain.md)などのアプリケーションで読み込むことで、自動的に公開鍵サーバから公開鍵をインポートすることができます。
 
 
