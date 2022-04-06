@@ -445,6 +445,9 @@ GPG Keychainで、公開鍵をダブルタップして、Detailsメニューか�
 
 ![Pinentry MacへのPINの入力](/gpg-suite-pinentry.png)
 
+## 携帯電話での私有鍵の利用
+[OpenKeychain](../misc/openKeychain.md)などのアプリケーションをNFCの利用可能な携帯電話インストールすることで、YubiKeyに格納された私有鍵を利用できるようになります。
+
 ## エアギャップ環境での鍵対の管理
 私有鍵の秘匿性を高めるため、ネットワーク接続のない環境で鍵対を生成しYubiKeyへ保管したい場合があります。このような場合、[Tails OS](https://tails.boum.org/)などを利用し、USBフラッシュメモリに収めたOSを起動しネットワークに接続せずに鍵対の生成とYubiKeyの管理が可能です。
 
