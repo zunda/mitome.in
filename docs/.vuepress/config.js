@@ -39,6 +39,7 @@ module.exports = {
         children: [
           '/email/',
           '/email/keyManagement',
+          '/email/sequoia',
           '/email/flowCrypt',
           '/email/mailvelope',
           '/email/mutt',
