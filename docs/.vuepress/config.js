@@ -39,7 +39,6 @@ module.exports = {
         children: [
           '/email/',
           '/email/keyManagement',
-          '/email/sequoia',
           '/email/flowCrypt',
           '/email/mailvelope',
           '/email/mutt',
@@ -60,6 +59,7 @@ module.exports = {
         title: 'その他のツール',
         children: [
           '/misc/',
+          '/misc/sequoia',
           '/misc/git',
           '/misc/libreOffice',
           '/misc/openKeychain',
