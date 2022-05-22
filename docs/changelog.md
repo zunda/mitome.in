@@ -1,6 +1,7 @@
 # 改定履歴
 詳細な変更履歴は[zunda/mitome.in](https://github.com/zunda/mitome.in)を参照してください。
 
+- 2022-05-22 「[Sequoia-PGP](/misc/sequoia.md)」公開
 - 2022-05-18 「[YubiKey](/device/yubiKey.md)」でのTailsの情報を4.28から5.0のものに更新
 - 2022-04-05 「[OpenKeycain](/misc/openKeychain.md)」公開
 - 2022-04-03 「[YubiKey](/device/yubiKey.md)」に漏れていたYubiKeyへの暗号副鍵の移動を追記
