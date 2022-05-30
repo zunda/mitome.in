@@ -32,7 +32,7 @@ $ gpg --export-secret-keys --armor
 
 ![FlowCryptからの最初のメール](/flowcrypt-first-email.png)
 
-Secure Composeボタンから、メールを書き、暗号化や電子署名を施して送ることができます。
+Secure Composeボタンから、メールを書き、暗号化やデジタル署名を施して送ることができます。
 
 ![FlowCryptでの電子メールの送信](/flowcrypt-compose.png)
 

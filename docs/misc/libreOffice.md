@@ -1,18 +1,18 @@
 # LibreOffice
 この記事の内容は2020年7月頃のものです。
 
-[LibreOffice](https://ja.libreoffice.org/)は豊富な機能を備えたオフィススイートです。認証局に電子署名されたクライアント証明書や[GnuPGに登録](../email/keyManagement.md)したOpenPGP鍵対を利用することで、作成した文書の暗号化や電子署名が可能です。
+[LibreOffice](https://ja.libreoffice.org/)は豊富な機能を備えたオフィススイートです。認証局にデジタル署名されたクライアント証明書や[GnuPGに登録](../email/keyManagement.md)したOpenPGP鍵対を利用することで、作成した文書の暗号化やデジタル署名が可能です。
 
 ## インストール
 LibreOfficeは利用中のOSにデフォルトでインストールされているかもしれません。Xubuntu 20.04ではLibreOffice 6.4.3.2 40(Build:2)がインストールされていましたが、起動時のエラーの抑制のために`default-jre`パッケージと`libreoffice-java-common`パッケージを追加でインストールする必要がありました。[LibreOfficeのダウンロードページ](https://ja.libreoffice.org/download/download/)からダウンロードすることもできます。
 
 ## クライアント証明書の利用
-ここではテスト用のルート認証局とクライアント証明書を生成し、Firefoxにインポートし、それをLibreOfficeから参照することで、LibreOfficeでの文書への電子署名とPKIによる検証を試してみます。
+ここではテスト用のルート認証局とクライアント証明書を生成し、Firefoxにインポートし、それをLibreOfficeから参照することで、LibreOfficeでの文書へのデジタル署名とPKIによる検証を試してみます。
 
 手元でテスト用のルート認証局やクライアント証明書を生成する場合には、`openssl`コマンドを利用します。Xubuntu 20.04ではOpenSSL 1.1.1fがインストールされていました。インストールする必要がある場合には手元のOSのマニュアル等を参照するか、[OpenSSLのダウンロードページ](https://www.openssl.org/source/)や[LibreSSLのホームページ](https://www.libressl.org/)を参照してください。
 
 ### クライアント証明書の準備
-ルート認証局を生成し、クライアント証明書に電子署名します。
+ルート認証局を生成し、クライアント証明書にデジタル署名します。
 
 #### ルート認証局
 ここでは`openssl`コマンドで種々の証明書を生成します。まずルートCA証明書です。
@@ -30,14 +30,14 @@ subject=O = mitome.in test, CN = mitome.in test CA
 ```
 
 #### クライアント証明書
-クライアントの私有鍵を生成し、証明書リクエストを生成して電子署名します。証明書リクエストに含める情報を適宜入力します。
+クライアントの私有鍵を生成し、証明書リクエストを生成してデジタル署名します。証明書リクエストに含める情報を適宜入力します。
 
 ```
 $ openssl genrsa -out client.key 4096
 $ openssl req -new -key client.key -out client.req
 ```
 
-クライアント証明書を生成し、ルートCA証明書で電子署名します。
+クライアント証明書を生成し、ルートCA証明書でデジタル署名します。
 
 ```
 $ openssl x509 -req -in client.req -CA ca.cer -CAkey ca.key -set_serial 101 -extensions client -days 30 -outform PEM -out client.cer
@@ -71,7 +71,7 @@ Firefoxを起動し、右上のハンバーガーメニューからPreferences�
 ルートCA証明書もインポートします。
 
 ::: danger
-この操作の結果、FirefoxはインポートされたルートCA証明書を信用することになります。これは、このルートCA証明書とペアになっている私有鍵によって電子署名された全ての証明書を信用することを意味します。私有鍵が適切に管理されていないルートCA証明書をインポートしてしまわないように注意してください。
+この操作の結果、FirefoxはインポートされたルートCA証明書を信用することになります。これは、このルートCA証明書とペアになっている私有鍵によってデジタル署名された全ての証明書を信用することを意味します。私有鍵が適切に管理されていないルートCA証明書をインポートしてしまわないように注意してください。
 :::
 
 先程と同様、Firefoxの右上のハンバーガーメニューからPreferencesをクリックし、左のペインからPrivacy & Securityをクリックします。Certificatesの項のView Certificates...をボタンをクリックし、Authorities...のImport...ボタンをクリックします。
@@ -86,7 +86,7 @@ Firefoxが信用する範囲をできるだけ限定しておきます。
 
 ![FirefoxにインポートされたルートCA証明書](/firefox-view-ca.png)
 
-### LibreOfficeの起動と電子署名
+### LibreOfficeの起動とデジタル署名
 Xubuntu 20.04のLibreOfficeはデフォルトではThuderbirdにインポートされた証明書を参照するようです。
 
 LibreOfficeを起動し、Tools - Options... - Securityとメニューをたどり、Certificateボタンを押してFirefoxのものを参照するように設定を変更します。
@@ -95,24 +95,24 @@ LibreOfficeを起動し、Tools - Options... - Securityとメニューをたど�
 
 設定を変更すると、LibreOfficeの再起動を促されます。再起動したら文書を新規作成してみましょう。
 
-文書を作成保存すると、電子署名が可能です。文書を保存したら、File - Digital Signatures - Digital Signatures...とメニューをたどります。Sign Document...メニューをクリックし、先ほどインポートしたクライアント証明書を選択し、Signボタンをクリックします。
+文書を作成保存すると、デジタル署名が可能です。文書を保存したら、File - Digital Signatures - Digital Signatures...とメニューをたどります。Sign Document...メニューをクリックし、先ほどインポートしたクライアント証明書を選択し、Signボタンをクリックします。
 
-![LibreOfficeでの文書への電子署名](/libreoffice-sign.png)
+![LibreOfficeでの文書へのデジタル署名](/libreoffice-sign.png)
 
 これで、文書への署名が完了し、LibreOfficeが文書の内容を検証するようになりました。
 
-![LibreOfficeによる電子署名の検証](/libreoffice-verify.png)
+![LibreOfficeによるデジタル署名の検証](/libreoffice-verify.png)
 
-電子署名の検証が失敗することで、電子署名後に内容が編集されたことがわかります。
+デジタル署名の検証が失敗することで、デジタル署名に内容が編集されたことがわかります。
 
-![LibreOfficeによる電子署名の検証の失敗](/libreoffice-verify-failed.png)
+![LibreOfficeによるデジタル署名の検証の失敗](/libreoffice-verify-failed.png)
 
-クライアント証明書は文書に添付されて保存されるようです。クライアント証明書やルートCA証明書の無い環境では、電子署名の検証には成功しますが、クライアント証明書の検証はできません。
+クライアント証明書は文書に添付されて保存されるようです。クライアント証明書やルートCA証明書の無い環境では、デジタル署名の検証には成功しますが、クライアント証明書の検証はできません。
 
 ![LibreOfficeによるクライアント証明書の検証の失敗](/libreoffice-sign-noca.png)
 
 ## GnuPGに登録した鍵対の利用
-LibreOfficeは、GnuPGに登録した鍵対や公開鍵を文書の暗号化や電子署名に利用することもできます。
+LibreOfficeは、GnuPGに登録した鍵対や公開鍵を文書の暗号化やデジタル署名に利用することもできます。
 
 Xubuntu 20.04では、LibreOfficeのgpg-agentとのやりとりがapparmorで許可されていません。`/etc/apparmor.d/usr.lib.libreoffice.program.soffice.bin`を下記のように編集する必要がありました^[[Ubuntu Launchpadに登録](https://bugs.launchpad.net/ubuntu/+source/libreoffice/+bug/1886092)させていただきました]。
 
@@ -129,9 +129,9 @@ Xubuntu 20.04では、LibreOfficeのgpg-agentとのやりとりがapparmorで許
    # probably should become a subprofile like gpg above, but then it doesn't
 ```
 
-クライアント証明書を利用する場合と同様、文書を保存したら、File - Digital Signatures - Digital Signatures...とメニューをたどります。Sign Document...メニューをクリックすることで、GnuPGに登録している私有鍵で電子署名できます。
+クライアント証明書を利用する場合と同様、文書を保存したら、File - Digital Signatures - Digital Signatures...とメニューをたどります。Sign Document...メニューをクリックすることで、GnuPGに登録している私有鍵でデジタル署名できます。
 
-![LibreOfficeでの文書へのGnuPGによる電子署名](/libreoffice-sign-gpg.png)
+![LibreOfficeでの文書へのGnuPGによるデジタル署名](/libreoffice-sign-gpg.png)
 
 また、文書の保存時に、左下のEncrypt with GPG keyをチェックすることで、GnuPGに登録している公開鍵で暗号化することもできます。複数の受取人が復号できるよう、公開鍵は複数選ぶこともできます。
 
