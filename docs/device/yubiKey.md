@@ -179,7 +179,7 @@ URL to retrieve public key: https://keys.openpgp.org/vks/v1/by-fingerprint/F6096
 gpg/card> quit
 ```
 
-YubiKeyのOpenPGPアプレットの状態も確認できます。電子署名を生成した回数も記録されているようです。
+YubiKeyのOpenPGPアプレットの状態も確認できます。デジタル署名を生成した回数も記録されているようです。
 
 ```
 $ gpg --card-status
@@ -214,7 +214,7 @@ ssb>  rsa3072/164F21FF001C8CD1  created: 2020-06-24  expires: 2022-06-24
 ```
 
 ## 私有鍵の利用
-これまで通り電子署名や復号します。私有鍵が必要になった時に、YubiKeyのUSBポートへの接続を求められます。
+これまで通りデジタル署名や復号します。私有鍵が必要になった時に、YubiKeyのUSBポートへの接続を求められます。
 
 ![YubiKeyの接続](/yubiKey-insert.png)
 
@@ -376,14 +376,14 @@ gpg> quit
 
 これで、YubiKeyに移動された私有鍵を、私有鍵を生成したのとは異なる環境で利用できるようになりました。公開鍵の信頼の網は別途確立する必要があります。
 
-Ubuntu 16.04では、[Gitでの変更内容への電子署名](../misc/git.md)に`gpg2`コマンドを利用する必要がありそうです。
+Ubuntu 16.04では、[Gitでの変更内容へのデジタル署名](../misc/git.md)に`gpg2`コマンドを利用する必要がありそうです。
 
 
 ```
 $ git config --global gpg.program gpg2
 ```
 
-Gitで変更内容へ電子署名してみましょう。
+Gitで変更内容へデジタル署名してみましょう。
 
 ```
 $ git commit -S
@@ -391,7 +391,7 @@ $ git commit -S
  1 file changed, 119 insertions(+)
 ```
 
-電子署名の検証に成功しました。
+デジタル署名の検証に成功しました。
 
 ```
 $ git verify-commit 3a27355
@@ -441,7 +441,7 @@ GPG Keychainで、公開鍵をダブルタップして、Detailsメニューか�
 
 ![GPG Keychainでの信頼度の設定](/gpg-suite-keychain.png)
 
-電子署名や復号などで私有鍵が必要になった場合には、YubiKeyのUser PINをPinentryに入力します。
+デジタル署名や復号などで私有鍵が必要になった場合には、YubiKeyのUser PINをPinentryに入力します。
 
 ![Pinentry MacへのPINの入力](/gpg-suite-pinentry.png)
 

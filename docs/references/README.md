@@ -9,7 +9,6 @@
 |---|---|
 |鍵対|鍵ペア|
 |私有鍵|プライベート鍵|
-|電子署名|デジタル署名|
 |復号|復号化|
 
 ## [OpenPGP のメッセージフォーマット](https://www.ipa.go.jp/security/rfc/RFC2440JA.html)
