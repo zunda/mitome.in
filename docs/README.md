@@ -3,7 +3,7 @@
 
 本稿で取り扱う暗号技術は、暗号化と復号、そして、電子署名とその検証に、ペアになっている2種類の鍵を使う、公開鍵暗号と呼ばれる暗号技術を応用したものです。公開鍵暗号を利用した電子署名をデジタル署名と呼びます^[[Wikipedia「電子署名」](https://ja.wikipedia.org/wiki/%E9%9B%BB%E5%AD%90%E7%BD%B2%E5%90%8D)]。暗号化の場合でもデジタル署名の場合でも、私有鍵を秘匿することとともに、正当な公開鍵を利用することが、盗聴やなりすましを防ぐのに重要です。
 
-しかし、公開鍵の正当性を検証することは単純な作業ではありません。OpenPGPでは、信頼の網と呼ばれる、それぞれの個人が相手の信頼度を決める、信頼の網と呼ばれる方法で、公開鍵の信頼度を決めます。いっぽう、HTTPSで利用されているTLSと同様、信頼する認証局を決めて、鍵対の信頼度の検証を認証局に委ねる、PKIも利用されています。認証局が信頼できるものとしてデジタル署名した公開鍵を、証明書と呼ぶことがあります。
+しかし、公開鍵の正当性を検証することは単純な作業ではありません。[SSH^[Secure Shell]の公開鍵認証](https://en.wikipedia.org/wiki/Secure_Shell#Authentication:_OpenSSH_key_management)や[FIDO](https://fidoalliance.org/how-fido-works/)^[Fast Identity Online]では、リモートのサービスに自分の公開鍵を登録します。OpenPGPでは、信頼の網と呼ばれる方法で、それぞれの個人が取得した公開鍵の信頼度を決めます。HTTPSで利用されているTLS^[Tsansport Layer Security]と同様、信頼する認証局を決めて、鍵対の信頼度の検証を認証局に委ねる、PKI^[Public Key Infrastructure]も利用されています。認証局がデジタル署名した公開鍵を、証明書と呼ぶことがあります。
 
 本稿は書きかけです。追加点、誤りや改善点に気づいた方は、GitHubのレポジトリ[zunda/mitome.in](https://github.com/zunda/mitome.in)の[Issue](https://github.com/zunda/mitome.in/issues)や[プルリクエスト](https://github.com/zunda/mitome.in/pulls)にお知らせいただけると著者が喜びます。
 
