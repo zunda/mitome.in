@@ -23,8 +23,8 @@
     "vuex": "^3.4.0"
   },
   "scripts": {
-    "docs:dev": "yarn fa:build --dest=docs && vuepress dev docs",
-    "docs:build": "yarn fa:build --dest=docs && vuepress build docs",
-    "fa:build": "node node_modules/vuepress-plugin-font-awesome/index.js"
+    "docs:dev": "yarn fa:build && vuepress dev docs",
+    "docs:build": "yarn fa:build && vuepress build docs",
+    "fa:build": "node node_modules/vuepress-plugin-font-awesome/index.js --dest=docs"
   }
 }
