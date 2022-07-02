@@ -24,6 +24,9 @@
 <script>
 import Vue from 'vue'
 
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
+
 import VueToast from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-default.css'
 Vue.use(VueToast)
@@ -44,45 +47,50 @@ export default {
   },
   methods: {
     verify: function () {
+      const input = this.$store.state.inputText
+      if (!input.VerifyClearSignPublicKey) {
+        Vue.$toast.open({message: '検証に利用する公開鍵をペーストしてください', type: 'warning'})
+        return
+      }
+      if (!input.VerifyClearSignClearText) {
+        Vue.$toast.open({message: '検証するクリアテキスト署名をペーストしてください', type: 'warning'})
+        return
+      }
       this.result = ""
       this.processing = true
-      const input = this.$store.state.inputText
       Promise.all([
-        OpenPgp.cleartext.readArmored(input.VerifyClearSignClearText)
-        .then(data => {
-          console.log(data)
-          return(data)
+        OpenPgp.readCleartextMessage({
+          cleartextMessage: input.VerifyClearSignClearText
         }),
-        OpenPgp.key.readArmored(input.VerifyClearSignPublicKey).then(data => {
-          if (data.keys.length < 1) {
-            if (data.err.length > 0) {
-              throw data.err[0]
-            } else {
-              throw {message: "有効な私有鍵が見つかりませんでした"}
-            }
-          }
-          return data.keys
+        OpenPgp.readKey({
+          armoredKey: input.VerifyClearSignPublicKey
         })
       ])
       .then(([clearText, publicKeys]) =>
-        OpenPgp.verify({message: clearText, publicKeys: publicKeys})
+        OpenPgp.verify({message: clearText, verificationKeys: publicKeys})
       )
-      .then(result => {
-        const signature = result.signatures[0]
-        if (signature.valid) {
-          this.result = '成功 鍵ID: <span class="key-id">' +
-            signature.keyid.toHex() + '</span> 時刻: ' +
-            moment(signature.signature.packets[0].created).format('YYYY年MM月DD日 HH:mm:ss Z')
-
-        } else {
-          this.result = "失敗"
-        }
+      .then(result => Promise.all([
+        result.signatures[0].verified,
+        result.signatures[0].keyID,
+        result.signatures[0].signature
+      ]))
+      .then(([_verified, keyID, signature]) => {
+        this.result = '成功 鍵ID: <span class="key-id">' +
+          keyID.toHex() + '</span> 時刻: ' +
+          moment(signature.packets[0].created).format('YYYY年MM月DD日 HH:mm:ss Z')
         this.$store.commit('setOutputText', {
           section: 'VerifyClearSignResult', text: this.result
         })
       })
       .catch(e => {
-        console.log(e.message)
+        if (e.message === 'Signed digest did not match') {
+          this.result = '失敗'
+          this.$store.commit('setOutputText', {
+            section: 'VerifyClearSignResult', text: this.result
+          })
+          return
+        }
+        console.log(e)
         Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
       })
       .finally(() => {

@@ -20,9 +20,9 @@
       </button>
     </p>
     <ul id="public-keys">
-      <li v-for="publicKey in publicKeys" :key="publicKey.keyId">
-        <button v-on:click="removePublicKey(publicKey.keyId)" title="鍵をリストから取り除く"><Fa-Eraser /></button>
-        <span class="key-id">{{ publicKey.keyId }}</span>:
+      <li v-for="publicKey in publicKeys" :key="publicKey.keyID">
+        <button v-on:click="removePublicKey(publicKey.keyID)" title="鍵をリストから取り除く"><Fa-Eraser /></button>
+        <span class="key-id">{{ publicKey.keyID }}</span>:
         {{ publicKey.name }}
         <span class="email">&lt;{{ publicKey.emali }}&gt;</span>
       </li>
@@ -72,30 +72,19 @@ export default {
   methods: {
     addPublicKey: function () {
       this.processing = true
-      OpenPgp.key.readArmored(this.newPublicKey)
-      .then(data => {
-        if (data.keys.length < 1) {
-          if (data.err.length > 0) {
-            throw data.err[0]
-          } else {
-            throw {message: '有効な鍵が見つかりませんでした'}
-          }
-        }
-        if (data.keys.length > 1) {
-          Vue.$toast.open({message: '複数の鍵が見つかりました。最初の鍵だけ追加します', type: 'warning'})
-        }
-        const newKey = data.keys[0]
-        if (newKey.keyPacket.tag != 6 && newKey.keyPacket.tag != 14) {
+      OpenPgp.readKey({armoredKey: this.newPublicKey})
+      .then(newKey => {
+        if (newKey.isPrivate()) {
           throw {message: '公開鍵ではありません'}
         }
-        const newKeyId = newKey.keyPacket.keyid.toHex()
-        if (this.publicKeys.find(key => key.keyId === newKeyId)) {
+        const newKeyId = newKey.keyPacket.keyID.toHex()
+        if (this.publicKeys.find(key => key.keyID === newKeyId)) {
           throw {message: '既に同じIDの公開鍵があります'}
         }
         this.publicKeys.unshift({
-          keyId: newKeyId,
-          name: newKey.users[0].userId.name,
-          emali: newKey.users[0].userId.email,
+          keyID: newKeyId,
+          name: newKey.users[0].userID.name,
+          emali: newKey.users[0].userID.email,
           key: newKey
         })
         this.commitPublicKeys()
@@ -110,8 +99,8 @@ export default {
     clearNewPublicKey: function() {
       this.newPublicKey = ''
     },
-    removePublicKey: function (keyId) {
-      this.publicKeys = this.publicKeys.filter(key => key.keyId !== keyId)
+    removePublicKey: function (keyID) {
+      this.publicKeys = this.publicKeys.filter(key => key.keyID !== keyID)
       this.commitPublicKeys()
     },
     commitPublicKeys: function() {
@@ -119,11 +108,15 @@ export default {
     },
     encrypt: function() {
       this.processing = true
-      OpenPgp.encrypt({
-        message: OpenPgp.message.fromText(this.$store.state.inputText.EncryptionMessage || ''),
-        publicKeys: this.publicKeys.map(x => x.key)
-      }).then(result => {
-        this.encryptedMessage = result.data
+      OpenPgp.createMessage({
+        text: this.$store.state.inputText.EncryptionMessage || ''
+      }).then(message =>
+        OpenPgp.encrypt({
+          message: message,
+          encryptionKeys: this.publicKeys.map(x => x.key)
+        })
+      ).then(result => {
+        this.encryptedMessage = result
       }).catch(e => {
         console.log(e)
         Vue.$toast.open({message: e.message, type: 'error', duration: 60000})

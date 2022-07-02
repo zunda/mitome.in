@@ -58,30 +58,32 @@ export default {
       this.decryptedMessage = ''
       const input = this.$store.state.inputText
       Promise.all([
-        OpenPgp.message.readArmored(input.DecryptionEncryptedMessage)
-        .then(data => {
-          console.log(data.packets)
-          return data
+        OpenPgp.readMessage({
+          armoredMessage: input.DecryptionEncryptedMessage
+        }).then(message => {
+          return message
         }),
-        OpenPgp.key.readArmored(input.DecryptionPrivateKey).then(data => {
-          if (data.keys.length < 1) {
-            throw {message: "有効な私有鍵が見つかりませんでした"}
+        OpenPgp.readKey({ armoredKey: input.DecryptionPrivateKey })
+        .then(key => {
+          if (! key.isPrivate()) {
+            throw {message: '私有鍵ではありません'}
           }
-          data.keys.forEach(key => {
-            key.decrypt(this.passphrase)
-            .catch(e => {
-              if (e.message !== "Key packet is already decrypted.") {
-                throw e
-              }
+          if (key.isDecrypted()) {
+            return key
+          } else {
+            return OpenPgp.decryptKey({
+              privateKey: key,
+              passphrase: this.passphrase
             })
-          })
-          return data.keys
+          }
         })
       ])
       .then(([encryptedMessage, privateKeys]) =>
-        OpenPgp.decrypt({message: encryptedMessage, privateKeys: privateKeys})
+        OpenPgp.decrypt({
+          message: encryptedMessage, decryptionKeys: privateKeys
+        })
       )
-      .then(decrypted => this.decryptedMessage = decrypted.data)
+      .then(decrypted => { this.decryptedMessage = decrypted.data })
       .catch(e => {
         console.log(e.message)
         Vue.$toast.open({message: e.message, type: 'error', duration: 60000})

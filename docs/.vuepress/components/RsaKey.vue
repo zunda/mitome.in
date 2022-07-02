@@ -72,12 +72,12 @@ export default {
     generateKey: function () {
       this.processing = true
       OpenPgp.generateKey({
-        userIds: [{name: this.name, email: this.email}],
+        userIDs: [{name: this.name, email: this.email}],
         rsaBits: 2048,
         passphrase: this.passphrase
       }).then(key => {
-        this.publicKey = key.publicKeyArmored
-        this.privateKey = key.privateKeyArmored
+        this.publicKey = key.publicKey
+        this.privateKey = key.privateKey
       }).catch(e => {
         console.log(e)
         Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
