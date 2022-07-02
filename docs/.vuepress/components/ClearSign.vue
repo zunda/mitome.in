@@ -1,17 +1,18 @@
 <template>
   <div>
+    <InputArea section="ClearSignPrivateKey"
+      cssClass="key"
+      name="署名に使う私有鍵"
+      v-bind:disabled="processing"
+      v-bind:onInput="clearSignedMessageAndPassphrase"
+    />
+    <input
+      v-model="passphrase"
+      v-bind:disabled="processing"
+      type="password"
+      placeholder="私有鍵のパスフレーズ"
+    />
     <p>上記にペーストした私有鍵で下記のメッセージに
-      <InputArea section="ClearSignPrivateKey"
-        cssClass="key"
-        name="署名に使う私有鍵"
-        v-bind:disabled="processing"
-        v-bind:onInput="clearSignedMessage"
-      />
-      <input
-        v-model="passphrase"
-        type="password"
-        placeholder="私有鍵のパスフレーズ"
-      />
       <button v-bind:disabled="processing" v-on:click="clearSign">
         署名する
       </button>
@@ -36,6 +37,9 @@
 <script>
 import Vue from 'vue'
 
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
+
 import VueToast from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-default.css'
 Vue.use(VueToast)
@@ -57,33 +61,38 @@ export default {
   },
   methods: {
     clearSign: function () {
-      this.processing = true
       const input = this.$store.state.inputText
+      const text = input.ClearSignMessage || ''
+      if (text === '') {
+        Vue.$toast.open({message: 'ここでは空文字列には署名できません', type: 'warning'})
+        return
+      }
+      if (!input.ClearSignPrivateKey) {
+        Vue.$toast.open({message: '署名に使う私有鍵をペーストしてください', type: 'warning'})
+        return
+      }
+      this.processing = true
       Promise.all([
-        OpenPgp.cleartext.fromText(input.ClearSignMessage || ""),
-        OpenPgp.key.readArmored(input.ClearSignPrivateKey).then(data => {
-          if (data.keys.length < 1) {
-            if (data.err.length > 0) {
-              throw data.err[0]
-            } else {
-              throw {message: "有効な私有鍵が見つかりませんでした"}
-            }
+        OpenPgp.createCleartextMessage({ text: text }),
+        OpenPgp.readKey({ armoredKey: input.ClearSignPrivateKey })
+        .then(key => {
+          if (! key.isPrivate()) {
+            throw {message: '私有鍵ではありません'}
           }
-          data.keys.forEach(key => {
-            key.decrypt(this.passphrase)
-            .catch(e => {
-              if (e.message !== "Key packet is already decrypted.") {
-                throw e
-              }
+          if (key.isDecrypted()) {
+            return key
+          } else {
+            return OpenPgp.decryptKey({
+              privateKey: key,
+              passphrase: this.passphrase
             })
-          })
-          return data.keys
+          }
         })
       ])
       .then(([clearText, privateKeys]) =>
-        OpenPgp.sign({message: clearText, privateKeys: privateKeys})
+        OpenPgp.sign({message: clearText, signingKeys: privateKeys})
       )
-      .then(signed => this.signedMessage = signed.data)
+      .then(signed => {this.signedMessage = signed})
       .catch(e => {
         console.log(e.message)
         Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
@@ -94,6 +103,10 @@ export default {
     },
     clearSignedMessage: function() {
       this.signedMessage = ''
+    },
+    clearSignedMessageAndPassphrase: function() {
+      this.signedMessage = ''
+      this.passphrase = ''
     }
   }
 }

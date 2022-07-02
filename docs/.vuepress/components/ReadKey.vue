@@ -15,7 +15,7 @@
       <li>名前: {{ details.name }}</li>
       <li>電子メールアドレス: <span class="email">{{ details.email }}</span></li>
       <li>生成時刻: {{ details.created }}</li>
-      <li>ID: <span class="key-id">{{ details.keyId }}</span></li>
+      <li>ID: <span class="key-id">{{ details.keyID }}</span></li>
       <li>指紋: <span class="key-id">{{ details.fingerprint }}</span></li>
     </ul>
   </div>
@@ -32,24 +32,6 @@ import moment from 'moment'
 
 const OpenPgp = require('openpgp')
 
-// https://www.ipa.go.jp/security/rfc/RFC2440JA.html#05
-const packetTypes = {
-  1: '公開鍵暗号セッション鍵',
-  2: '署名',
-  3: '共通鍵で暗号化されたセッション鍵',
-  4: 'One-Pass署名',
-  6: '公開鍵',
-  14: '公開サブキー',
-  5: '私有鍵',  // 秘密鍵
-  7: '私有サブキー',  // 秘密サブキー
-  8: '圧縮データ',
-  9: '共通鍵暗号化データ',
-  10: 'マーカー',
-  11: 'リテラルデータ',
-  12: 'トラスト',
-  13: 'ユーザID'
-}
-
 export default {
   data() {
     return {
@@ -59,25 +41,25 @@ export default {
   },
   methods: {
     readKey: function () {
+      if (! this.$store.state.inputText.ReadKey) {
+        Vue.$toast.open({message: '確認する鍵をペーストしてください', type: 'warning'})
+        return
+      }
       this.processing = true
-      OpenPgp.key.readArmored( this.$store.state.inputText.ReadKey)
-      .then(data => {
-        if (data.keys.length < 1) {
-          if (data.err.length > 0) {
-            throw data.err[0]
-          } else {
-            throw {message: '有効な鍵が見つかりませんでした'}
-          }
-        }
-        console.log(data.keys)
+      OpenPgp.readKey({armoredKey: this.$store.state.inputText.ReadKey})
+      .then(key => {
+        console.log(key)
         const details = {
-          name: data.keys[0].users[0].userId.name,
-          email:  data.keys[0].users[0].userId.email,
-          type: packetTypes[data.keys[0].keyPacket.tag],
-          created: moment(data.keys[0].keyPacket.created).format('YYYY年MM月DD日 HH:mm:ss Z'),
-          keyId: data.keys[0].keyPacket.keyid.toHex(),
+          name: key.users[0].userID.name,
+          email:  key.users[0].userID.email,
+          type: key.isPrivate()
+            ? (key.isDecrypted() ? '私有鍵' : '私有鍵 (パスフレーズ付き)')
+            : '公開鍵',
+          created:
+            moment(key.keyPacket.created).format('YYYY年MM月DD日 HH:mm:ss Z'),
+          keyID: key.keyPacket.keyID.toHex(),
           fingerprint:
-            Array.from(data.keys[0].keyPacket.fingerprint)
+            Array.from(key.keyPacket.fingerprint)
             .map(x => ('0' + x.toString(16).toUpperCase()).slice(-2)).join(' ')
         }
         this.$store.commit('setOutputText',

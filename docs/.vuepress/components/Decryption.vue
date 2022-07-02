@@ -4,9 +4,10 @@
       cssClass="key"
       name="受取人の私有鍵"
       v-bind:disabled="processing"
-      v-bind:onInput="clearDecryptedMessage"
+      v-bind:onInput="clearDecryptedMessageAndPassphrase"
     />
     <input v-model="passphrase"
+      v-bind:disabled="processing"
       type="password" placeholder="私有鍵のパスフレーズ"
     />
     <p>上記にペーストした私有鍵で下記にペーストした暗号文を
@@ -54,34 +55,42 @@ export default {
   },
   methods: {
     decrypt: function () {
+      const input = this.$store.state.inputText
+      if (! input.DecryptionPrivateKey) {
+        Vue.$toast.open({message: '私有鍵をペーストしてください', type: 'warning'})
+        return
+      }
+      if (! input.DecryptionEncryptedMessage) {
+        Vue.$toast.open({message: '暗号文をペーストしてください', type: 'warning'})
+        return
+      }
       this.processing = true
       this.decryptedMessage = ''
-      const input = this.$store.state.inputText
       Promise.all([
-        OpenPgp.message.readArmored(input.DecryptionEncryptedMessage)
-        .then(data => {
-          console.log(data.packets)
-          return data
+        OpenPgp.readMessage({
+          armoredMessage: input.DecryptionEncryptedMessage
         }),
-        OpenPgp.key.readArmored(input.DecryptionPrivateKey).then(data => {
-          if (data.keys.length < 1) {
-            throw {message: "有効な私有鍵が見つかりませんでした"}
+        OpenPgp.readKey({ armoredKey: input.DecryptionPrivateKey })
+        .then(key => {
+          if (! key.isPrivate()) {
+            throw {message: '私有鍵ではありません'}
           }
-          data.keys.forEach(key => {
-            key.decrypt(this.passphrase)
-            .catch(e => {
-              if (e.message !== "Key packet is already decrypted.") {
-                throw e
-              }
+          if (key.isDecrypted()) {
+            return key
+          } else {
+            return OpenPgp.decryptKey({
+              privateKey: key,
+              passphrase: this.passphrase
             })
-          })
-          return data.keys
+          }
         })
       ])
       .then(([encryptedMessage, privateKeys]) =>
-        OpenPgp.decrypt({message: encryptedMessage, privateKeys: privateKeys})
+        OpenPgp.decrypt({
+          message: encryptedMessage, decryptionKeys: privateKeys
+        })
       )
-      .then(decrypted => this.decryptedMessage = decrypted.data)
+      .then(decrypted => { this.decryptedMessage = decrypted.data })
       .catch(e => {
         console.log(e.message)
         Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
@@ -92,6 +101,10 @@ export default {
     },
     clearDecryptedMessage: function() {
       this.decryptedMessage = ''
+    },
+    clearDecryptedMessageAndPassphrase: function() {
+      this.decryptedMessage = ''
+      this.passphrase = ''
     }
   }
 }
