@@ -54,14 +54,20 @@ export default {
   },
   methods: {
     decrypt: function () {
+      const input = this.$store.state.inputText
+      if (! input.DecryptionPrivateKey) {
+        Vue.$toast.open({message: '私有鍵をペーストしてください', type: 'warning'})
+        return
+      }
+      if (! input.DecryptionEncryptedMessage) {
+        Vue.$toast.open({message: '暗号文をペーストしてください', type: 'warning'})
+        return
+      }
       this.processing = true
       this.decryptedMessage = ''
-      const input = this.$store.state.inputText
       Promise.all([
         OpenPgp.readMessage({
           armoredMessage: input.DecryptionEncryptedMessage
-        }).then(message => {
-          return message
         }),
         OpenPgp.readKey({ armoredKey: input.DecryptionPrivateKey })
         .then(key => {

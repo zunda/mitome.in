@@ -71,6 +71,10 @@ export default {
   },
   methods: {
     addPublicKey: function () {
+      if (! this.newPublicKey) {
+        Vue.$toast.open({message: '公開鍵をペーストしてください', type: 'warning'})
+        return
+      }
       this.processing = true
       OpenPgp.readKey({armoredKey: this.newPublicKey})
       .then(newKey => {
