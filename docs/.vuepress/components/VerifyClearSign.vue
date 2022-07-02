@@ -75,7 +75,8 @@ export default {
         result.signatures[0].signature
       ]))
       .then(([_verified, keyID, signature]) => {
-        this.result = '成功 鍵ID: <span class="key-id">' +
+        console.log(signature)
+        this.result = '成功: 鍵ID: <span class="key-id">' +
           keyID.toHex() + '</span> 時刻: ' +
           moment(signature.packets[0].created).format('YYYY年MM月DD日 HH:mm:ss Z')
         this.$store.commit('setOutputText', {
@@ -83,15 +84,11 @@ export default {
         })
       })
       .catch(e => {
-        if (e.message === 'Signed digest did not match') {
-          this.result = '失敗'
-          this.$store.commit('setOutputText', {
-            section: 'VerifyClearSignResult', text: this.result
-          })
-          return
-        }
-        console.log(e)
-        Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
+        this.result = '失敗: ' + e.message
+        this.$store.commit('setOutputText', {
+          section: 'VerifyClearSignResult', text: this.result
+        })
+        return
       })
       .finally(() => {
         this.processing = false
