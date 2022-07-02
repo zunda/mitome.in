@@ -4,10 +4,11 @@
       cssClass="key"
       name="署名に使う私有鍵"
       v-bind:disabled="processing"
-      v-bind:onInput="clearSignedMessage"
+      v-bind:onInput="clearSignedMessageAndPassphrase"
     />
     <input
       v-model="passphrase"
+      v-bind:disabled="processing"
       type="password"
       placeholder="私有鍵のパスフレーズ"
     />
@@ -102,6 +103,10 @@ export default {
     },
     clearSignedMessage: function() {
       this.signedMessage = ''
+    },
+    clearSignedMessageAndPassphrase: function() {
+      this.signedMessage = ''
+      this.passphrase = ''
     }
   }
 }

@@ -4,9 +4,10 @@
       cssClass="key"
       name="受取人の私有鍵"
       v-bind:disabled="processing"
-      v-bind:onInput="clearDecryptedMessage"
+      v-bind:onInput="clearDecryptedMessageAndPassphrase"
     />
     <input v-model="passphrase"
+      v-bind:disabled="processing"
       type="password" placeholder="私有鍵のパスフレーズ"
     />
     <p>上記にペーストした私有鍵で下記にペーストした暗号文を
@@ -100,6 +101,10 @@ export default {
     },
     clearDecryptedMessage: function() {
       this.decryptedMessage = ''
+    },
+    clearDecryptedMessageAndPassphrase: function() {
+      this.decryptedMessage = ''
+      this.passphrase = ''
     }
   }
 }
