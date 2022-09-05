@@ -14,7 +14,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "markdown-it-footnote": "^3.0.2",
-    "moment": "^2.29.2",
+    "moment": "^2.29.4",
     "openpgp": "^5.3.1",
     "vue-clipboard2": "^0.3.1",
     "vue-toast-notification": "^0.4.0",
