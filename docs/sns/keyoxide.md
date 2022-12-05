@@ -1,12 +1,12 @@
 # Keyoxide
-この記事の内容は2021年3月頃のものです。
+この記事の内容は2021年3月頃のものです。2022年12月に内容の一部を更新しました。
 
 [Keyoxide](https://keyoxide.org/)は、分散されたオンラインアイデンティティを確立する方法のひとつです。Keyoxideに則ってデジタル署名を追加した公開鍵を[OpenPGP](../openpgp/)に則って公開すれば、特定のサービスに依存せずオンラインのアイデンティティを確立し確認できます。
 
-自分の公開鍵にはidentity proofとして下記のような形式のnotationを添付したデジタル署名を追加してOpenPGP公開鍵サーバに公開します。
+自分の公開鍵にはidentity proofとして下記のような形式のnotation^[本稿の執筆時には`proof@metacode.biz` notationが推奨されていましたが、[2021年11月から`proof@ariadne.id` notationが推奨となりました](https://blog.keyoxide.org/ariadne-spec/)。`proof@metacode.biz` notationも引き続き有効です。]を添付したデジタル署名を追加してOpenPGP公開鍵サーバに公開します。
 
 ```
-proof@metacode.biz=自分の管理するSNSアカウントのURL
+proof@ariadne.id=自分の管理するSNSアカウントのURL
 ```
 
 自分の管理するSNSアカウントには、proofとして自分の鍵対の指紋を掲示します。
@@ -14,7 +14,7 @@ proof@metacode.biz=自分の管理するSNSアカウントのURL
 Keyoxideでは、identity proofとSNSアカウントに掲示されたproofとに一貫性があることを確認することで、identity proofを追加した鍵対を管理している人と、SNSアカウントにproofを掲示する権限のある人とが同一であることを確認できます。日常的にSNSで交流している相手の公開鍵を[信頼の網](../OpenPGP/wot.md#openpgpによる信頼の網)に追加する場合には、Keyoxideによるアイデンティティの確認を参考にできそうです。
 
 ## アイデンティティの確立
-例として、主著者の[Mastodonアカウントのproofを追加](https://keyoxide.org/guides/mastodon)してみます。
+例として、主著者のMastodonアカウントにproofを追加してみます。同様の手順で、Mastodonの他、[Pleroma、Pixelfed、Peertube、WriteFreelyなどにproofを追加](https://docs.keyoxide.org/service-providers/activitypub/)できます。
 
 ### Identity Proofの追加
 まず、自分の公開鍵にidentity proofを追加します。鍵対の指紋は`F60960D80B224382CA8D831CB56C20316D6E8279`で、Mastodonアカウントは`https://mastodon.zunda.ninja/@zundan`にあります。
@@ -22,7 +22,7 @@ Keyoxideでは、identity proofとSNSアカウントに掲示されたproofと�
 ```
 $ gpg --edit-key F60960D80B224382CA8D831CB56C20316D6E8279
 gpg> notation
-Enter the notation: proof@metacode.biz=https://mastodon.zunda.ninja/@zundan
+Enter the notation: proof@ariadne.id=https://mastodon.zunda.ninja/@zundan
 gpg> save
 ```
 
@@ -49,7 +49,7 @@ gpg> showpref
      Digest: SHA512, SHA384, SHA256, SHA224, SHA1
      Compression: ZLIB, BZIP2, ZIP, Uncompressed
      Features: MDC, Keyserver no-modify
-     Notations: proof@metacode.biz=https://mastodon.zunda.ninja/@zundan
+     Notations: proof@ariadne.id=https://mastodon.zunda.ninja/@zundan
 
 gpg> quit
 ```
@@ -67,7 +67,7 @@ gpg: sending key B56C20316D6E8279 to hkps://keys.openpgp.org
 ```
 
 ### SNS Proofの追加
-Mastodonにproofを追加する場合には、アカウントのプロフィール補足情報に、自分の鍵対の指紋を設定します。この他のSNSへのproofの追加手順は、[Keyoxideによるガイド](https://keyoxide.org/guides)のAdding proofs項を参考にしてみてください。
+Mastodonにproofを追加する場合には、アカウントのプロフィール補足情報に、自分の鍵対の指紋を設定します。この他のActivityPubアカウントへのproofの追加手順は、[ActivityPub — Keyoxide Docs](https://docs.keyoxide.org/service-providers/activitypub/)を参考にしてみてください。
 
 ![Mastodonのアカウントのプロフィール補足情報への鍵対の指紋の設定](/keyoxide-add-proof.png)
 
@@ -98,7 +98,7 @@ Keyoxideによるアイデンティティの確認は、万が一Keyoxideのウ�
 ### Identity Proofの取得
 OpenPGP公開鍵サーバなどから取得した公開鍵に追加されているidentity proofは、下記のように確認することができます。
 
-ダウンロードした公開鍵について確認する場合は、確認対象のユーザーID (下記では`uid zunda <zundan@gmail.com>`)に添付された自己署名のうち最新のもの(下記では`2021-03-06`)のみが有効です。その自己署名に含まれる`Signature notation proof@metacode.biz=`で始まる行が有効なidentity proofです。
+ダウンロードした公開鍵について確認する場合は、確認対象のユーザーID (下記では`uid zunda <zundan@gmail.com>`)に添付された自己署名のうち最新のもの(下記では`2021-03-06`)のみが有効です。その自己署名に含まれる`Signature notation proof@ariadne.id=`あるいは`Signature notation proof@metacode.biz=`で始まる行が有効なidentity proofです。
 
 ```
 $ gpg --show-keys --with-sig-list ~/Downloads/F60960D80B224382CA8D831CB56C20316D6E8279.asc
@@ -113,7 +113,7 @@ sub   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 sig          B56C20316D6E8279 2020-06-24  zunda <zundan@gmail.com>
 ```
 
-自分の鍵束に追加されている公開鍵について確認する場合は、下記の手順で有効なnotationのみを表示させることができます。`Notations: proof@metacode.biz=`で始まる行がidentity proofです。
+自分の鍵束に追加されている公開鍵について確認する場合は、下記の手順で有効なnotationのみを表示させることができます。`Notation proof@ariadne.id=`あるいは`Notation proof@metacode.biz=`で始まる行が有効なidentity proofです。
 
 ```
 $ gpg --edit-key F60960D80B224382CA8D831CB56C20316D6E8279

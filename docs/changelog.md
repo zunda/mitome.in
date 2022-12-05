@@ -1,6 +1,7 @@
 # 改定履歴
 詳細な変更履歴は[zunda/mitome.in](https://github.com/zunda/mitome.in)を参照してください。
 
+- 2022-12-04 「[Keyoxide](/sns/keyoxide.md)」の一部を更新
 - 2022-06-20 「[はじめに](/README.md)」にSSHの公開鍵認証とFIDOについて追記
 - 2022-05-29 デジタル署名を公開鍵暗号を利用した電子署名として文章を変更
 - 2022-05-29 「[GnuPGによる鍵対の生成と管理](/email/keyManagement.md)」に[公開鍵の有効期間の延長](/email/keyManagement.html#%E5%85%AC%E9%96%8B%E9%8D%B5%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%96%93%E3%81%AE%E5%BB%B6%E9%95%B7)について追記
