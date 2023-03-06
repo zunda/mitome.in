@@ -321,7 +321,7 @@ sec>  rsa3072/6D6E8279  created: 2020-06-24  expires: 2022-06-24
 ssb#  rsa3072/001C8CD1  created: 2020-06-24  expires: 2022-06-24
 ```
 
-Yubicoの私有鍵で自分の公開鍵に署名しておきます。`trust`コマンドで`5` (I trust ultimately)します。
+YubiKeyの私有鍵で自分の公開鍵に署名しておきます。`trust`コマンドで`5` (I trust ultimately)します。
 
 ```
 $ gpg2 --edit-key F60960D80B224382CA8D831CB56C20316D6E8279
