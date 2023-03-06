@@ -321,7 +321,7 @@ sec>  rsa3072/6D6E8279  created: 2020-06-24  expires: 2022-06-24
 ssb#  rsa3072/001C8CD1  created: 2020-06-24  expires: 2022-06-24
 ```
 
-Yubicoの私有鍵で自分の公開鍵に署名しておきます。`trust`コマンドで`5` (I trust ultimately)します。
+YubiKeyの私有鍵で自分の公開鍵に署名しておきます。`trust`コマンドで`5` (I trust ultimately)します。
 
 ```
 $ gpg2 --edit-key F60960D80B224382CA8D831CB56C20316D6E8279
@@ -398,6 +398,24 @@ $ git verify-commit 3a27355
 gpg: Signature made Sun 19 Jul 2020 02:33:49 PM HST using RSA key ID 6D6E8279
 gpg: Good signature from "zunda <zundan@gmail.com>" [ultimate]
 ```
+
+### 新しいYubiKeyでの既存の鍵対の利用
+上記の操作でGnuPGは鍵束にスタブを作成し、私有鍵のあるYubiKeyのシリアル番号を記録しました。新しいYubiKeyを購入した場合など、スタブを更新する場合には、いちどスタブを消去する必要があるようです。下記の操作はUbuntu 22.04で行ないましたので、`gpg`コマンドでGnuPG 2.2.4が起動されました。操作の結果、`gpg --list-secret-keys`に対象の私有鍵が表示されなくなりました。
+
+```
+$ gpg --delete-secret-key F60960D80B224382CA8D831CB56C20316D6E8279
+gpg (GnuPG) 2.2.4; Copyright (C) 2017 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+
+sec  rsa3072/B56C20316D6E8279 2020-06-24 zunda <zundan@gmail.com>
+
+Delete this key from the keyring? (y/N) y
+This is a secret key! - really delete? (y/N) y
+```
+
+既存のスタブを消去したあと、新しいYubiKeyをUSBポートに挿入し`gpg --card-status`コマンドを実行することで、再度鍵束にスタブが生成され、新しいYubiKeyのシリアル番号が記録されます。
 
 ## macOSでの私有鍵の利用
 [GPG Suiteをインストール](../email/keyManagement.md#gnupg%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)したmacOSでもYubiKeyに格納された私有鍵を利用することができます。
