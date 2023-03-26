@@ -14,7 +14,7 @@
 - estpls
 - Nakaya &lt;eniehack at outlook dot jp&gt;
 - zunda &lt;zundan at gmail.com&gt;
-- この他の著者
+- この他の[著者](https://github.com/zunda/mitome.in/graphs/contributors)^[本稿のgitレポジトリへのコミット以外の方法で原稿をいただいた場合は、リンク先のページに表示されません]
 
 ## ライセンス
 Copyright 2020 by zunda &lt;zundan at gmail.com&gt; and the contributors
