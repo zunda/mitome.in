@@ -1,5 +1,7 @@
 # OpenPGPとは
-[OpenPGP](https://www.openpgp.org/)は、電子メールなどのメッセージの暗号化やデジタル署名のために広く利用されている公開鍵暗号の規格の総称です。本章では、ブラウザ内で動作するJavaScriptによるOpenPGPの実装である、[OpenPGP.js](https://openpgpjs.org/)を利用して、暗号化やデジタル署名を試してみて、公開鍵暗号の振る舞いを確認してみます。
+[OpenPGP](https://www.openpgp.org/)は「公開鍵暗号の規格」の総称です。[IETF](https://ja.wikipedia.org/wiki/Internet_Engineering_Task_Force)によって[RFC 4880](https://www.rfc-editor.org/rfc/rfc4880)として仕様が標準化されており、電子メールなどのメッセージの暗号化や、デジタル署名などに広く採用されています。
+
+有名なGPG([GnuPG](https://ja.wikipedia.org/wiki/GNU_Privacy_Guard))は、この規格のC言語による実装の1つになります。本章では、ブラウザ内で動作するJavaScriptによる実装の[OpenPGP.js](https://openpgpjs.org/)を利用して、暗号化やデジタル署名を試してみて、公開鍵暗号の振る舞いを確認してみます。
 
 公開鍵暗号によるメッセージの暗号化やデジタル署名には、公開鍵(public key)と私有鍵(private key)のペア([鍵対](keyPair.md)、key pair)を使います。公開鍵は、インターネットなどで公開しておき、メッセージの暗号化や、デジタル署名の検証に使います。私有鍵は、ペアになっている公開鍵で暗号化されたメッセージの復号や、ペアになっている公開鍵で検証できるようなデジタル署名のために使います。
 
