@@ -38,6 +38,13 @@ The command below generates static files to be served under `./docs/.vuepress/di
 yarn docs:build
 ```
 
+### ERR_OSSL_EVP_UNSUPPORTED
+It seems that Webpack version 4 doesn't support OpenSSL version 3 and commands like `yarn docs:dev` fail with the `ERR_OSSL_EVP_UNSUPPORTED` error. In that case, please supply the `--openssl-legacy-provider` option as `NODE_OPTIONS` environment variable, i.e.:
+
+```sh
+NODE_OPTIONS=--openssl-legacy-provider yarn docs:dev
+```
+
 ## License
 ### The app code
 Copyright 2020 by zunda &lt;zundan at gmail.com&gt; and the contributors, under [MIT License](LICENSE).

@@ -40,5 +40,12 @@ yarn docs:dev
 yarn docs:build
 ```
 
+### ERR_OSSL_EVP_UNSUPPORTED
+Webpack バージョン4はOpenSSL バージョン3をサポートせず、`yarn docs:dev`などのコマンドが`ERR_OSSL_EVP_UNSUPPORTED`エラーで失敗するようです。この場合は、下記のように`--openssl-legacy-provider`オプションを`NODE_OPTIONS`環境変数として設定してください:
+
+```sh
+NODE_OPTIONS=--openssl-legacy-provider yarn docs:dev
+```
+
 ## ライセンス
 [英語版](README.md#lisence)で確認してください。
