@@ -455,6 +455,14 @@ sec>  rsa3072/B56C20316D6E8279  created: 2020-06-24  expires: 2022-06-24
 ssb#  rsa3072/164F21FF001C8CD1  created: 2020-06-24  expires: 2022-06-24
 ```
 
+::: tip
+環境によっては^[MacBook Air M1, 2020、macOS Ventura 13.3.1、GPG_Suite-2023.2で確認しました]、`gpg --card-status`コマンドが、`Operation not supported by device`といったエラーを表示して失敗することがあるようです。Yubicoによる[Troubleshooting Issues with GPG](https://support.yubico.com/hc/en-us/articles/360013714479-Troubleshooting-Issues-with-GPG)を参考に、下記の内容のファイルを`~/.gnupg/scdaemon.conf`として作成して、ラップトップを再起動することでエラーを解消することができました。
+
+```
+shared-access
+```
+:::
+
 GPG Keychainで、公開鍵をダブルタップして、Detailsメニューから公開鍵の指紋が自分のものであることを確認して、Owner TrustをUltimateにします。
 
 ![GPG Keychainでの信頼度の設定](/gpg-suite-keychain.png)
