@@ -1,6 +1,7 @@
 # 改定履歴
 詳細な変更履歴は[zunda/mitome.in](https://github.com/zunda/mitome.in)を参照してください。
 
+- 2023-06-21 「[電子署名サービス](/services/)」に[本人による電子署名](/services/#%E6%9C%AC%E4%BA%BA%E3%81%AB%E3%82%88%E3%82%8B%E9%9B%BB%E5%AD%90%E7%BD%B2%E5%90%8D)を提供するサービスについて追記
 - 2023-04-21 「[YubiKey](/device/yubiKey.md)」に`Operation not supported by device`エラーへの対処方法を追記
 - 2023-03-05 「[YubiKey](/device/yubiKey.md)」に新しいYubiKeyでの既存の鍵対の利用手順を追記
 - 2023-02-07 「[公開鍵の正当性の確認](/OpenPGP/wot.md#pki%E3%81%AB%E3%82%88%E3%82%8B%E5%85%AC%E9%96%8B%E9%8D%B5%E3%81%AE%E6%AD%A3%E5%BD%93%E6%80%A7%E3%81%AE%E7%A2%BA%E8%AA%8D)」のTLSについての記述を修正
