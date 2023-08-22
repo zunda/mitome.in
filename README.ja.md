@@ -48,4 +48,4 @@ NODE_OPTIONS=--openssl-legacy-provider yarn docs:dev
 ```
 
 ## ライセンス
-[英語版](README.md#lisence)で確認してください。
+[英語版](README.md#Licence)で確認してください。
