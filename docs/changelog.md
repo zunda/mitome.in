@@ -1,6 +1,7 @@
 # 改定履歴
 詳細な変更履歴は[zunda/mitome.in](https://github.com/zunda/mitome.in)を参照してください。
 
+- 2023-09-04 「[はじめに](/README.md)」と「[OpenPGPとは](/OpenPGP/README.md)」で私有鍵を漏らさず無くさないことの重要性について強調
 - 2023-06-21 「[電子署名サービス](/services/)」に[本人による電子署名](/services/#%E6%9C%AC%E4%BA%BA%E3%81%AB%E3%82%88%E3%82%8B%E9%9B%BB%E5%AD%90%E7%BD%B2%E5%90%8D)を提供するサービスについて追記
 - 2023-04-21 「[YubiKey](/device/yubiKey.md)」に`Operation not supported by device`エラーへの対処方法を追記
 - 2023-03-05 「[YubiKey](/device/yubiKey.md)」に新しいYubiKeyでの既存の鍵対の利用手順を追記
