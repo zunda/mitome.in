@@ -15,7 +15,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "markdown-it-footnote": "^3.0.2",
     "moment": "^2.29.4",
-    "openpgp": "^5.10.1",
+    "openpgp": "^5.11.1",
     "vue-clipboard2": "^0.3.1",
     "vue-toast-notification": "^0.4.0",
     "vuepress": "^1.9.5",

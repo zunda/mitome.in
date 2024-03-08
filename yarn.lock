@@ -6217,7 +6217,7 @@ opencollective-postinstall@^2.0.2:
   resolved "https://registry.yarnpkg.com/opencollective-postinstall/-/opencollective-postinstall-2.0.3.tgz#7a0fff978f6dbfa4d006238fbac98ed4198c3259"
   integrity sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==
 
-openpgp@^5.10.1:
+openpgp@^5.11.1:
   version "5.11.1"
   resolved "https://registry.yarnpkg.com/openpgp/-/openpgp-5.11.1.tgz#97f3a1dfb3d3573a0a73fe2efb29e6b1f8fefb1c"
   integrity sha512-TynUBPuaSI7dN0gP+A38CjNRLxkOkkptefNanalDQ71BFAKKm+dLbksymSW5bUrB7RcAneMySL/Y+r/TbLpOnQ==
