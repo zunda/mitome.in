@@ -37,6 +37,7 @@ export default {
     clearText: function() {
       this.inputText = ''
       this.onInput()
+      this.commitText()
     },
     commitText: function() {
       this.$store.commit('setInputText', {
