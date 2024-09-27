@@ -1,6 +1,7 @@
 # 改定履歴
 詳細な変更履歴は[zunda/mitome.in](https://github.com/zunda/mitome.in)を参照してください。
 
+- 2024-09-26 「[YubiKey](/device/yubiKey.md)」の[他のLinuxでの私有鍵の利用](/device/yubiKey.html#%E4%BB%96%E3%81%AElinux%E3%81%A6%E3%82%99%E3%81%AE%E7%A7%81%E6%9C%89%E9%8D%B5%E3%81%AE%E5%88%A9%E7%94%A8)をUbuntu 22.04のものに更新
 - 2024-05-30 「[電子署名と実社会](/laws/)」にマイナンバーカードの署名用電子証明書についての注記を追記
 - 2023-09-04 「[はじめに](/README.md)」と「[OpenPGPとは](/OpenPGP/README.md)」で私有鍵を漏らさず無くさないことの重要性について強調
 - 2023-06-21 「[電子署名サービス](/services/)」に[本人による電子署名](/services/#%E6%9C%AC%E4%BA%BA%E3%81%AB%E3%82%88%E3%82%8B%E9%9B%BB%E5%AD%90%E7%BD%B2%E5%90%8D)を提供するサービスについて追記
