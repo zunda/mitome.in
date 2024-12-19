@@ -4,13 +4,13 @@
 - 2024-12-02 「[暗号化と復号](/OpenPGP/encryption.md)」「[デジタル署名](/OpenPGP/sign.md)」「[暗号デバイスでの鍵対の管理](/device/)」で、私有鍵をデバイス外に持ち出す必要のないことを追記
 - 2024-09-26 「[YubiKey](/device/yubiKey.md)」の[他のLinuxでの私有鍵の利用](/device/yubiKey.html#%E4%BB%96%E3%81%AElinux%E3%81%A6%E3%82%99%E3%81%AE%E7%A7%81%E6%9C%89%E9%8D%B5%E3%81%AE%E5%88%A9%E7%94%A8)をUbuntu 22.04のものに更新
 - 2024-05-30 「[電子署名と実社会](/laws/)」にマイナンバーカードの署名用電子証明書についての注記を追記
-- 2023-09-04 「[はじめに](/README.md)」と「[OpenPGPとは](/OpenPGP/README.md)」で私有鍵を漏らさず無くさないことの重要性について強調
+- 2023-09-04 「[はじめに](/)」と「[OpenPGPとは](/OpenPGP/)」で私有鍵を漏らさず無くさないことの重要性について強調
 - 2023-06-21 「[電子署名サービス](/services/)」に[本人による電子署名](/services/#%E6%9C%AC%E4%BA%BA%E3%81%AB%E3%82%88%E3%82%8B%E9%9B%BB%E5%AD%90%E7%BD%B2%E5%90%8D)を提供するサービスについて追記
 - 2023-04-21 「[YubiKey](/device/yubiKey.md)」に`Operation not supported by device`エラーへの対処方法を追記
 - 2023-03-05 「[YubiKey](/device/yubiKey.md)」に新しいYubiKeyでの既存の鍵対の利用手順を追記
 - 2023-02-07 「[公開鍵の正当性の確認](/OpenPGP/wot.md#pki%E3%81%AB%E3%82%88%E3%82%8B%E5%85%AC%E9%96%8B%E9%8D%B5%E3%81%AE%E6%AD%A3%E5%BD%93%E6%80%A7%E3%81%AE%E7%A2%BA%E8%AA%8D)」のTLSについての記述を修正
 - 2022-12-04 「[Keyoxide](/sns/keyoxide.md)」の一部を更新
-- 2022-06-20 「[はじめに](/README.md)」にSSHの公開鍵認証とFIDOについて追記
+- 2022-06-20 「[はじめに](/)」にSSHの公開鍵認証とFIDOについて追記
 - 2022-05-29 デジタル署名を公開鍵暗号を利用した電子署名として文章を変更
 - 2022-05-29 「[GnuPGによる鍵対の生成と管理](/email/keyManagement.md)」に[公開鍵の有効期間の延長](/email/keyManagement.md#%E5%85%AC%E9%96%8B%E9%8D%B5%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%96%93%E3%81%AE%E5%BB%B6%E9%95%B7)について追記
 - 2022-05-22 「[Sequoia-PGP](/misc/sequoia.md)」公開
