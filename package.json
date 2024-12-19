@@ -16,15 +16,14 @@
     "markdown-it-footnote": "^4.0.0",
     "moment": "^2.30.1",
     "openpgp": "^5.11.2",
+    "vitepress": "^1.5.0",
     "vue-clipboard2": "^0.3.3",
-    "vue-toast-notification": "^0.4.0",
-    "vuepress": "^1.9.10",
-    "vuepress-plugin-font-awesome": "^1.90.6",
-    "vuex": "^3.4.0"
+    "vue-toast-notification": "^0.4.0"
   },
   "scripts": {
-    "docs:dev": "yarn fa:build && vuepress dev docs",
-    "docs:build": "yarn fa:build && vuepress build docs",
-    "fa:build": "node node_modules/vuepress-plugin-font-awesome/index.js --dest=docs"
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "fa:build": "node node_modules/vuepress-plugin-font-awesome/index.js --dest=docs",
+    "docs:preview": "vitepress preview docs"
   }
 }
