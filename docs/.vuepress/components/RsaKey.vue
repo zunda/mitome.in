@@ -2,52 +2,45 @@
   <div>
     <p>
       <input
-        v-model="name"
-        v-on:input="commitName"
+        v-model="state[owner].name"
         placeholder="ユーザーID"
       >
       <input
-        v-model="email"
-        v-on:input="commitEmail"
+        v-model="state[owner].email"
         class="email"
         placeholder="電子メールアドレス"
       >
       <input
-        v-model="passphrase"
-        v-on:input="commitPassphrase"
+        v-model="state[owner].passphrase"
         placeholder="パスフレーズ"
       >
       の鍵対を
-      <button v-bind:disabled="processing" v-on:click="generateKey">
+      <button v-bind:disabled="state[owner].processing" v-on:click="generateKey">
         生成する
       </button>
     </p>
-    <OutputArea v-bind:section="sectionPublicKey"
+    <OutputArea
       cssClass="key"
       name="公開鍵"
-      v-bind:output="publicKey"
-      v-bind:disabled="processing"
+      v-bind:output="state[owner].publicKey"
+      v-bind:disabled="state[owner].processing"
     />
-    <OutputArea v-bind:section="sectionPrivateKey"
+    <OutputArea
       cssClass="key"
       name="私有鍵"
-      v-bind:output="privateKey"
-      v-bind:disabled="processing"
+      v-bind:output="state[owner].privateKey"
+      v-bind:disabled="state[owner].processing"
     />
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
+import * as OpenPgp from "openpgp";
 
-import VueClipboard from 'vue-clipboard2'
-Vue.use(VueClipboard)
-
-import VueToast from 'vue-toast-notification'
-import 'vue-toast-notification/dist/theme-default.css'
-Vue.use(VueToast)
-
-const OpenPgp = require('openpgp')
+import { createGlobalState, useSessionStorage } from "@vueuse/core"
+const useState = createGlobalState(
+  () => useSessionStorage('mitomein-rsakeys', {})
+)
 
 export default {
   props: {
@@ -55,51 +48,42 @@ export default {
     defaultName: String,
     defaultEmail: String
   },
-  data() {
-    const input = this.$store.state.inputText
-    return {
-      name: input["RsaKey" + this.owner + "Name"] || this.defaultName,
-      email: input["RsaKey" + this.owner + "Email"] || this.defaultEmail,
-      passphrase: input["RsaKey" + this.owner + "Passphrase"] || "",
-      publicKey: undefined,
-      privateKey: undefined,
-      processing: false,
-      sectionPublicKey: "RsaKey" + this.owner + "PublicKey",
-      sectionPrivateKey: "RsaKey" + this.owner + "PrivateKey"
+  setup() {
+    const state = useState()
+    return { state }
+  },
+  created() {
+    if (!this.state[this.owner]) {
+      this.state[this.owner] = {
+        name: this.defaultName,
+        email: this.defaultEmail,
+        passphrase: "",
+        publicKey: "",
+        privateKey: "",
+      }
     }
+    this.state[this.owner].processing = false
   },
   methods: {
     generateKey: function () {
-      this.processing = true
+      this.state[this.owner].processing = true
       OpenPgp.generateKey({
-        userIDs: [{name: this.name, email: this.email}],
+        userIDs: [{
+          name: this.state[this.owner].name,
+          email: this.state[this.owner].email
+        }],
         rsaBits: 2048,
-        passphrase: this.passphrase
+        passphrase: this.state[this.owner].passphrase
       }).then(key => {
-        this.publicKey = key.publicKey
-        this.privateKey = key.privateKey
+        this.state[this.owner].publicKey = key.publicKey
+        this.state[this.owner].privateKey = key.privateKey
       }).catch(e => {
         console.log(e)
         Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
       }).finally(() => {
-        this.processing = false
+        this.state[this.owner].processing = false
       })
-    },
-    commitName: function() {
-      this.$store.commit('setInputText', {
-        section: "RsaKey" + this.owner + "Name", text: this.name
-      })
-    },
-    commitEmail: function() {
-      this.$store.commit('setInputText', {
-        section: "RsaKey" + this.owner + "Email", text: this.email
-      })
-    },
-    commitPassphrase: function() {
-      this.$store.commit('setInputText', {
-        section: "RsaKey" + this.owner + "Passphrase", text: this.passphrase
-      })
-    },
+    }
   }
 }
 </script>

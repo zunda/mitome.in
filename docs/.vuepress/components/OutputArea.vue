@@ -6,10 +6,11 @@
       v-on:click="copyText"
       v-bind:title="buttonTitle">
       <Fa-Copy />
+      Copy
     </button>
     <br>
     <textarea
-      v-model="outputText"
+      v-bind:value="output"
       v-bind:class="cssClass"
       v-bind:spellcheck="false"
       readonly
@@ -18,11 +19,8 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
-import VueToast from 'vue-toast-notification'
-import 'vue-toast-notification/dist/theme-default.css'
-Vue.use(VueToast)
+import { useClipboard } from '@vueuse/core'
+const copyClipboard  = useClipboard().copy
 
 export default {
   props: {
@@ -37,21 +35,11 @@ export default {
       buttonTitle: this.name + 'をクリップボードにコピーする'
     }
   },
-  computed: {
-    outputText: function() {
-      if (this.output !== undefined) {
-        this.commitText()
-        return this.output
-      } else {
-        return this.$store.state.outputText[this.section]
-      }
-    } 
-  },
   methods: {
     copyText: function() {
-      if (this.outputText != undefined) {
-        this.$copyText(this.outputText).then(() => {
-          Vue.$toast.open({message: this.name + 'をコピーしました', type: 'info'})
+      if (this.output != undefined) {
+        copyClipboard(this.output).then(() => {
+          this.$toast.open({message: this.name + 'をコピーしました', type: 'info'})
         }).catch(e => {
           console.log(e)
           Vue.$toast.open({message: e, type: 'error', duration: 60000})
