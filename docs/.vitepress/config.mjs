@@ -1,13 +1,28 @@
 import { defineConfig } from "vitepress"
 
+const title = "mitome.in"
+const domain = "https://mitome.in"
+const logoPath = "/mitomein.png"
+const biggerLogoPath = "/mitomein-144x144.png"
+const description = "認め印を使うくらい気軽に、暗号でやりとりしたり電子署名したい"
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "mitome.in",
+  title: title,
   lang: "ja",
-  description: "認め印を使うくらい気軽に、暗号でやりとりしたり電子署名したい",
+  description: description,
+  head: [
+    ["link", {rel: "icon", href: logoPath }],
+    ["meta", {name: "keywords", content: "OpenPGP, S/MIME, 暗号化, 電子署名, デ>ジタル署名, 認め印, はんこ, 印鑑"}],
+    ["meta", {name: "og:title", content: title + " - 暗号と電子署名を気軽に"}],
+    ["meta", {name: "og:description", content: description}],
+    ["meta", {name: "og:type", content: "website"}],
+    ["meta", {name: "og:url", content: domain}],
+    ["meta", {name: "og:image", content: domain + biggerLogoPath}]
+  ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    logo: "/mitomein.png",
+    logo: logoPath,
     socialLinks: [
       { icon: "github", link: "https://github.com/zunda/mitome.in" }
     ],
