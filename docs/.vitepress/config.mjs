@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress"
+import footnote from "markdown-it-footnote"
 
 const title = "mitome.in"
 const domain = "https://mitome.in"
@@ -20,6 +21,18 @@ export default defineConfig({
     ["meta", {name: "og:url", content: domain}],
     ["meta", {name: "og:image", content: domain + biggerLogoPath}]
   ],
+  markdown: {
+    // https://vitepress.dev/guide/markdown#custom-title
+    container: {
+      tipLabel: "ヒント",
+      warningLabel: "注意",
+      dangerLabel: "警告"
+    },
+    // https://github.com/vuejs/vitepress/discussions/704
+    config: (md) => {
+      md.use(footnote)
+    }
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: logoPath,
