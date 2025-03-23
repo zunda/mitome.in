@@ -13,7 +13,7 @@ OpenPGPでは暗号化の度にセッション鍵を生成してそれをメッ�
 :::
 
 ::: tip
-不要な公開鍵は、一覧内の鍵の左の <Fa-Eraser /> ボタンを押して取り除くことができます。暗号文の上の <Fa-Copy /> ボタンを押して暗号文をクリップボードにコピーすることができます。
+不要な公開鍵は、一覧内の鍵の左の <font-awesome-icon icon="eraser" /> ボタンを押して取り除くことができます。暗号文の上の <font-awesome-icon icon="copy" /> ボタンを押して暗号文をクリップボードにコピーすることができます。
 :::
 
 <ClientOnly><Encryption /></ClientOnly>

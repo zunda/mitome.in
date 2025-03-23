@@ -5,8 +5,7 @@
       v-bind::disabled="disabled"
       v-on:click="copyText"
       v-bind:title="buttonTitle">
-      <Fa-Copy />
-      Copy
+      <font-awesome-icon icon="copy" />
     </button>
     <br>
     <textarea

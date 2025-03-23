@@ -13,7 +13,7 @@
       v-on:click="clearText"
       v-bind:title="buttonTitle"
       style="float:right;">
-      <Fa-Eraser />
+      <font-awesome-icon icon="eraser" />
     </button>
   </div>
 </template>

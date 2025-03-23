@@ -16,12 +16,12 @@
         v-on:click="clearNewPublicKey"
         title="追加する受取人の公開鍵を消去する"
         style="float:right;">
-        <Fa-Eraser />
+        <font-awesome-icon icon="eraser" />
       </button>
     </p>
     <ul id="public-keys">
       <li v-for="publicKey in publicKeys" :key="publicKey.keyID">
-        <button v-on:click="removePublicKey(publicKey.keyID)" title="鍵をリストから取り除く"><Fa-Eraser /></button>
+        <button v-on:click="removePublicKey(publicKey.keyID)" title="鍵をリストから取り除く"><font-awesome-icon icon="eraser" /></button>
         <span class="key-id">{{ publicKey.keyID }}</span>:
         {{ publicKey.name }}
         <span class="email">&lt;{{ publicKey.emali }}&gt;</span>
