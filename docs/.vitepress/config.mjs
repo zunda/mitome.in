@@ -39,11 +39,22 @@ export default defineConfig({
     socialLinks: [
       { icon: "github", link: "https://github.com/zunda/mitome.in" }
     ],
-    nav: [
-      { text: "Home", link: "/" },
-    ],
+    docFooter: {
+      prev: "前のページ",
+      next: "次のページ"
+    },
+    darkModeSwitchLabel: "見た目",
+    lightModeSwitchTitle: "ライトモードにする",
+    darkModeSwitchTitle: "ダークモードにする",
+    sidebarMenuLabel: "目次",
+    returnToTopLabel: "トップに戻る",
+    skipToContentLabel: "本文に進む",
+    outline: {
+      label: "このページ"
+    },
 
     sidebar: [
+      { text: "はじめに", link: "/" },
       {
         text: "OpenPGPを試す",
         collapsed: true,

@@ -137,3 +137,10 @@
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
 
+.vp-doc a {
+  color: #e07000;
+}
+
+.vp-doc a:hover {
+  color: #ffa000;
+}
