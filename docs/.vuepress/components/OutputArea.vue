@@ -41,10 +41,10 @@ export default {
           this.$toast.open({message: this.name + 'をコピーしました', type: 'info'})
         }).catch(e => {
           console.log(e)
-          Vue.$toast.open({message: e, type: 'error', duration: 60000})
+          this.$toast.open({message: e, type: 'error', duration: 60000})
         })
       } else {
-        Vue.$toast.open({message: 'コピーする内容がありません', type: 'warning'})
+        this.$toast.open({message: 'コピーする内容がありません', type: 'warning'})
       }
     },
     commitText: function() {

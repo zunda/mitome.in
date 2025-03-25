@@ -1,55 +1,57 @@
 <template>
   <div>
     <p>下記の鍵を
-      <button v-bind:disabled="processing" @click="readKey" >
-      確認する</button>
+      <button v-bind:disabled="state.processing" @click="readKey" >確認する</button>
     </p>
-    <InputArea section="ReadKey"
+    <InputArea
       cssClass="key"
       name="確認する鍵"
-      v-bind:disabled="processing"
-      v-bind:onInput="clearResult"
+      v-bind:input="state.inputText"
+      v-bind:disabled="state.processing"
+      v-bind:onInput="onUpdate"
     />
     <ul>
-      <li>種類: {{ details.type }}</li>
-      <li>名前: {{ details.name }}</li>
-      <li>電子メールアドレス: <span class="email">{{ details.email }}</span></li>
-      <li>生成時刻: {{ details.created }}</li>
-      <li>ID: <span class="key-id">{{ details.keyID }}</span></li>
-      <li>指紋: <span class="key-id">{{ details.fingerprint }}</span></li>
+      <li>種類: {{ state.details.type }}</li>
+      <li>名前: {{ state.details.name }}</li>
+      <li>電子メールアドレス: <span class="email">{{ state.details.email }}</span></li>
+      <li>生成時刻: {{ state.details.created }}</li>
+      <li>ID: <span class="key-id">{{ state.details.keyID }}</span></li>
+      <li>指紋: <span class="key-id">{{ state.details.fingerprint }}</span></li>
     </ul>
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
-
-import VueToast from 'vue-toast-notification'
-import 'vue-toast-notification/dist/theme-default.css'
-Vue.use(VueToast)
-
+import * as OpenPgp from "openpgp";
 import moment from 'moment'
 
-const OpenPgp = require('openpgp')
+import { createGlobalState, useSessionStorage } from "@vueuse/core"
+const useState = createGlobalState(
+  () => useSessionStorage('mitomein-readkeys', {})
+)
 
 export default {
-  data() {
-    return {
-      processing: false,
-      details: this.$store.state.outputText.ReadKeyDetails || {}
+  setup() {
+    const state = useState()
+    return { state }
+  },
+  created() {
+    if (!this.state.details) {
+      this.state.details = {}
     }
+    this.state.processing = false
   },
   methods: {
     readKey: function () {
-      if (! this.$store.state.inputText.ReadKey) {
-        Vue.$toast.open({message: '確認する鍵をペーストしてください', type: 'warning'})
+      if (! this.state.inputText) {
+        this.$toast.open({message: '確認する鍵をペーストしてください', type: 'warning'})
         return
       }
-      this.processing = true
-      OpenPgp.readKey({armoredKey: this.$store.state.inputText.ReadKey})
+      this.state.processing = true
+      OpenPgp.readKey({armoredKey: this.state.inputText})
       .then(key => {
         console.log(key)
-        const details = {
+        this.state.details = {
           name: key.users[0].userID.name,
           email:  key.users[0].userID.email,
           type: key.isPrivate()
@@ -62,20 +64,16 @@ export default {
             Array.from(key.keyPacket.fingerprint)
             .map(x => ('0' + x.toString(16).toUpperCase()).slice(-2)).join(' ')
         }
-        this.$store.commit('setOutputText',
-          {section: 'ReadKeyDetails', text: details}
-        )
-        this.details = details
       }).catch(e => {
         console.log(e)
-        Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
+        this.$toast.open({message: e.message, type: 'error', duration: 60000})
       }).finally(() => {
-        this.processing = false
+        this.state.processing = false
       })
     },
-    clearResult: function() {
-      this.$store.commit('setOutputText', {section: 'ReadKeyDetails', text: {}})
-      this.details = {}
+    onUpdate: function(input) {
+      this.state.inputText = input
+      this.state.details = {}
     }
   }
 }

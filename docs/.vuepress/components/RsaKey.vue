@@ -79,7 +79,7 @@ export default {
         this.state[this.owner].privateKey = key.privateKey
       }).catch(e => {
         console.log(e)
-        Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
+        this.$toast.open({message: e.message, type: 'error', duration: 60000})
       }).finally(() => {
         this.state[this.owner].processing = false
       })

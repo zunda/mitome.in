@@ -12,8 +12,10 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faCopy, faEraser } from "@fortawesome/free-solid-svg-icons"
 library.add(faCopy, faEraser)
 
+import InputArea from "../../.vuepress/components/InputArea.vue"
 import OutputArea from "../../.vuepress/components/OutputArea.vue"
 import RsaKey from "../../.vuepress/components/RsaKey.vue"
+import ReadKey from "../../.vuepress/components/ReadKey.vue"
 
 /** @type {import("vitepress").Theme} */
 export default {
@@ -26,7 +28,9 @@ export default {
   enhanceApp({ app, router, siteData }) {
     app.use(ToastPlugin)
     app.component("font-awesome-icon", FontAwesomeIcon)
+    app.component("InputArea", InputArea)
     app.component("OutputArea", OutputArea)
     app.component("RsaKey", RsaKey)
+    app.component("ReadKey", ReadKey)
   }
 }

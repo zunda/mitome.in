@@ -1,12 +1,11 @@
 <template>
   <div>
     <textarea
-      v-model="inputText"
+      v-model="inputArea"
       v-bind:class="cssClass"
-      v-bind:spellcheck="false"
       v-bind:placeholder="name"
-      v-on:blur="commitText"
-      v-on:input="onInput"
+      spellcheck="false"
+      v-on:change="commitInput"
     />
     <button
       v-bind::disabled="disabled"
@@ -21,28 +20,25 @@
 <script>
 export default {
   props: {
-    section: String,
     name: String,
+    input: String,
     cssClass: String,
     disabled: {default: false, type: Boolean},
     onInput: {default: function(){}, type: Function}
   },
   data() {
     return {
-      inputText: this.$store.state.inputText[this.section] || '',
+      inputArea: this.input,
       buttonTitle: this.name + 'を消去する'
     }
   },
   methods: {
-    clearText: function() {
-      this.inputText = ''
-      this.onInput()
-      this.commitText()
+    commitInput: function() {
+      this.onInput(this.inputArea)
     },
-    commitText: function() {
-      this.$store.commit('setInputText', {
-        section: this.section, text: this.inputText
-      })
+    clearText: function() {
+      this.inputArea = ""
+      this.onInput("")
     }
   }
 }
