@@ -23,11 +23,11 @@
 
 <script>
 import * as OpenPgp from "openpgp";
-import moment from 'moment'
+import moment from "moment"
 
 import { createGlobalState, useSessionStorage } from "@vueuse/core"
 const useState = createGlobalState(
-  () => useSessionStorage('mitomein-readkeys', {})
+  () => useSessionStorage("mitomein-readkeys", {})
 )
 
 export default {
@@ -44,7 +44,7 @@ export default {
   methods: {
     readKey: function () {
       if (! this.state.inputText) {
-        this.$toast.open({message: '確認する鍵をペーストしてください', type: 'warning'})
+        this.$toast.open({message: "確認する鍵をペーストしてください", type: "warning"})
         return
       }
       this.state.processing = true
@@ -55,18 +55,18 @@ export default {
           name: key.users[0].userID.name,
           email:  key.users[0].userID.email,
           type: key.isPrivate()
-            ? (key.isDecrypted() ? '私有鍵' : '私有鍵 (パスフレーズ付き)')
-            : '公開鍵',
+            ? (key.isDecrypted() ? "私有鍵" : "私有鍵 (パスフレーズ付き)")
+            : "公開鍵",
           created:
-            moment(key.keyPacket.created).format('YYYY年MM月DD日 HH:mm:ss Z'),
+            moment(key.keyPacket.created).format("YYYY年MM月DD日 HH:mm:ss Z"),
           keyID: key.keyPacket.keyID.toHex(),
           fingerprint:
             Array.from(key.keyPacket.fingerprint)
-            .map(x => ('0' + x.toString(16).toUpperCase()).slice(-2)).join(' ')
+            .map(x => ("0" + x.toString(16).toUpperCase()).slice(-2)).join(" ")
         }
       }).catch(e => {
         console.log(e)
-        this.$toast.open({message: e.message, type: 'error', duration: 60000})
+        this.$toast.open({message: e.message, type: "error", duration: 60000})
       }).finally(() => {
         this.state.processing = false
       })

@@ -39,7 +39,7 @@ import * as OpenPgp from "openpgp";
 
 import { createGlobalState, useSessionStorage } from "@vueuse/core"
 const useState = createGlobalState(
-  () => useSessionStorage('mitomein-rsakeys', {})
+  () => useSessionStorage("mitomein-rsakeys", {})
 )
 
 export default {
@@ -79,7 +79,7 @@ export default {
         this.state[this.owner].privateKey = key.privateKey
       }).catch(e => {
         console.log(e)
-        this.$toast.open({message: e.message, type: 'error', duration: 60000})
+        this.$toast.open({message: e.message, type: "error", duration: 60000})
       }).finally(() => {
         this.state[this.owner].processing = false
       })

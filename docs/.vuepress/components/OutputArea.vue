@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { useClipboard } from '@vueuse/core'
+import { useClipboard } from "@vueuse/core"
 const copyClipboard  = useClipboard().copy
 
 export default {
@@ -31,24 +31,24 @@ export default {
   },
   data() {
     return {
-      buttonTitle: this.name + 'をクリップボードにコピーする'
+      buttonTitle: this.name + "をクリップボードにコピーする"
     }
   },
   methods: {
     copyText: function() {
       if (this.output != undefined) {
         copyClipboard(this.output).then(() => {
-          this.$toast.open({message: this.name + 'をコピーしました', type: 'info'})
+          this.$toast.open({message: this.name + "をコピーしました", type: "info"})
         }).catch(e => {
           console.log(e)
-          this.$toast.open({message: e, type: 'error', duration: 60000})
+          this.$toast.open({message: e, type: "error", duration: 60000})
         })
       } else {
-        this.$toast.open({message: 'コピーする内容がありません', type: 'warning'})
+        this.$toast.open({message: "コピーする内容がありません", type: "warning"})
       }
     },
     commitText: function() {
-      this.$store.commit('setOutputText', {
+      this.$store.commit("setOutputText", {
         section: this.section, text: this.output
       })
     }

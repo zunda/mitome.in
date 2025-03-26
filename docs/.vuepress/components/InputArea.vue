@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       inputArea: this.input,
-      buttonTitle: this.name + 'を消去する'
+      buttonTitle: this.name + "を消去する"
     }
   },
   methods: {

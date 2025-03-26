@@ -37,7 +37,7 @@ import * as OpenPgp from "openpgp";
 
 import { createGlobalState, useSessionStorage } from "@vueuse/core"
 const useState = createGlobalState(
-  () => useSessionStorage('mitomein-decrypt', {})
+  () => useSessionStorage("mitomein-decrypt", {})
 )
 
 export default {
@@ -56,15 +56,15 @@ export default {
     decrypt: function () {
       const input = this.$store.state.inputText
       if (! input.DecryptionPrivateKey) {
-        Vue.$toast.open({message: '私有鍵をペーストしてください', type: 'warning'})
+        Vue.$toast.open({message: "私有鍵をペーストしてください", type: "warning"})
         return
       }
       if (! input.DecryptionEncryptedMessage) {
-        Vue.$toast.open({message: '暗号文をペーストしてください', type: 'warning'})
+        Vue.$toast.open({message: "暗号文をペーストしてください", type: "warning"})
         return
       }
       this.processing = true
-      this.decryptedMessage = ''
+      this.decryptedMessage = ""
       Promise.all([
         OpenPgp.readMessage({
           armoredMessage: input.DecryptionEncryptedMessage
@@ -72,7 +72,7 @@ export default {
         OpenPgp.readKey({ armoredKey: input.DecryptionPrivateKey })
         .then(key => {
           if (! key.isPrivate()) {
-            throw {message: '私有鍵ではありません'}
+            throw {message: "私有鍵ではありません"}
           }
           if (key.isDecrypted()) {
             return key
@@ -92,18 +92,18 @@ export default {
       .then(decrypted => { this.decryptedMessage = decrypted.data })
       .catch(e => {
         console.log(e.message)
-        Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
+        Vue.$toast.open({message: e.message, type: "error", duration: 60000})
       })
       .finally(() => {
         this.processing = false
       })
     },
     clearDecryptedMessage: function() {
-      this.decryptedMessage = ''
+      this.decryptedMessage = ""
     },
     clearDecryptedMessageAndPassphrase: function() {
-      this.decryptedMessage = ''
-      this.passphrase = ''
+      this.decryptedMessage = ""
+      this.passphrase = ""
     }
   }
 }

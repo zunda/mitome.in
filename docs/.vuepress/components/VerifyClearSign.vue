@@ -22,18 +22,18 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import Vue from "vue"
 
-import VueClipboard from 'vue-clipboard2'
+import VueClipboard from "vue-clipboard2"
 Vue.use(VueClipboard)
 
-import VueToast from 'vue-toast-notification'
-import 'vue-toast-notification/dist/theme-default.css'
+import VueToast from "vue-toast-notification"
+import "vue-toast-notification/dist/theme-default.css"
 Vue.use(VueToast)
 
-import moment from 'moment'
+import moment from "moment"
 
-const OpenPgp = require('openpgp')
+const OpenPgp = require("openpgp")
 
 export default {
   props: {
@@ -41,7 +41,7 @@ export default {
   },
   data() {
     return {
-      result: this.$store.state.outputText.VerifyClearSignResult || '',
+      result: this.$store.state.outputText.VerifyClearSignResult || "",
       processing: false
     }
   },
@@ -49,11 +49,11 @@ export default {
     verify: function () {
       const input = this.$store.state.inputText
       if (!input.VerifyClearSignPublicKey) {
-        Vue.$toast.open({message: '検証に利用する公開鍵をペーストしてください', type: 'warning'})
+        Vue.$toast.open({message: "検証に利用する公開鍵をペーストしてください", type: "warning"})
         return
       }
       if (!input.VerifyClearSignClearText) {
-        Vue.$toast.open({message: '検証するクリアテキスト署名をペーストしてください', type: 'warning'})
+        Vue.$toast.open({message: "検証するクリアテキスト署名をペーストしてください", type: "warning"})
         return
       }
       this.result = ""
@@ -76,17 +76,17 @@ export default {
       ]))
       .then(([_verified, keyID, signature]) => {
         console.log(signature)
-        this.result = '成功: 鍵ID: <span class="key-id">' +
-          keyID.toHex() + '</span> 時刻: ' +
-          moment(signature.packets[0].created).format('YYYY年MM月DD日 HH:mm:ss Z')
-        this.$store.commit('setOutputText', {
-          section: 'VerifyClearSignResult', text: this.result
+        this.result = "成功: 鍵ID: <span class="key-id">" +
+          keyID.toHex() + "</span> 時刻: " +
+          moment(signature.packets[0].created).format("YYYY年MM月DD日 HH:mm:ss Z")
+        this.$store.commit("setOutputText", {
+          section: "VerifyClearSignResult", text: this.result
         })
       })
       .catch(e => {
-        this.result = '失敗: ' + e.message
-        this.$store.commit('setOutputText', {
-          section: 'VerifyClearSignResult', text: this.result
+        this.result = "失敗: " + e.message
+        this.$store.commit("setOutputText", {
+          section: "VerifyClearSignResult", text: this.result
         })
         return
       })

@@ -35,16 +35,16 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import Vue from "vue"
 
-import VueClipboard from 'vue-clipboard2'
+import VueClipboard from "vue-clipboard2"
 Vue.use(VueClipboard)
 
-import VueToast from 'vue-toast-notification'
-import 'vue-toast-notification/dist/theme-default.css'
+import VueToast from "vue-toast-notification"
+import "vue-toast-notification/dist/theme-default.css"
 Vue.use(VueToast)
 
-const OpenPgp = require('openpgp')
+const OpenPgp = require("openpgp")
 
 export default {
   props: {
@@ -62,13 +62,13 @@ export default {
   methods: {
     clearSign: function () {
       const input = this.$store.state.inputText
-      const text = input.ClearSignMessage || ''
-      if (text === '') {
-        Vue.$toast.open({message: 'ここでは空文字列には署名できません', type: 'warning'})
+      const text = input.ClearSignMessage || ""
+      if (text === "") {
+        Vue.$toast.open({message: "ここでは空文字列には署名できません", type: "warning"})
         return
       }
       if (!input.ClearSignPrivateKey) {
-        Vue.$toast.open({message: '署名に使う私有鍵をペーストしてください', type: 'warning'})
+        Vue.$toast.open({message: "署名に使う私有鍵をペーストしてください", type: "warning"})
         return
       }
       this.processing = true
@@ -77,7 +77,7 @@ export default {
         OpenPgp.readKey({ armoredKey: input.ClearSignPrivateKey })
         .then(key => {
           if (! key.isPrivate()) {
-            throw {message: '私有鍵ではありません'}
+            throw {message: "私有鍵ではありません"}
           }
           if (key.isDecrypted()) {
             return key
@@ -95,18 +95,18 @@ export default {
       .then(signed => {this.signedMessage = signed})
       .catch(e => {
         console.log(e.message)
-        Vue.$toast.open({message: e.message, type: 'error', duration: 60000})
+        Vue.$toast.open({message: e.message, type: "error", duration: 60000})
       })
       .finally(() => {
         this.processing = false
       })
     },
     clearSignedMessage: function() {
-      this.signedMessage = ''
+      this.signedMessage = ""
     },
     clearSignedMessageAndPassphrase: function() {
-      this.signedMessage = ''
-      this.passphrase = ''
+      this.signedMessage = ""
+      this.passphrase = ""
     }
   }
 }
