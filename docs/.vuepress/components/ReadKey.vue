@@ -8,7 +8,7 @@
       name="確認する鍵"
       v-bind:input="state.inputText"
       v-bind:disabled="state.processing"
-      v-bind:onInput="onUpdate"
+      v-bind:onUpdate="onUpdate"
     />
     <ul>
       <li>種類: {{ state.details.type }}</li>

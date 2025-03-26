@@ -37,7 +37,7 @@
         name="暗号化するメッセージ"
         v-bind:input="state.inputText"
         v-bind:disabled="state.processing"
-        v-bind:onInput="clearEncryptedMessage"
+        v-bind:onUpdate="onUpdateCleartext"
       />
     </p>
     <OutputArea section="Encryption"
@@ -128,6 +128,10 @@ export default {
       }).finally(() => {
         this.state.processing = false
       })
+    },
+    onUpdateCleartext: function(input) {
+      this.state.inputText = input
+      this.clearEncryptedMessage()
     },
     clearEncryptedMessage: function() {
       this.state.encryptedMessage = ""

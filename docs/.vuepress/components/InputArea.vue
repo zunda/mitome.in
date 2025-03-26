@@ -24,7 +24,7 @@ export default {
     input: String,
     cssClass: String,
     disabled: {default: false, type: Boolean},
-    onInput: {default: function(){}, type: Function}
+    onUpdate: {default: function(){}, type: Function}
   },
   data() {
     return {
@@ -34,11 +34,11 @@ export default {
   },
   methods: {
     commitInput: function() {
-      this.onInput(this.inputArea)
+      this.onUpdate(this.inputArea)
     },
     clearText: function() {
       this.inputArea = ""
-      this.onInput("")
+      this.onUpdate("")
     }
   }
 }
