@@ -16,6 +16,8 @@ import InputArea from "../../.vuepress/components/InputArea.vue"
 import OutputArea from "../../.vuepress/components/OutputArea.vue"
 import RsaKey from "../../.vuepress/components/RsaKey.vue"
 import ReadKey from "../../.vuepress/components/ReadKey.vue"
+import Encryption from "../../.vuepress/components/Encryption.vue"
+import Decryption from "../../.vuepress/components/Decryption.vue"
 
 /** @type {import("vitepress").Theme} */
 export default {
@@ -32,5 +34,7 @@ export default {
     app.component("OutputArea", OutputArea)
     app.component("RsaKey", RsaKey)
     app.component("ReadKey", ReadKey)
+    app.component("Encrypt", Encryption)
+    app.component("Decrypt", Decryption)
   }
 }

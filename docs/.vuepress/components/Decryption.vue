@@ -33,13 +33,12 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import * as OpenPgp from "openpgp";
 
-import VueToast from 'vue-toast-notification'
-import 'vue-toast-notification/dist/theme-default.css'
-Vue.use(VueToast)
-
-const OpenPgp = require('openpgp')
+import { createGlobalState, useSessionStorage } from "@vueuse/core"
+const useState = createGlobalState(
+  () => useSessionStorage('mitomein-decrypt', {})
+)
 
 export default {
   props: {
