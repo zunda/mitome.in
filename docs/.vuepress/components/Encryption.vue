@@ -112,6 +112,10 @@ export default {
       this.clearEncryptedMessage()
     },
     encrypt: function() {
+      if (this.state.publicKeys.length == 0) {
+        this.$toast.open({message: "まず、受取人の公開鍵を追加してください", type: "warning"})
+        return
+      }
       this.state.processing = true
       const p = [
         OpenPgp.createMessage({ text: this.state.inputText || "" })
