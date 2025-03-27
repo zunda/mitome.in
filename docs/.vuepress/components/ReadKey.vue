@@ -15,8 +15,8 @@
       <li>名前: {{ state.details.name }}</li>
       <li>電子メールアドレス: <span class="email">{{ state.details.email }}</span></li>
       <li>生成時刻: {{ state.details.created }}</li>
-      <li>ID: <span class="key-id">{{ state.details.keyID }}</span></li>
-      <li>指紋: <span class="key-id">{{ state.details.fingerprint }}</span></li>
+      <li>ID: <span class="keyId">{{ state.details.keyID }}</span></li>
+      <li>指紋: <span class="keyId">{{ state.details.fingerprint }}</span></li>
     </ul>
   </div>
 </template>
