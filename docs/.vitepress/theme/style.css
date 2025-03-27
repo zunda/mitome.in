@@ -159,6 +159,6 @@
   white-space: pre;
 }
 
-.email {
+.email, .keyId {
   font-family: monospace;
 }

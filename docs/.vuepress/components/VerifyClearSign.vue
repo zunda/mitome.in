@@ -19,7 +19,15 @@
       v-bind:onUpdate="updateSignedMessage"
       v-bind:disabled="state.processing"
     />
-    <p>検証結果: <span v-html="state.result" /></p>
+    <p>検証結果:
+      <span v-if="state.result.isVerified === true">成功、
+        鍵ID: <span class="keyId">{{ state.result.keyID }}</span>、
+        時刻: {{ state.result.timestamp }}
+      </span>
+      <span v-else-if="state.result.isVerified === false">失敗、
+        {{ state.result.message }}
+      </span>
+    </p>
   </div>
 </template>
 
@@ -38,6 +46,9 @@ export default {
     return { state }
   },
   created() {
+    if (!this.state.result) {
+      this.state.result = {}
+    }
     this.state.processing = false
   },
   methods: {
@@ -50,7 +61,6 @@ export default {
         this.$toast.open({message: "検証するクリアテキスト署名をペーストしてください", type: "warning"})
         return
       }
-      this.result = ""
       this.processing = true
       Promise.all([
         OpenPgp.readCleartextMessage({
@@ -70,12 +80,13 @@ export default {
       ]))
       .then(([_verified, keyID, signature]) => {
         console.log(signature)
-        this.state.result = '成功: 鍵ID: <span class="key-id">' +
-          keyID.toHex() + "</span> 時刻: " +
-          moment(signature.packets[0].created).format("YYYY年MM月DD日 HH:mm:ss Z")
+        this.state.result.isVerified = true
+        this.state.result.keyID =  keyID.toHex()
+        this.state.result.timestamp = moment(signature.packets[0].created).format("YYYY年MM月DD日 HH:mm:ss Z")
       })
       .catch(e => {
-        this.state.result = "失敗: " + e.message
+        this.state.result.isVerified = false
+        this.state.result.message = e.message
       })
       .finally(() => {
         this.processing = false
@@ -83,11 +94,11 @@ export default {
     },
     updatePublicKey: function(input) {
       this.state.publicKey = input
-      this.state.result = ""
+      this.state.result = {}
     },
     updateSignedMessage: function(input) {
       this.state.signedMessage = input
-      this.state.result = ""
+      this.state.result = {}
     }
   }
 }
