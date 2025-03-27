@@ -18,6 +18,8 @@ import RsaKey from "../../.vuepress/components/RsaKey.vue"
 import ReadKey from "../../.vuepress/components/ReadKey.vue"
 import Encryption from "../../.vuepress/components/Encryption.vue"
 import Decryption from "../../.vuepress/components/Decryption.vue"
+import ClearSign from "../../.vuepress/components/ClearSign.vue"
+import VerifyClearSign from "../../.vuepress/components/VerifyClearSign.vue"
 
 /** @type {import("vitepress").Theme} */
 export default {
@@ -36,5 +38,7 @@ export default {
     app.component("ReadKey", ReadKey)
     app.component("Encrypt", Encryption)
     app.component("Decrypt", Decryption)
+    app.component("ClearSign", ClearSign)
+    app.component("VerifyClearSign", VerifyClearSign)
   }
 }
