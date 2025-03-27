@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import * as OpenPgp from "openpgp";
+import { decrypt, decryptKey, readKey, readMessage } from "openpgp"
 
 import { createGlobalState, useSessionStorage } from "@vueuse/core"
 const useState = createGlobalState(
@@ -68,13 +68,13 @@ export default {
       }
       this.state.processing = true
       this.state.decryptedMessage = ""
-      OpenPgp.readKey({ armoredKey: this.state.privateKey })
+      readKey({ armoredKey: this.state.privateKey })
       .then(key => {
         if (! key.isPrivate()) {
           throw {message: "私有鍵ではありません"}
         }
         if (! key.isDecrypted()) {
-          return OpenPgp.decryptKey(
+          return decryptKey(
             { privateKey: key, passphrase: this.passphrase }
           )
         } else {
@@ -83,12 +83,12 @@ export default {
       })
       .then(key => {
         return Promise.all([
-          OpenPgp.readMessage({ armoredMessage: this.state.encryptedMessage }),
+          readMessage({ armoredMessage: this.state.encryptedMessage }),
           key
         ])
       })
       .then(([encryptedMessage, key]) => {
-        return OpenPgp.decrypt({
+        return decrypt({
           message: encryptedMessage, decryptionKeys: key
         })
       })

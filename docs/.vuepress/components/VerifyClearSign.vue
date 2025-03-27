@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import * as OpenPgp from "openpgp";
+import { readCleartextMessage, readKey, verify } from "openpgp"
 import moment from "moment"
 
 import { createGlobalState, useSessionStorage } from "@vueuse/core"
@@ -63,15 +63,15 @@ export default {
       }
       this.processing = true
       Promise.all([
-        OpenPgp.readCleartextMessage({
+        readCleartextMessage({
           cleartextMessage: this.state.signedMessage
         }),
-        OpenPgp.readKey({
+        readKey({
           armoredKey: this.state.publicKey
         })
       ])
       .then(([clearText, publicKeys]) =>
-        OpenPgp.verify({message: clearText, verificationKeys: publicKeys})
+        verify({message: clearText, verificationKeys: publicKeys})
       )
       .then(result => Promise.all([
         result.signatures[0].verified,

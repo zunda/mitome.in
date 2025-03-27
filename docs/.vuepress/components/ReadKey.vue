@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import * as OpenPgp from "openpgp";
+import { readKey } from "openpgp"
 import moment from "moment"
 
 import { createGlobalState, useSessionStorage } from "@vueuse/core"
@@ -48,7 +48,7 @@ export default {
         return
       }
       this.state.processing = true
-      OpenPgp.readKey({armoredKey: this.state.inputText})
+      readKey({armoredKey: this.state.inputText})
       .then(key => {
         console.log(key)
         this.state.details = {

@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import * as OpenPgp from "openpgp";
+import { generateKey } from "openpgp"
 
 import { createGlobalState, useSessionStorage } from "@vueuse/core"
 const useState = createGlobalState(
@@ -67,7 +67,7 @@ export default {
   methods: {
     generateKey: function () {
       this.state[this.owner].processing = true
-      OpenPgp.generateKey({
+      generateKey({
         userIDs: [{
           name: this.state[this.owner].name,
           email: this.state[this.owner].email
