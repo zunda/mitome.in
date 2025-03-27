@@ -12,7 +12,7 @@
         placeholder="追加する受取人の公開鍵"
       />
       <button
-        v-bind::disabled="state.processing"
+        v-bind:disabled="state.processing"
         v-on:click="clearNewPublicKey"
         title="追加する受取人の公開鍵を消去する"
         style="float:right;">
