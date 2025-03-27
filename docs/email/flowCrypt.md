@@ -15,11 +15,11 @@ FlowCryptのブラウザ拡張機能は、[FlowCryptのホームページ](https
 
 ![FlowCryptへのアクセス許可](/flowcrypt-access.png)
 
-今回は、[先に生成した鍵対](keyManagement.md)をインポートします。
+今回は、[先に生成した鍵対](keyManagement)をインポートします。
 
 ![FlowCryptの鍵対の設定](/flowcrypt-setup-keypair.png)
 
-下記のコマンドで[ASCII Armor形式](../OpenPGP/keyPair.md#ascii-armor)になった私有鍵が表示されるので、「Paste arrmored key directly」を選択してコピーペーストします。
+下記のコマンドで[ASCII Armor形式](../OpenPGP/keyPair#ascii-armor)になった私有鍵が表示されるので、「Paste arrmored key directly」を選択してコピーペーストします。
 
 ```
 $ gpg --export-secret-keys --armor
@@ -36,7 +36,7 @@ Secure Composeボタンから、メールを書き、暗号化やデジタル署
 
 ![FlowCryptでの電子メールの送信](/flowcrypt-compose.png)
 
-FlowCryptによって暗号化された電子メールは、FlowCryptによって自動的に復号されます。残念ながら、現状では、[Mutt](./mutt.md)では自動的な処理はおこなわないようです。
+FlowCryptによって暗号化された電子メールは、FlowCryptによって自動的に復号されます。残念ながら、現状では、[Mutt](./mutt)では自動的な処理はおこなわないようです。
 
 ![FlowCryptからの電子メールのMuttでの閲覧](/flowcrypt-mutt.png)
 

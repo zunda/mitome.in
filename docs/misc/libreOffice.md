@@ -1,7 +1,7 @@
 # LibreOffice
 この記事の内容は2020年7月頃のものです。
 
-[LibreOffice](https://ja.libreoffice.org/)は豊富な機能を備えたオフィススイートです。認証局にデジタル署名されたクライアント証明書や[GnuPGに登録](../email/keyManagement.md)したOpenPGP鍵対を利用することで、作成した文書の暗号化やデジタル署名が可能です。
+[LibreOffice](https://ja.libreoffice.org/)は豊富な機能を備えたオフィススイートです。認証局にデジタル署名されたクライアント証明書や[GnuPGに登録](../email/keyManagement)したOpenPGP鍵対を利用することで、作成した文書の暗号化やデジタル署名が可能です。
 
 ## インストール
 LibreOfficeは利用中のOSにデフォルトでインストールされているかもしれません。Xubuntu 20.04ではLibreOffice 6.4.3.2 40(Build:2)がインストールされていましたが、起動時のエラーの抑制のために`default-jre`パッケージと`libreoffice-java-common`パッケージを追加でインストールする必要がありました。[LibreOfficeのダウンロードページ](https://ja.libreoffice.org/download/download/)からダウンロードすることもできます。

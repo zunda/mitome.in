@@ -10,7 +10,7 @@
 
 ![鍵対の設定](/protonmail-keys.png)
 
-公開鍵をエクスポートすると、[ASCII Armor](../OpenPGP/keyPair.md#ascii-armor)としてダウンロードします。手元にインポートしておきましょう。
+公開鍵をエクスポートすると、[ASCII Armor](../OpenPGP/keyPair#ascii-armor)としてダウンロードします。手元にインポートしておきましょう。
 
 ```
 $ gpg --import Downloads/publickey.zundan@protonmail.com.asc
@@ -68,7 +68,7 @@ sub   rsa2048 2020-06-29 [E]
 
 ```
 
-公開鍵は、[OpenPGP公開鍵サーバに公開](keyManagement.md#公開鍵の公開)しておいても良いでしょう。
+公開鍵は、[OpenPGP公開鍵サーバに公開](keyManagement#公開鍵の公開)しておいても良いでしょう。
 
 
 ## 送信先の公開鍵の登録

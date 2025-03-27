@@ -56,7 +56,7 @@ General key info..: [none]
 ここからは、Yubicoによる文書[Using Your YubiKey with OpenPGP](https://support.yubico.com/support/solutions/articles/15000006420-using-your-yubikey-with-openpgp)を参考に進めます。
 
 ## OpenPGP鍵対の生成
-OpenPGP鍵対を生成しておきます。[GnuPGによる鍵対の生成と管理](../email/keyManagement.md)を参照してください。
+OpenPGP鍵対を生成しておきます。[GnuPGによる鍵対の生成と管理](../email/keyManagement)を参照してください。
 
 ## 私有鍵のバックアップの作成
 YubiKeyに移動してしまった私有鍵は取り出すことができません。YubiKeyを壊してしまった場合に私有鍵が失なわれてしまわないように、バックアップを作成しておくこともできます。安全な場所に保管しておきましょう。
@@ -412,7 +412,7 @@ This is a secret key! - really delete? (y/N) y
 既存のスタブを消去したあと、新しいYubiKeyをUSBポートに挿入し`gpg --card-edit`コマンドを実行することで、再度鍵束にスタブが生成され、新しいYubiKeyのシリアル番号が記録されます。
 
 ## macOSでの私有鍵の利用
-[GPG Suiteをインストール](../email/keyManagement.md#gnupg%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)したmacOSでもYubiKeyに格納された私有鍵を利用することができます。
+[GPG Suiteをインストール](../email/keyManagement#gnupg%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)したmacOSでもYubiKeyに格納された私有鍵を利用することができます。
 
 GPG SuiteでインストールされるGPG Keychainで、Lookup KeyからPGP公開鍵サーバに登録した公開鍵を、メールアドレスなどで検索してインポートします。
 
@@ -466,7 +466,7 @@ GPG Keychainで、公開鍵をダブルタップして、Detailsメニューか�
 ![Pinentry MacへのPINの入力](/gpg-suite-pinentry.png)
 
 ## 携帯電話での私有鍵の利用
-[OpenKeychain](../misc/openKeychain.md)などのアプリケーションをNFCの利用可能な携帯電話インストールすることで、YubiKeyに格納された私有鍵を利用できるようになります。
+[OpenKeychain](../misc/openKeychain)などのアプリケーションをNFCの利用可能な携帯電話インストールすることで、YubiKeyに格納された私有鍵を利用できるようになります。
 
 ## エアギャップ環境での鍵対の管理
 私有鍵の秘匿性を高めるため、ネットワーク接続のない環境で鍵対を生成しYubiKeyへ保管したい場合があります。このような場合、[Tails OS](https://tails.boum.org/)などを利用し、USBフラッシュメモリに収めたOSを起動しネットワークに接続せずに鍵対の生成とYubiKeyの管理が可能です。

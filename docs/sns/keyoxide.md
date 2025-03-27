@@ -1,7 +1,7 @@
 # Keyoxide
 この記事の内容は2021年3月頃のものです。2022年12月に内容の一部を更新しました。
 
-[Keyoxide](https://keyoxide.org/)は、分散されたオンラインアイデンティティを確立する方法のひとつです。Keyoxideに則ってデジタル署名を追加した公開鍵を[OpenPGP](../openpgp/)に則って公開すれば、特定のサービスに依存せずオンラインのアイデンティティを確立し確認できます。
+[Keyoxide](https://keyoxide.org/)は、分散されたオンラインアイデンティティを確立する方法のひとつです。Keyoxideに則ってデジタル署名を追加した公開鍵を[OpenPGP](../OpenPGP/)に則って公開すれば、特定のサービスに依存せずオンラインのアイデンティティを確立し確認できます。
 
 自分の公開鍵にはidentity proofとして下記のような形式のnotation^[本稿の執筆時には`proof@metacode.biz` notationが推奨されていましたが、[2021年11月から`proof@ariadne.id` notationが推奨となりました](https://blog.keyoxide.org/ariadne-spec/)。`proof@metacode.biz` notationも引き続き有効です。]を添付したデジタル署名を追加してOpenPGP公開鍵サーバに公開します。
 

@@ -1,5 +1,5 @@
 # Sequoia-PGP
-OpenPGPのコマンドラインの実装として、[GnuPG](../email/keyManagement.md)の他、[Sequoia-PGP](https://sequoia-pgp.org/)を利用することもできます。Sequoia-PGPには、GnuPGと比較して下記のような特徴があります^[[sq feature comparison with gpg](https://sequoia-pgp.org/blog/2022/05/11/202205-sq-gpg-comparison/)]。
+OpenPGPのコマンドラインの実装として、[GnuPG](../email/keyManagement)の他、[Sequoia-PGP](https://sequoia-pgp.org/)を利用することもできます。Sequoia-PGPには、GnuPGと比較して下記のような特徴があります^[[sq feature comparison with gpg](https://sequoia-pgp.org/blog/2022/05/11/202205-sq-gpg-comparison/)]。
 
 - サブコマンドを明示的に指定することで動作をわかりやすくする
 - デフォルトの鍵束を持たないことで私有鍵や公開鍵を管理しやすくする
@@ -47,7 +47,7 @@ gpg: depth: 1  valid:   2  signed:   0  trust: 2-, 0q, 0n, 0m, 0f, 0u
 gpg: next trustdb check due at 2022-06-24
 ```
 
-この状態で、下記のようにデジタル署名を検証することができました。今回は[インポートした公開鍵の信頼度を署名](../email/keyManagement.md#%E5%85%AC%E9%96%8B%E9%8D%B5%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%88%E3%81%A8%E7%BD%B2%E5%90%8D)していないので、公開鍵を[信頼の網](../OpenPGP/wot.md#openpgp%E3%81%AB%E3%82%88%E3%82%8B%E4%BF%A1%E9%A0%BC%E3%81%AE%E7%B6%B2)によって信頼できないと警告されています。
+この状態で、下記のようにデジタル署名を検証することができました。今回は[インポートした公開鍵の信頼度を署名](../email/keyManagement#%E5%85%AC%E9%96%8B%E9%8D%B5%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%88%E3%81%A8%E7%BD%B2%E5%90%8D)していないので、公開鍵を[信頼の網](../OpenPGP/wot#openpgp%E3%81%AB%E3%82%88%E3%82%8B%E4%BF%A1%E9%A0%BC%E3%81%AE%E7%B6%B2)によって信頼できないと警告されています。
 
 ```
 $ gpg --verify tails-amd64-5.0.img.sig tails-amd64-5.0.img
