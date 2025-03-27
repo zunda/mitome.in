@@ -1,69 +1,63 @@
 <template>
   <div>
-    <InputArea section="VerifyClearSignPublicKey"
+    <InputArea
       cssClass="key"
       name="検証に使う公開鍵"
-      v-bind:onInput="clearResult"
-      v-bind:disabled="processing"
+      v-bind:input="state.publicKey"
+      v-bind:disabled="state.processing"
+      v-bind:onUpdate="updatePublicKey"
     />
     <p>上記にペーストした公開鍵で下記にペーストしたクリアテキスト署名を
-      <button v-bind:disabled="processing" v-on:click="verify">
+      <button v-bind:disabled="state.processing" v-on:click="verify">
         検証する
       </button>
     </p>
-    <InputArea section="VerifyClearSignClearText"
+    <InputArea
       cssClass="cleartext"
       name="検証されるクリアテキスト署名"
-      v-bind:onInput="clearResult"
-      v-bind:disabled="processing"
+      v-bind:input="state.signedMessage"
+      v-bind:onUpdate="updateSignedMessage"
+      v-bind:disabled="state.processing"
     />
-    <p>検証結果: <span v-html="result" /></p>
+    <p>検証結果: <span v-html="state.result" /></p>
   </div>
 </template>
 
 <script>
-import Vue from "vue"
-
-import VueClipboard from "vue-clipboard2"
-Vue.use(VueClipboard)
-
-import VueToast from "vue-toast-notification"
-import "vue-toast-notification/dist/theme-default.css"
-Vue.use(VueToast)
-
+import * as OpenPgp from "openpgp";
 import moment from "moment"
 
-const OpenPgp = require("openpgp")
+import { createGlobalState, useSessionStorage } from "@vueuse/core"
+const useState = createGlobalState(
+  () => useSessionStorage("mitomein-verifyclearsign", {})
+)
 
 export default {
-  props: {
-    section: String
+  setup() {
+    const state = useState()
+    return { state }
   },
-  data() {
-    return {
-      result: this.$store.state.outputText.VerifyClearSignResult || "",
-      processing: false
-    }
+  created() {
+    this.state.processing = false
   },
   methods: {
     verify: function () {
-      const input = this.$store.state.inputText
-      if (!input.VerifyClearSignPublicKey) {
-        Vue.$toast.open({message: "検証に利用する公開鍵をペーストしてください", type: "warning"})
+      if (!this.state.publicKey) {
+        this.$toast.open({message: "検証に利用する公開鍵をペーストしてください", type: "warning"})
         return
       }
-      if (!input.VerifyClearSignClearText) {
-        Vue.$toast.open({message: "検証するクリアテキスト署名をペーストしてください", type: "warning"})
+      if (!this.state.signedMessage) {
+        this.$toast.open({message: "検証するクリアテキスト署名をペーストしてください", type: "warning"})
         return
       }
       this.result = ""
       this.processing = true
       Promise.all([
         OpenPgp.readCleartextMessage({
-          cleartextMessage: input.VerifyClearSignClearText
+          cleartextMessage: this.state.signedMessage
         }),
         OpenPgp.readKey({
-          armoredKey: input.VerifyClearSignPublicKey
+          armoredKey: this.state.publicKey
         })
       ])
       .then(([clearText, publicKeys]) =>
@@ -76,26 +70,24 @@ export default {
       ]))
       .then(([_verified, keyID, signature]) => {
         console.log(signature)
-        this.result = "成功: 鍵ID: <span class="key-id">" +
+        this.state.result = '成功: 鍵ID: <span class="key-id">' +
           keyID.toHex() + "</span> 時刻: " +
           moment(signature.packets[0].created).format("YYYY年MM月DD日 HH:mm:ss Z")
-        this.$store.commit("setOutputText", {
-          section: "VerifyClearSignResult", text: this.result
-        })
       })
       .catch(e => {
-        this.result = "失敗: " + e.message
-        this.$store.commit("setOutputText", {
-          section: "VerifyClearSignResult", text: this.result
-        })
-        return
+        this.state.result = "失敗: " + e.message
       })
       .finally(() => {
         this.processing = false
       })
     },
-    clearResult: function() {
-      this.result = ""
+    updatePublicKey: function(input) {
+      this.state.publicKey = input
+      this.state.result = ""
+    },
+    updateSignedMessage: function(input) {
+      this.state.signedMessage = input
+      this.state.result = ""
     }
   }
 }
