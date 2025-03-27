@@ -117,25 +117,32 @@ export default {
         return
       }
       this.state.processing = true
-      const p = [
-        OpenPgp.createMessage({ text: this.state.inputText || "" })
-      ].concat(
+      Promise.all(
         this.state.publicKeys.map(x => OpenPgp.readKey({ armoredKey: x.key }))
       )
-      Promise.all(p).then(([message, keys]) =>
-        OpenPgp.encrypt({ message: message, encryptionKeys: keys })
-      ).then(result => {
+      .then(publicKeys => {
+        return Promise.all([
+          OpenPgp.createMessage({ text: this.state.inputText || "" }),
+          publicKeys
+        ])
+      })
+      .then(([clearText, publicKeys]) =>
+        OpenPgp.encrypt({ message: clearText, encryptionKeys: publicKeys })
+      )
+      .then(result => {
         this.state.encryptedMessage = result
-      }).catch(e => {
+      })
+      .catch(e => {
         console.log(e)
         this.$toast.open({message: e.message, type: "error", duration: 60000})
-      }).finally(() => {
+      })
+      .finally(() => {
         this.state.processing = false
       })
     },
     onUpdateCleartext: function(input) {
       this.state.inputText = input
-      this.clearEncryptedMessage()
+      this.state.encryptedMessage = ""
     },
     clearEncryptedMessage: function() {
       this.state.encryptedMessage = ""
