@@ -1,32 +1,34 @@
 <template>
   <div>
-    <InputArea section="DecryptionPrivateKey"
+    <InputArea
       cssClass="key"
       name="受取人の私有鍵"
-      v-bind:disabled="processing"
-      v-bind:onInput="clearDecryptedMessageAndPassphrase"
+      v-bind:input="state.privateKey"
+      v-bind:disabled="state.processing"
+      v-bind:onUpdate="updatePrivateKey"
     />
     <input v-model="passphrase"
-      v-bind:disabled="processing"
+      v-bind:disabled="state.processing"
       type="password" placeholder="私有鍵のパスフレーズ"
     />
     <p>上記にペーストした私有鍵で下記にペーストした暗号文を
-      <button v-bind:disabled="processing" v-on:click="decrypt">
+      <button v-bind:disabled="state.processing" v-on:click="decrypt">
         復号する
       </button>
-      <InputArea section="DecryptionEncryptedMessage"
+      <InputArea
         cssClass="key"
         name="暗号文"
-        v-bind:disabled="processing"
-        v-bind:onInput="clearDecryptedMessage"
+        v-bind:input="state.encryptedMessage"
+        v-bind:disabled="state.processing"
+        v-bind:onUpdate="updateEncryptedMessage"
       />
     </p>
     <p>
-      <OutputArea section="DecryptionDecryptedMessage"
+      <OutputArea
         cssClass="cleartext"
         name="メッセージ"
-        v-bind:output="decryptedMessage"
-        v-bind:disabled="processing"
+        v-bind:output="state.decryptedMessage"
+        v-bind:disabled="state.processing"
       />
     </p>
   </div>
@@ -41,70 +43,75 @@ const useState = createGlobalState(
 )
 
 export default {
-  props: {
-    section: String
+  setup() {
+    const state = useState()
+    return { state }
+  },
+  created() {
+    this.state.processing = false
   },
   data() {
     return {
-      passphrase: "",
-      encryptedMessage: "",
-      decryptedMessage: undefined,
-      processing: false
+      passphrase: ""
     }
   },
   methods: {
     decrypt: function () {
-      const input = this.$store.state.inputText
-      if (! input.DecryptionPrivateKey) {
-        Vue.$toast.open({message: "私有鍵をペーストしてください", type: "warning"})
+      const input = this.state.inputText
+      if (! this.state.privateKey) {
+        this.$toast.open({message: "私有鍵をペーストしてください", type: "warning"})
         return
       }
-      if (! input.DecryptionEncryptedMessage) {
-        Vue.$toast.open({message: "暗号文をペーストしてください", type: "warning"})
+      if (! this.state.encryptedMessage) {
+        this.$toast.open({message: "暗号文をペーストしてください", type: "warning"})
         return
       }
-      this.processing = true
-      this.decryptedMessage = ""
-      Promise.all([
-        OpenPgp.readMessage({
-          armoredMessage: input.DecryptionEncryptedMessage
-        }),
-        OpenPgp.readKey({ armoredKey: input.DecryptionPrivateKey })
-        .then(key => {
-          if (! key.isPrivate()) {
-            throw {message: "私有鍵ではありません"}
-          }
-          if (key.isDecrypted()) {
-            return key
-          } else {
-            return OpenPgp.decryptKey({
-              privateKey: key,
-              passphrase: this.passphrase
-            })
-          }
+      this.state.processing = true
+      this.state.decryptedMessage = ""
+      OpenPgp.readKey({ armoredKey: this.state.privateKey })
+      .then(key => {
+        if (! key.isPrivate()) {
+          throw {message: "私有鍵ではありません"}
+        }
+        if (! key.isDecrypted()) {
+          return OpenPgp.decryptKey(
+            { privateKey: key, passphrase: this.passphrase }
+          )
+        } else {
+          return key
+        }
+      })
+      .then(key => {
+        return Promise.all([
+          OpenPgp.readMessage({ armoredMessage: this.state.encryptedMessage }),
+          key
+        ])
+      })
+      .then(([encryptedMessage, key]) => {
+        return OpenPgp.decrypt({
+          message: encryptedMessage, decryptionKeys: key
         })
-      ])
-      .then(([encryptedMessage, privateKeys]) =>
-        OpenPgp.decrypt({
-          message: encryptedMessage, decryptionKeys: privateKeys
-        })
+      })
+      .then(decrypted =>
+        this.state.decryptedMessage = decrypted.data
       )
-      .then(decrypted => { this.decryptedMessage = decrypted.data })
       .catch(e => {
         console.log(e.message)
-        Vue.$toast.open({message: e.message, type: "error", duration: 60000})
+        this.$toast.open({message: e.message, type: "error", duration: 60000})
       })
       .finally(() => {
-        this.processing = false
+        this.state.processing = false
       })
     },
-    clearDecryptedMessage: function() {
-      this.decryptedMessage = ""
-    },
-    clearDecryptedMessageAndPassphrase: function() {
-      this.decryptedMessage = ""
+    updatePrivateKey: function(input) {
+      this.state.privateKey = input
+      this.state.decryptedMessage = ""
       this.passphrase = ""
-    }
+    },
+    updateEncryptedMessage: function(input) {
+      this.state.encryptedMessage = input
+      this.state.decryptedMessage = ""
+    },
   }
 }
 </script>
