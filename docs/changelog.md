@@ -1,6 +1,7 @@
 # 改定履歴
 詳細な変更履歴は[zunda/mitome.in](https://github.com/zunda/mitome.in)を参照してください。
 
+- 2025-03-28 本サイトを生成する静的サイトジェネレータのVuePressからVitePressへの変更
 - 2024-12-02 「[暗号化と復号](/OpenPGP/encryption)」「[デジタル署名](/OpenPGP/sign)」「[暗号デバイスでの鍵対の管理](/device/)」で、私有鍵をデバイス外に持ち出す必要のないことを追記
 - 2024-09-26 「[YubiKey](/device/yubiKey)」の[他のLinuxでの私有鍵の利用](/device/yubiKey.html#%E4%BB%96%E3%81%AElinux%E3%81%A6%E3%82%99%E3%81%AE%E7%A7%81%E6%9C%89%E9%8D%B5%E3%81%AE%E5%88%A9%E7%94%A8)をUbuntu 22.04のものに更新
 - 2024-05-30 「[電子署名と実社会](/laws/)」にマイナンバーカードの署名用電子証明書についての注記を追記
