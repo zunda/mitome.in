@@ -44,7 +44,7 @@ FlowCryptによって暗号化された電子メールは、FlowCryptによっ�
 
 Muttでメールを閲覧しながら`C`キーで存在しないメールボックスにメールをコピーするとオリジナルな状態で保存されたメールのファイルを作成してくれます。`gpg`コマンドで復号・検証してくれます。
 
-```
+```shellsession{1}
 $ cat mbox | gpg
 gpg: WARNING: no command supplied.  Trying to guess what you mean ...
 gpg: encrypted with 3072-bit RSA key, ID 164F21FF001C8CD1, created 2020-06-24

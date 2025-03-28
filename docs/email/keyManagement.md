@@ -14,7 +14,7 @@ GnuPGは手元のOSに標準でインストールされているかもしれま�
 
 インストールできたら、`gpg`コマンドに`--version`オプションを指定して実行することで下記のような表示が得られます。
 
-```
+```shellsession{1}
 $ gpg --version
 gpg (GnuPG) 2.2.19
 libgcrypt 1.8.5
@@ -42,7 +42,7 @@ macOSでは、[GPG Suite](https://gpgtools.org/)からインストーラをダ�
 
 macOS 10.5.6 Catalinaで、2020年7月の執筆当時には、下記のようなバージョンがインストールされました。
 
-```
+```shellsession{1}
 $ gpg --version
 gpg (GnuPG/MacGPG2) 2.2.20
 libgcrypt 1.8.5
@@ -65,7 +65,7 @@ GnuPGがインストールできたら鍵対を生成します。
 
 端末から`gpg`コマンドを`--generate-key`オプションを指定して実行して、GnuPGのデフォルトの設定で鍵対を生成してみます。有効期間は2年間となりました。端末からは名前と電子メールアドレスを入力しました。
 
-```
+```shellsession{1,10-11,15}
 $ gpg --generate-key
 gpg (GnuPG) 2.2.19; Copyright (C) 2019 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.
@@ -106,7 +106,7 @@ sub   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 
 生成された鍵対や鍵対を登録してある鍵束は、`~/.gnupg/` (ホームディレクトリ以下の`.gnupg`ディレクトリ)以下にファイルとして記録されます。下記では一部のIDを伏せ字にしてあります。
 
-```
+```shellsession{1}
 $ find ~/.gnupg -type f | xargs file
 ~/.gnupg/openpgp-revocs.d/F60960D80B224382CA8D831CB56C20316D6E8279.rev:  ASCII text
 ~/.gnupg/trustdb.gpg:                                                    GPG key trust database version 3
@@ -118,7 +118,7 @@ $ find ~/.gnupg -type f | xargs file
 
 鍵束に登録された公開鍵の概要を、`gpg`コマンドに`--list-keys`を指定して実行することで確認できます。`gpg`コマンドは必要に応じて信頼の網を再確認します。小さな信頼の網が形成され、自分自身が究極的に信頼されていることがわかります。
 
-```
+```shellsession{1}
 $ gpg --list-keys
 gpg: checking the trustdb
 gpg: marginals needed: 3  completes needed: 1  trust model: pgp
@@ -135,7 +135,7 @@ sub   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 
 対応する私有鍵が登録されていることも`--list-secret-keys`オプションで確認することができます。
 
-```
+```shellsession{1}
 $ gpg --list-secret-keys
 /home/zunda/.gnupg/pubring.kbx
 ------------------------------
@@ -155,14 +155,14 @@ ssb   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 ## 公開鍵の公開
 生成した公開鍵は、USBフラッシュメモリなどにコピーして、やりとりする相手に渡すほか、OpenPGP公開鍵サーバに公開することで広く利用してもらえるようになります。下記のようなコマンドで鍵IDを指定してOpenPGP公開鍵サーバに登録することができます。登録した公開鍵は、鍵IDや指紋で検索することができます。
 
-```
+```shellsession{1}
 $ gpg --send-key F60960D80B224382CA8D831CB56C20316D6E8279
 gpg: sending key B56C20316D6E8279 to hkps://keys.openpgp.org
 ```
 
 GnuPGがデフォルトで利用するOpenPGP公開鍵サーバ`keys.openpgp.org`の[利用手順](https://keys.openpgp.org/about/usage)に従って電子メールアドレスを確認してもらうことで、電子メールアドレスで公開鍵を検索できるようになります。
 
-```
+```shellsession{1}
 $ gpg --export zundan@gmail.com | curl -T - https://keys.openpgp.org
 Key successfully uploaded. Proceed with verification here:
 https://keys.openpgp.org/upload/…
@@ -177,7 +177,7 @@ https://keys.openpgp.org/upload/…
 ## 公開鍵のインポートと署名
 他の人の公開鍵は、鍵IDなどを指定してOpenPGP公開鍵サーバからインポートすることができます。
 
-```
+```shellsession{1}
 $ gpg --recv-keys C31D6E888EEB6DACEA881A8C7BF7154E0B170373
 gpg: key 7BF7154E0B170373: public key "zunda <zundan@gmail.com>" imported
 gpg: Total number processed: 1
@@ -186,7 +186,7 @@ gpg:               imported: 1
 
 インポートした公開鍵には信頼度を署名しておきましょう。
 
-```
+```shellsession{1,13,26}
 $ gpg --sign-key C31D6E888EEB6DACEA881A8C7BF7154E0B170373
 
 pub  rsa4096/7BF7154E0B170373
@@ -222,7 +222,7 @@ Really sign? (y/N) y
 
 鍵束の状況を確認してみます。`full`の信頼度で署名できました。
 
-```
+```shellsession{1}
 $ gpg --list-keys
 /home/zunda/.gnupg/pubring.kbx
 ------------------------------
@@ -242,7 +242,7 @@ sub   rsa2048 2017-03-13 [E] [expires: 2025-03-11]
 
 署名した公開鍵をOpenPGP公開鍵サーバに登録することで、他の人が信頼度の参考にすることができます^[重複する電子メールアドレスの鍵をアップロードすると、鍵サーバに既存の公開鍵からユーザーIDが削除されるようです。それぞれの電子メールアドレスに紐付ける鍵対はひとつに限っておいた方が問題が起きにくいかもしれません]。
 
-```
+```shellsession{1}
 $ gpg --send-key C31D6E888EEB6DACEA881A8C7BF7154E0B170373
 gpg: sending key 7BF7154E0B170373 to hkps://keys.openpgp.org
 ```
@@ -250,7 +250,7 @@ gpg: sending key 7BF7154E0B170373 to hkps://keys.openpgp.org
 ### 他の人の署名をインポートする
 他の人が公開鍵に署名した際には、下記のコマンドで署名をインポートし、信頼の網を更新することができます。今回は変更はなかったようです。
 
-```
+```shellsession{1}
 $ gpg --refresh-keys
 gpg: refreshing 2 keys from hkps://keys.openpgp.org
 gpg: key 7BF7154E0B170373: "zunda <zundan@gmail.com>" not changed
@@ -264,14 +264,14 @@ gpg:              unchanged: 2
 
 下記では、主鍵と副鍵それぞれの有効期間を、ローカルなタイムゾーンで、2024年6月25日の正午^[[パケットをダンプすることで秒単位まで有効期限を確認することができます](https://zenn.dev/link/comments/0531e24a75e29e)]まで変更しました。私有鍵のパスフレーズの入力を促されます。2行目のコマンドの最後のアスタリスクで、有効期間を延長する対象として全ての副鍵を指定しています。
 
-```
+```shellsession{1,2}
 $ gpg --quick-set-expire F60960D80B224382CA8D831CB56C20316D6E8279 2024-06-25
 $ gpg --quick-set-expire F60960D80B224382CA8D831CB56C20316D6E8279 2024-06-25 \*
 ```
 
 有効期間を延長した公開鍵を改めてOpenPGP公開鍵サーバに公開しておきます。
 
-```
+```shellsession{1}
 $ gpg --send-key F60960D80B224382CA8D831CB56C20316D6E8279
 gpg: sending key B56C20316D6E8279 to hkps://keys.openpgp.org
 ```
@@ -289,7 +289,7 @@ gpg: sending key B56C20316D6E8279 to hkps://keys.openpgp.org
 
 失効証明書をインポートすることで鍵対が失効します。
 
-```
+```shellsession{1}
 $ gpg --import F60960D80B224382CA8D831CB56C20316D6E8279.rev
 gpg: key B56C20316D6E8279: "zunda <zundan@gmail.com>" revocation certificate imported
 gpg: Total number processed: 1
@@ -301,7 +301,7 @@ gpg: next trustdb check due at 2022-06-24
 
 鍵対が失効したことを確認できます。
 
-```
+```shellsession{1,8}
 $ gpg --list-keys
 /home/zunda/.gnupg/pubring.kbx
 ------------------------------

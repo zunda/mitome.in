@@ -5,7 +5,7 @@
 
 [GnuPGによるOpenPGP鍵対の生成](../email/keyManagement)が完了している環境で、`commit`コマンドに`-S`オプションを追加することでデジタル署名できます。
 
-```
+```shellsession{1}
 $ git commit -S
 [master fd70ab6] Start writing about signing on Git
  1 file changed, 7 insertions(+)
@@ -15,20 +15,20 @@ $ git commit -S
 ::: details gpg2の利用
 Ubuntu 16.04など、OSによっては、最近のGnuPGが`gpg2`コマンドとして提供されている場合があります。下記のコマンドで、Gitが`gpg`コマンドの代わりに`gpg2`コマンドを利用するようになります。
 
-```
+```shellsession{1}
 $ git config --global gpg.program gpg2
 ```
 :::
 
 常にデジタル署名するよう設定することもできます。
 
-```
+```shellsession{1}
 $ git config --global commit.gpgsign true
 ```
 
 公開鍵がインポートされている環境で、デジタル署名を検証することができます。
 
-```
+```shellsession{1}
 $ git verify-commit fd70ab6
 gpg: Signature made Fri 26 Jun 2020 08:08:24 AM HST
 gpg:                using RSA key F60960D80B224382CA8D831CB56C20316D6E8279
@@ -38,7 +38,7 @@ gpg: Good signature from "zunda <zundan@gmail.com>" [ultimate]
 
 [GitHubにOpenPGP公開鍵をアップロードする](https://help.github.com/ja/github/authenticating-to-github/adding-a-new-gpg-key-to-your-github-account)ことで、GitHub上でデジタル署名が検証されるようになります。公開鍵は[ASCII Armor](../OpenPGP/keyPair#ascii-armor)にしてコピーする必要があります。
 
-```
+```shellsession{1}
 $ gpg --export --armor F60960D80B224382CA8D831CB56C20316D6E8279
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 

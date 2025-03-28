@@ -6,7 +6,7 @@
 ## インストール
 バージョン78以上のThunderbirdは利用中のOSのパッケージとしてインストールできるかもしれません。Ubuntu 20.04では下記のコマンドでインストールできました。
 
-```
+```shellsession{1}
 $ sudo snap install thunderbird
 ```
 
@@ -26,7 +26,7 @@ Thunderbirdを起動してウィザードに必要な情報を記入すること
 
 GnuPGで自分の私有鍵のIDを確認します。
 
-```
+```shellsession{1}
 $ gpg --list-secret-keys
 /home/zunda/.gnupg/pubring.kbx
 ------------------------------
@@ -38,7 +38,7 @@ ssb   rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 
 確認したIDの私有鍵をGnuPGからエキスポートします。生成されたファイルは私有鍵を含みますので、漏洩してしまわないよう取り扱いに注意が必要です。
 
-```
+```shellsession{1}
 $ gpg --export-secret-keys F60960D80B224382CA8D831CB56C20316D6E8279 > private.pgp
 ```
 
@@ -60,7 +60,7 @@ Select File to Import...ボタンをクリックし、先ほど私有鍵をエ�
 
 私有鍵を含むファイルは確実に消しておきましょう。
 
-```
+```shellsession{1}
 $ rm private.pgp
 ```
 

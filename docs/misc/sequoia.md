@@ -9,7 +9,7 @@ OpenPGPのコマンドラインの実装として、[GnuPG](../email/keyManageme
 ## Sequoia-PGPのインストール
 本稿の執筆時には、Xubuntu 22.04で下記のようにインストールすることができました。
 
-```
+```shellsession{1,2}
 $ sudo apt install sq
 $ sq --version
 sq 0.25.0 (sequoia-openpgp 1.3.0)
@@ -26,7 +26,7 @@ Sequoia-PGPでは鍵束に公開鍵を追加せずに簡単にデジタル署名
 
 Sequoia-PGPでは下記のコマンドで、ダウンロードしたUSBイメージが、デジタル署名の対象と変化していないことを確認できました。
 
-```
+```shellsession{1}
 $ sq verify --signer-cert tails-signing.key --detached tails-amd64-5.0.img.sig tails-amd64-5.0.img
 Good signature from 7BFBD2B902EE13D0
 1 good signature.
@@ -35,7 +35,7 @@ Good signature from 7BFBD2B902EE13D0
 ### GnuPGによるデジタル署名の検証
 GnuPGでデジタル署名を検証する場合には、公開鍵を鍵束にインポートしておく必要があります。
 
-```
+```shellsession{1}
 $ gpg --import tails-signing.key
 gpg: key DBB802B258ACD84F: 2172 signatures not checked due to missing keys
 gpg: key DBB802B258ACD84F: public key "Tails developers (offline long-term identity key) <tails@boum.org>" imported
@@ -49,7 +49,7 @@ gpg: next trustdb check due at 2022-06-24
 
 この状態で、下記のようにデジタル署名を検証することができました。今回は[インポートした公開鍵の信頼度を署名](../email/keyManagement#%E5%85%AC%E9%96%8B%E9%8D%B5%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9B%E3%82%9A%E3%83%BC%E3%83%88%E3%81%A8%E7%BD%B2%E5%90%8D)していないので、公開鍵を[信頼の網](../OpenPGP/wot#openpgp%E3%81%AB%E3%82%88%E3%82%8B%E4%BF%A1%E9%A0%BC%E3%81%AE%E7%B6%B2)によって信頼できないと警告されています。
 
-```
+```shellsession{1}
 $ gpg --verify tails-amd64-5.0.img.sig tails-amd64-5.0.img
 gpg: Signature made Mon 02 May 2022 01:21:28 AM HST
 gpg:                using RSA key 753F901377A309F2731FA33F7BFBD2B902EE13D0

@@ -12,7 +12,7 @@
 
 公開鍵をエクスポートすると、[ASCII Armor](../OpenPGP/keyPair#ascii-armor)としてダウンロードします。手元にインポートしておきましょう。
 
-```
+```shellsession{1}
 $ gpg --import Downloads/publickey.zundan@protonmail.com.asc
 gpg: key A2204BAE9AAB5A9C: public key "zundan@protonmail.com <zundan@protonmail.com>" imported
 gpg: Total number processed: 1
@@ -21,7 +21,7 @@ gpg:               imported: 1
 
 IDを確認して署名します。表示されたIDをコピーし、ウェブブラウザの検索欄(Ctrl-F)のペーストしてページ内に表示されているものと照合するのが確実です。
 
-```
+```shellsession{1,7,27}
 $ gpg --list-keys zundan@protonmail.com
 pub   rsa2048 2020-06-29 [SC]
       5BCBA985515A6B9B95ECDFD1A2204BAE9AAB5A9C
@@ -54,7 +54,7 @@ Really sign? (y/N) y
 
 署名後の状況を確認しておきます。
 
-```
+```shellsession{1}
 $ gpg --list-keys zundan@protonmail.com
 gpg: checking the trustdb
 gpg: marginals needed: 3  completes needed: 1  trust model: pgp
@@ -80,7 +80,7 @@ ContactsからAdd Contactをクリックし、名前と電子メールアドレ�
 
 下記のようなコマンドで公開鍵のASCII Armorを生成しておき、Upload Keyボタンからアップロードします。
 
-```
+```shellsession{1}
 $ gpg --export --aromor -o pubkey.gpg F60960D80B224382CA8D831CB56C20316D6E8279
 ```
 
