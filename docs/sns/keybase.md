@@ -15,7 +15,7 @@ Keybaseの利用を始めるとOpenPGP鍵対が生成あるいはインポート
 
 Keybaseに登録してある鍵対のIDを、下記のような手順で確認できます。
 
-```
+```shellsession{1}
 $ keybase pgp export | gpg
 gpg: WARNING: no command supplied.  Trying to guess what you mean ...
 pub   rsa4096 2017-03-13 [SC]

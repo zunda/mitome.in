@@ -106,3 +106,20 @@ docs/.vuepress/components/Fa/
 
 # Editor files
 *.swp
+
+# https://github.com/vuejs/vitepress/blob/main/.gitignore
+# /coverage
+/src/client/shared.ts
+/src/node/shared.ts
+.DS_Store
+.idea
+.temp
+.vite_opt_cache
+.vscode
+cache
+temp
+examples-temp
+node_modules
+pnpm-global
+TODOs.md
+*.timestamp-*.mjs

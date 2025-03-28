@@ -7,11 +7,11 @@ vCardをQRコードとして名刺に印刷することで、安全に公開鍵�
 本人から直接受けとらなかった鍵IDやQRコードは改竄されている可能性があることに留意が必要です.
 ::::
 
-```
+```shellsession{1-8}
 $ cat <<_END | qrencode -o vcard.png
 BEGIN:VCARD
 FN:zunda
-URL:https://zunda.freeshell.org/contacts.html
+URL:https://zunda.ninja
 EMAIL:zundan@gmail.com
 KEY:OPENPGP4FPR:F60960D80B224382CA8D831CB56C20316D6E8279
 END:VCARD
@@ -22,6 +22,6 @@ _END
 
 ![生成されたQRコード](/vcard.png)
 
-このQRコードを[OpenKeychain](openKeychain.md)などのアプリケーションで読み込むことで、自動的に公開鍵サーバから公開鍵をインポートすることもできます。
+このQRコードを[OpenKeychain](openKeychain)などのアプリケーションで読み込むことで、自動的に公開鍵サーバから公開鍵をインポートすることもできます。
 
 QRコードを読み込んだ人が鍵IDを確認できるよう、また、QRコードを読み込むアプリケーションが無くても公開鍵をインポートできるよう、鍵IDはQRコードだけではなく文字としても印刷しておくと良いでしょう。

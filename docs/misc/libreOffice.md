@@ -1,7 +1,7 @@
 # LibreOffice
 この記事の内容は2020年7月頃のものです。
 
-[LibreOffice](https://ja.libreoffice.org/)は豊富な機能を備えたオフィススイートです。認証局にデジタル署名されたクライアント証明書や[GnuPGに登録](../email/keyManagement.md)したOpenPGP鍵対を利用することで、作成した文書の暗号化やデジタル署名が可能です。
+[LibreOffice](https://ja.libreoffice.org/)は豊富な機能を備えたオフィススイートです。認証局にデジタル署名されたクライアント証明書や[GnuPGに登録](../email/keyManagement)したOpenPGP鍵対を利用することで、作成した文書の暗号化やデジタル署名が可能です。
 
 ## インストール
 LibreOfficeは利用中のOSにデフォルトでインストールされているかもしれません。Xubuntu 20.04ではLibreOffice 6.4.3.2 40(Build:2)がインストールされていましたが、起動時のエラーの抑制のために`default-jre`パッケージと`libreoffice-java-common`パッケージを追加でインストールする必要がありました。[LibreOfficeのダウンロードページ](https://ja.libreoffice.org/download/download/)からダウンロードすることもできます。
@@ -17,13 +17,13 @@ LibreOfficeは利用中のOSにデフォルトでインストールされてい�
 #### ルート認証局
 ここでは`openssl`コマンドで種々の証明書を生成します。まずルートCA証明書です。
 
-```
+```shellsession{1}
 $ openssl req -newkey rsa:4096 -keyform PEM -keyout ca.key -x509 -days 30 -outform PEM -out ca.cer
 ```
 
 パスフレーズを入力し、その他の情報を適宜入力します。ルートCA証明書が生成されました。
 
-```
+```shellsession{1}
 $ openssl x509 -in ca.cer -noout -issuer -subject
 issuer=O = mitome.in test, CN = mitome.in test CA
 subject=O = mitome.in test, CN = mitome.in test CA
@@ -32,20 +32,20 @@ subject=O = mitome.in test, CN = mitome.in test CA
 #### クライアント証明書
 クライアントの私有鍵を生成し、証明書リクエストを生成してデジタル署名します。証明書リクエストに含める情報を適宜入力します。
 
-```
+```shellsession{1,2}
 $ openssl genrsa -out client.key 4096
 $ openssl req -new -key client.key -out client.req
 ```
 
 クライアント証明書を生成し、ルートCA証明書でデジタル署名します。
 
-```
+```shellsession{1}
 $ openssl x509 -req -in client.req -CA ca.cer -CAkey ca.key -set_serial 101 -extensions client -days 30 -outform PEM -out client.cer
 ```
 
 ルートCA証明書のパスフレーズを入力すると、下記のようにクライアント証明書が生成されました。
 
-```
+```shellsession{1}
 $ openssl x509 -in client.cer -noout -issuer -subject
 issuer=O = mitome.in test, CN = mitome.in test CA
 subject=O = mitome.in test, CN = zunda, emailAddress = zundan@gmail.com
@@ -53,7 +53,7 @@ subject=O = mitome.in test, CN = zunda, emailAddress = zundan@gmail.com
 
 Firefoxにインポートできるよう、私有鍵と併せてPKCS #12形式に変換します。
 
-```
+```shellsession{1}
 $ openssl pkcs12 -export -inkey client.key -in client.cer -out client.p12
 ```
 

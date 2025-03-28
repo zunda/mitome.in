@@ -1,41 +1,42 @@
 # 改定履歴
 詳細な変更履歴は[zunda/mitome.in](https://github.com/zunda/mitome.in)を参照してください。
 
-- 2024-12-02 「[暗号化と復号](/OpenPGP/encryption.md)」「[デジタル署名](/OpenPGP/sign.md)」「[暗号デバイスでの鍵対の管理](/device/)」で、私有鍵をデバイス外に持ち出す必要のないことを追記
-- 2024-09-26 「[YubiKey](/device/yubiKey.md)」の[他のLinuxでの私有鍵の利用](/device/yubiKey.html#%E4%BB%96%E3%81%AElinux%E3%81%A6%E3%82%99%E3%81%AE%E7%A7%81%E6%9C%89%E9%8D%B5%E3%81%AE%E5%88%A9%E7%94%A8)をUbuntu 22.04のものに更新
+- 2025-03-28 本サイトを生成する静的サイトジェネレータをVuePressからVitePressへ変更
+- 2024-12-02 「[暗号化と復号](/OpenPGP/encryption)」「[デジタル署名](/OpenPGP/sign)」「[暗号デバイスでの鍵対の管理](/device/)」で、私有鍵をデバイス外に持ち出す必要のないことを追記
+- 2024-09-26 「[YubiKey](/device/yubiKey)」の[他のLinuxでの私有鍵の利用](/device/yubiKey.html#%E4%BB%96%E3%81%AElinux%E3%81%A6%E3%82%99%E3%81%AE%E7%A7%81%E6%9C%89%E9%8D%B5%E3%81%AE%E5%88%A9%E7%94%A8)をUbuntu 22.04のものに更新
 - 2024-05-30 「[電子署名と実社会](/laws/)」にマイナンバーカードの署名用電子証明書についての注記を追記
-- 2023-09-04 「[はじめに](/README.md)」と「[OpenPGPとは](/OpenPGP/README.md)」で私有鍵を漏らさず無くさないことの重要性について強調
+- 2023-09-04 「[はじめに](/)」と「[OpenPGPとは](/OpenPGP/)」で私有鍵を漏らさず無くさないことの重要性について強調
 - 2023-06-21 「[電子署名サービス](/services/)」に[本人による電子署名](/services/#%E6%9C%AC%E4%BA%BA%E3%81%AB%E3%82%88%E3%82%8B%E9%9B%BB%E5%AD%90%E7%BD%B2%E5%90%8D)を提供するサービスについて追記
-- 2023-04-21 「[YubiKey](/device/yubiKey.md)」に`Operation not supported by device`エラーへの対処方法を追記
-- 2023-03-05 「[YubiKey](/device/yubiKey.md)」に新しいYubiKeyでの既存の鍵対の利用手順を追記
-- 2023-02-07 「[公開鍵の正当性の確認](/OpenPGP/wot.md#pki%E3%81%AB%E3%82%88%E3%82%8B%E5%85%AC%E9%96%8B%E9%8D%B5%E3%81%AE%E6%AD%A3%E5%BD%93%E6%80%A7%E3%81%AE%E7%A2%BA%E8%AA%8D)」のTLSについての記述を修正
-- 2022-12-04 「[Keyoxide](/sns/keyoxide.md)」の一部を更新
-- 2022-06-20 「[はじめに](/README.md)」にSSHの公開鍵認証とFIDOについて追記
+- 2023-04-21 「[YubiKey](/device/yubiKey)」に`Operation not supported by device`エラーへの対処方法を追記
+- 2023-03-05 「[YubiKey](/device/yubiKey)」に新しいYubiKeyでの既存の鍵対の利用手順を追記
+- 2023-02-07 「[公開鍵の正当性の確認](/OpenPGP/wot#pki%E3%81%AB%E3%82%88%E3%82%8B%E5%85%AC%E9%96%8B%E9%8D%B5%E3%81%AE%E6%AD%A3%E5%BD%93%E6%80%A7%E3%81%AE%E7%A2%BA%E8%AA%8D)」のTLSについての記述を修正
+- 2022-12-04 「[Keyoxide](/sns/keyoxide)」の一部を更新
+- 2022-06-20 「[はじめに](/)」にSSHの公開鍵認証とFIDOについて追記
 - 2022-05-29 デジタル署名を公開鍵暗号を利用した電子署名として文章を変更
-- 2022-05-29 「[GnuPGによる鍵対の生成と管理](/email/keyManagement.md)」に[公開鍵の有効期間の延長](/email/keyManagement.md#%E5%85%AC%E9%96%8B%E9%8D%B5%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%96%93%E3%81%AE%E5%BB%B6%E9%95%B7)について追記
-- 2022-05-22 「[Sequoia-PGP](/misc/sequoia.md)」公開
-- 2022-05-18 「[YubiKey](/device/yubiKey.md)」での[Tailsの情報](/device/yubiKey.md#%E3%82%A8%E3%82%A2%E3%82%AD%E3%82%99%E3%83%A3%E3%83%83%E3%83%95%E3%82%9A%E7%92%B0%E5%A2%83%E3%81%A6%E3%82%99%E3%81%AE%E9%8D%B5%E5%AF%BE%E3%81%AE%E7%AE%A1%E7%90%86)を4.28から5.0のものに更新
-- 2022-04-05 「[OpenKeycain](/misc/openKeychain.md)」公開
-- 2022-04-03 「[YubiKey](/device/yubiKey.md)」に漏れていたYubiKeyへの暗号副鍵の移動を追記
-- 2022-04-01 「[名刺](/misc/vCard.md)」公開
-- 2022-03-30 「[YubiKey](/device/yubiKey.md)」に[エアギャップ環境での鍵対の管理](/device/yubiKey.md#%E3%82%A8%E3%82%A2%E3%82%AD%E3%82%99%E3%83%A3%E3%83%83%E3%83%95%E3%82%9A%E7%92%B0%E5%A2%83%E3%81%A6%E3%82%99%E3%81%AE%E9%8D%B5%E5%AF%BE%E3%81%AE%E7%AE%A1%E7%90%86)についての記述を追加
+- 2022-05-29 「[GnuPGによる鍵対の生成と管理](/email/keyManagement)」に[公開鍵の有効期間の延長](/email/keyManagement#%E5%85%AC%E9%96%8B%E9%8D%B5%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%96%93%E3%81%AE%E5%BB%B6%E9%95%B7)について追記
+- 2022-05-22 「[Sequoia-PGP](/misc/sequoia)」公開
+- 2022-05-18 「[YubiKey](/device/yubiKey)」での[Tailsの情報](/device/yubiKey#%E3%82%A8%E3%82%A2%E3%82%AD%E3%82%99%E3%83%A3%E3%83%83%E3%83%95%E3%82%9A%E7%92%B0%E5%A2%83%E3%81%A6%E3%82%99%E3%81%AE%E9%8D%B5%E5%AF%BE%E3%81%AE%E7%AE%A1%E7%90%86)を4.28から5.0のものに更新
+- 2022-04-05 「[OpenKeycain](/misc/openKeychain)」公開
+- 2022-04-03 「[YubiKey](/device/yubiKey)」に漏れていたYubiKeyへの暗号副鍵の移動を追記
+- 2022-04-01 「[名刺](/misc/vCard)」公開
+- 2022-03-30 「[YubiKey](/device/yubiKey)」に[エアギャップ環境での鍵対の管理](/device/yubiKey#%E3%82%A8%E3%82%A2%E3%82%AD%E3%82%99%E3%83%A3%E3%83%83%E3%83%95%E3%82%9A%E7%92%B0%E5%A2%83%E3%81%A6%E3%82%99%E3%81%AE%E9%8D%B5%E5%AF%BE%E3%81%AE%E7%AE%A1%E7%90%86)についての記述を追加
 - 2022-02-07 NFT関連の混乱の拡散を避けるためMask Networkに関する記述を削除
-- 2021-12-29 「[公開鍵の正当性の確認](/OpenPGP/wot.md)」に信頼の網についての説明を追加
+- 2021-12-29 「[公開鍵の正当性の確認](/OpenPGP/wot)」に信頼の網についての説明を追加
 - 2021-11-18 「[参考文献](/references/)」にκeenさんによる記事を追加
 - 2021-07-17 一部の記事に執筆月を追加
-- 2021-03-17 Maskbookの呼称をURLと併せて[Mask Network](/sns/maskbook.md)に更新
-- 2021-02-28 「[Keyoxide](/sns/keyoxide.md)」公開
+- 2021-03-17 Maskbookの呼称をURLと併せてMask Networkに更新
+- 2021-02-28 「[Keyoxide](/sns/keyoxide)」公開
 - 2020-12-13 「[電子署名サービス](/services/)」公開
-- 2020-10-28 「[Thunderbird](/email/thunderbird.md)」公開
-- 2020-07-18 「[YubiKey](/device/yubiKey.md)」公開
-- 2020-07-12 「[Maskbook](/sns/maskbook.md)」公開
-- 2020-07-03 「[Keybase](/sns/keybase.md)」公開
-- 2020-07-03 「[Mastodon](/sns/mastodon.md)」公開
-- 2020-06-30 「[LibreOffice](/misc/libreOffice.md)」公開
-- 2020-06-29 「[FlowCrypt](/email/flowcrypt.md)」公開
-- 2020-06-28 「[ProtonMail](/email/protonmail.md)」公開
-- 2020-06-26 「[Mutt](/email/mutt.md)」公開
-- 2020-06-25 「[Mailvelope](/email/mailvelope.md)」公開
-- 2020-06-24 「[GnuPGによる鍵対の生成と管理](/email/keyManagement.md)」公開
+- 2020-10-28 「[Thunderbird](/email/thunderbird)」公開
+- 2020-07-18 「[YubiKey](/device/yubiKey)」公開
+- 2020-07-12 「Maskbook」公開
+- 2020-07-03 「[Keybase](/sns/keybase)」公開
+- 2020-07-03 「[Mastodon](/sns/mastodon)」公開
+- 2020-06-30 「[LibreOffice](/misc/libreOffice)」公開
+- 2020-06-29 「[FlowCrypt](/email/flowCrypt)」公開
+- 2020-06-28 「[ProtonMail](/email/protonmail)」公開
+- 2020-06-26 「[Mutt](/email/mutt)」公開
+- 2020-06-25 「[Mailvelope](/email/mailvelope)」公開
+- 2020-06-24 「[GnuPGによる鍵対の生成と管理](/email/keyManagement)」公開
 - 2020-06-20 「[電子署名と実社会](/laws/)」公開
 - 2020-06-12 公開

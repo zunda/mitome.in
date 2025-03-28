@@ -1,7 +1,7 @@
 # Keyoxide
 この記事の内容は2021年3月頃のものです。2022年12月に内容の一部を更新しました。
 
-[Keyoxide](https://keyoxide.org/)は、分散されたオンラインアイデンティティを確立する方法のひとつです。Keyoxideに則ってデジタル署名を追加した公開鍵を[OpenPGP](../openpgp/)に則って公開すれば、特定のサービスに依存せずオンラインのアイデンティティを確立し確認できます。
+[Keyoxide](https://keyoxide.org/)は、分散されたオンラインアイデンティティを確立する方法のひとつです。Keyoxideに則ってデジタル署名を追加した公開鍵を[OpenPGP](../OpenPGP/)に則って公開すれば、特定のサービスに依存せずオンラインのアイデンティティを確立し確認できます。
 
 自分の公開鍵にはidentity proofとして下記のような形式のnotation^[本稿の執筆時には`proof@metacode.biz` notationが推奨されていましたが、[2021年11月から`proof@ariadne.id` notationが推奨となりました](https://blog.keyoxide.org/ariadne-spec/)。`proof@metacode.biz` notationも引き続き有効です。]を添付したデジタル署名を追加してOpenPGP公開鍵サーバに公開します。
 
@@ -19,7 +19,7 @@ Keyoxideでは、identity proofとSNSアカウントに掲示されたproofと�
 ### Identity Proofの追加
 まず、自分の公開鍵にidentity proofを追加します。鍵対の指紋は`F60960D80B224382CA8D831CB56C20316D6E8279`で、Mastodonアカウントは`https://mastodon.zunda.ninja/@zundan`にあります。
 
-```
+```shellsession{1-4}
 $ gpg --edit-key F60960D80B224382CA8D831CB56C20316D6E8279
 gpg> notation
 Enter the notation: proof@ariadne.id=https://mastodon.zunda.ninja/@zundan
@@ -28,7 +28,7 @@ gpg> save
 
 追加したnotationは下記のように`--edit-key`の`showpref`コマンドで表示される内容の`Notations:`の行で確認することができます。
 
-```
+```shellsession{1,15,23}
 $ gpg --edit-key F60960D80B224382CA8D831CB56C20316D6E8279
 gpg (GnuPG) 2.2.19; Copyright (C) 2019 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.
@@ -61,7 +61,7 @@ Notationは、自己署名として、公開鍵に付随しているユーザー
 
 追加したnotationを含む公開鍵をOpenPGP公開鍵サーバに公開します。
 
-```
+```shellsession{1}
 $ gpg --send-key F60960D80B224382CA8D831CB56C20316D6E8279
 gpg: sending key B56C20316D6E8279 to hkps://keys.openpgp.org
 ```
@@ -100,7 +100,7 @@ OpenPGP公開鍵サーバなどから取得した公開鍵に追加されてい�
 
 ダウンロードした公開鍵について確認する場合は、確認対象のユーザーID (下記では`uid zunda <zundan@gmail.com>`)に添付された自己署名のうち最新のもの(下記では`2021-03-06`)のみが有効です。その自己署名に含まれる`Signature notation proof@ariadne.id=`あるいは`Signature notation proof@metacode.biz=`で始まる行が有効なidentity proofです。
 
-```
+```shellsession{1}
 $ gpg --show-keys --with-sig-list ~/Downloads/F60960D80B224382CA8D831CB56C20316D6E8279.asc
 pub   rsa3072 2020-06-24 [SC] [expires: 2022-06-24]
       F60960D80B224382CA8D831CB56C20316D6E8279
@@ -115,7 +115,7 @@ sig          B56C20316D6E8279 2020-06-24  zunda <zundan@gmail.com>
 
 自分の鍵束に追加されている公開鍵について確認する場合は、下記の手順で有効なnotationのみを表示させることができます。`Notation proof@ariadne.id=`あるいは`Notation proof@metacode.biz=`で始まる行が有効なidentity proofです。
 
-```
+```shellsession{1,15,23}
 $ gpg --edit-key F60960D80B224382CA8D831CB56C20316D6E8279
 gpg (GnuPG) 2.2.19; Copyright (C) 2019 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.

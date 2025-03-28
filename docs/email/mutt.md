@@ -6,7 +6,7 @@
 ## インストール
 Muttは利用中のOSのパッケージとしてインストールできるかもしれません。Ubuntu 20.04では下記のコマンドでインストールできました。
 
-```
+```shellsession{1}
 $ sudo apt install mutt
 ```
 

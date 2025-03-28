@@ -8,7 +8,7 @@
 ## インストール
 Xubuntu 20.04では、デフォルトでインストールされている`gpg`パッケージの他に、スマートカードとのやりとりのためのデーモン`pcscd`と、GnuPGにスマートカードのサポートを提供する`scdaemon`を追加でインストールする必要がありました。`pcscd`のために`libccid`もインストールされました。
 
-```
+```shellsession{1}
 $ sudo apt install pcscd scdaemon
 ```
 
@@ -28,7 +28,7 @@ hid-generic 0003:1050:0407.0008: hiddev0,hidraw5: USB HID v1.10 Device [Yubico Y
 
 GnuPGからはスマートカードとして認識されます。シリアル番号は隠してあります。
 
-```
+```shellsession{1}
 $ gpg --card-status
 Reader ...........: 1050:0407:X:0
 Application ID ...: D2760001240103040006********0000
@@ -56,14 +56,14 @@ General key info..: [none]
 ここからは、Yubicoによる文書[Using Your YubiKey with OpenPGP](https://support.yubico.com/support/solutions/articles/15000006420-using-your-yubikey-with-openpgp)を参考に進めます。
 
 ## OpenPGP鍵対の生成
-OpenPGP鍵対を生成しておきます。[GnuPGによる鍵対の生成と管理](../email/keyManagement.md)を参照してください。
+OpenPGP鍵対を生成しておきます。[GnuPGによる鍵対の生成と管理](../email/keyManagement)を参照してください。
 
 ## 私有鍵のバックアップの作成
 YubiKeyに移動してしまった私有鍵は取り出すことができません。YubiKeyを壊してしまった場合に私有鍵が失なわれてしまわないように、バックアップを作成しておくこともできます。安全な場所に保管しておきましょう。
 
 マスター鍵対のIDの例として、ここでは`F60960D80B224382CA8D831CB56C20316D6E8279`を利用します。手元の鍵対のIDで置き換えてください。
 
-```
+```shellsession{1}
 $ gpg --export-secret-key --armor F60960D80B224382CA8D831CB56C20316D6E8279
 ```
 
@@ -72,7 +72,7 @@ $ gpg --export-secret-key --armor F60960D80B224382CA8D831CB56C20316D6E8279
 ## YubiKeyへの私有鍵の移動
 YubiKey 5 NFCをUSBポートに接続したまま操作を進めます。`gpg --edit-key`コマンドを起動します。
 
-```
+```shellsession{1}
 $ gpg --edit-key F60960D80B224382CA8D831CB56C20316D6E8279
 gpg (GnuPG) 2.2.19; Copyright (C) 2019 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.
@@ -91,7 +91,7 @@ ssb  rsa3072/164F21FF001C8CD1
 
 まず主鍵をYubiKeyの署名鍵スロットに移動します。私有鍵のパスフレーズを入力した後、YubiKeyのAdmin PIN ([デフォルト](https://support.yubico.com/support/solutions/articles/15000006420-using-your-yubikey-with-openpgp)では12345678)を入力します。
 
-```
+```shellsession{1,2,6}
 gpg> keytocard
 Really move the primary key? (y/N) y
 Please select where to store the key:
@@ -104,7 +104,7 @@ Your selection? 1
 
 主鍵をYubiKeyの認証鍵スロットにも移動します。
 
-```
+```shellsession{1,2,6}
 gpg> keytocard
 Really move the primary key? (y/N) y
 Please select where to store the key:
@@ -123,7 +123,7 @@ ssb  rsa3072/164F21FF001C8CD1
 
 次に暗号鍵をYubiKeyの暗号鍵スロットに移動します。
 
-```
+```shellsession{1,10,13}
 gpg> key 1
 
 sec  rsa3072/B56C20316D6E8279
@@ -149,14 +149,14 @@ ssb* rsa3072/164F21FF001C8CD1
 
 最後に移動した鍵を`~/.gnupg/`から取り除いて終了します。
 
-```
+```shellsession{1,2}
 gpg> quit
 Save changes? (y/N) y
 ```
 
 私有鍵がYubiKeyに移動された(`sec`や`ssb`の後ろに`>`マークがある)ことを確認します。
 
-```
+```shellsession{1}
 $ gpg --list-secret-keys
 /home/zunda/.gnupg/pubring.kbx
 ------------------------------
@@ -170,7 +170,7 @@ ssb>  rsa3072 2020-06-24 [E] [expires: 2022-06-24]
 
 公開鍵のURLを登録しておきます。
 
-```
+```shellsession{1,2,4-6}
 $ gpg --card-edit
 gpg/card> admin
 Admin commands are allowed
@@ -181,7 +181,7 @@ gpg/card> quit
 
 YubiKeyのOpenPGPアプレットの状態も確認できます。デジタル署名を生成した回数も記録されているようです。
 
-```
+```shellsession{1}
 $ gpg --card-status
 Reader ...........: 1050:0407:X:0
 Application ID ...: D2760001240103040006********0000
@@ -225,7 +225,7 @@ YubiKeyを接続して、YubiKeyのUser PIN ([デフォルト](https://support.y
 ## YubiKeyの設定
 PINがデフォルトのままなのは鍵を紛失してしまった場合に心許無いので、変更しておきます。既存のUser PINと新しいUser PINを、GUIから入力します。
 
-```
+```shellsession{1,3,6,15}
 $ gpg --card-edit
 
 gpg/card> admin
@@ -245,7 +245,7 @@ Your selection? 1
 
 同様にAdmin PINを変更します。
 
-```
+```shellsession{7}
 1 - change PIN
 2 - unblock PIN
 3 - change Admin PIN
@@ -257,7 +257,7 @@ Your selection? 3
 
 終了します。
 
-```
+```shellsession{7,9}
 1 - change PIN
 2 - unblock PIN
 3 - change Admin PIN
@@ -272,14 +272,14 @@ gpg/card> q
 ## 他のLinuxでの私有鍵の利用
 Ubuntu 22.04で試してみます。GnuPG 2.2.27がインストールされていました。上と同様、まず追加で必要なパッケージをインストールします。デーモンの起動のためにインストール後にログアウトして再ログインしておくと良いでしょう。
 
-```
+```shellsession{1}
 $ sudo apt install pcscd scdaemon
 ```
 
 
 GnuPGの鍵束にスタブを作成し、私有鍵のあるYubiKeyのシリアル番号を記録し、公開鍵を取得します。YubiKeyをUSBポートに挿入しておいて`gpg --card-edit`コマンドを実行することでスタブを作成し、`fetch`サブコマンドで、上記で登録したURLから公開鍵を取得します。
 
-```
+```shellsession{1,30,37}
 $ gpg --card-edit
 gpg: directory '/home/zunda/.gnupg' created
 gpg: keybox '/home/zunda/.gnupg/pubring.kbx' created
@@ -321,7 +321,7 @@ gpg/card> quit
 
 YubiKeyの私有鍵で自分の公開鍵に署名しておきます。`trust`サブコマンドで`5` (I trust ultimately)します。
 
-```
+```shellsession{1,17,37-38,51}
 $ gpg --edit-key F60960D80B224382CA8D831CB56C20316D6E8279
 gpg (GnuPG) 2.2.27; Copyright (C) 2021 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.
@@ -379,7 +379,7 @@ gpg> quit
 
 Gitで変更内容へデジタル署名してみましょう。
 
-```
+```shellsession{1}
 $ git commit -S
 [move-yubikey 3a27355] Use YubiKey at a separate environment
  1 file changed, 119 insertions(+)
@@ -387,7 +387,7 @@ $ git commit -S
 
 デジタル署名の検証に成功しました。
 
-```
+```shellsession{1}
 $ git verify-commit 3a27355
 gpg: Signature made Sun 19 Jul 2020 02:33:49 PM HST using RSA key ID 6D6E8279
 gpg: Good signature from "zunda <zundan@gmail.com>" [ultimate]
@@ -396,7 +396,7 @@ gpg: Good signature from "zunda <zundan@gmail.com>" [ultimate]
 ### 新しいYubiKeyでの既存の鍵対の利用
 上記の操作でGnuPGは鍵束にスタブを作成し、私有鍵のあるYubiKeyのシリアル番号を記録しました。新しいYubiKeyを購入した場合など、スタブを更新する場合には、いちどスタブを消去する必要があるようです。操作の結果、`gpg --list-secret-keys`に対象の私有鍵が表示されなくなりました。
 
-```
+```shellsession{1,9-10}
 $ gpg --delete-secret-key F60960D80B224382CA8D831CB56C20316D6E8279
 gpg (GnuPG) 2.2.4; Copyright (C) 2017 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.
@@ -412,13 +412,13 @@ This is a secret key! - really delete? (y/N) y
 既存のスタブを消去したあと、新しいYubiKeyをUSBポートに挿入し`gpg --card-edit`コマンドを実行することで、再度鍵束にスタブが生成され、新しいYubiKeyのシリアル番号が記録されます。
 
 ## macOSでの私有鍵の利用
-[GPG Suiteをインストール](../email/keyManagement.md#gnupg%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)したmacOSでもYubiKeyに格納された私有鍵を利用することができます。
+[GPG Suiteをインストール](../email/keyManagement#gnupg%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)したmacOSでもYubiKeyに格納された私有鍵を利用することができます。
 
 GPG SuiteでインストールされるGPG Keychainで、Lookup KeyからPGP公開鍵サーバに登録した公開鍵を、メールアドレスなどで検索してインポートします。
 
 私有鍵がYubiKeyにあることを、GPG Suiteに知らせます。YubiKeyをUSBポートに挿入し`gpg --card-status`コマンドを実行することで、鍵束にスタブが生成され、私有鍵のあるYubiKeyのシリアル番号が記録されます。
 
-```
+```shellsession{1}
 $ gpg --card-status
 Reader ...........: 1050:0407:X:0
 Application ID ...: D2760001240103040006********0000
@@ -466,7 +466,7 @@ GPG Keychainで、公開鍵をダブルタップして、Detailsメニューか�
 ![Pinentry MacへのPINの入力](/gpg-suite-pinentry.png)
 
 ## 携帯電話での私有鍵の利用
-[OpenKeychain](../misc/openKeychain.md)などのアプリケーションをNFCの利用可能な携帯電話インストールすることで、YubiKeyに格納された私有鍵を利用できるようになります。
+[OpenKeychain](../misc/openKeychain)などのアプリケーションをNFCの利用可能な携帯電話インストールすることで、YubiKeyに格納された私有鍵を利用できるようになります。
 
 ## エアギャップ環境での鍵対の管理
 私有鍵の秘匿性を高めるため、ネットワーク接続のない環境で鍵対を生成しYubiKeyへ保管したい場合があります。このような場合、[Tails OS](https://tails.boum.org/)などを利用し、USBフラッシュメモリに収めたOSを起動しネットワークに接続せずに鍵対の生成とYubiKeyの管理が可能です。
