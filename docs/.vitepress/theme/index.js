@@ -12,14 +12,14 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faCopy, faEraser } from "@fortawesome/free-solid-svg-icons"
 library.add(faCopy, faEraser)
 
-import InputArea from "../../.vuepress/components/InputArea.vue"
-import OutputArea from "../../.vuepress/components/OutputArea.vue"
-import RsaKey from "../../.vuepress/components/RsaKey.vue"
-import ReadKey from "../../.vuepress/components/ReadKey.vue"
-import Encryption from "../../.vuepress/components/Encryption.vue"
-import Decryption from "../../.vuepress/components/Decryption.vue"
-import ClearSign from "../../.vuepress/components/ClearSign.vue"
-import VerifyClearSign from "../../.vuepress/components/VerifyClearSign.vue"
+import InputArea from "../components/InputArea.vue"
+import OutputArea from "../components/OutputArea.vue"
+import RsaKey from "../components/RsaKey.vue"
+import ReadKey from "../components/ReadKey.vue"
+import Encrypt from "../components/Encrypt.vue"
+import Decrypt from "../components/Decrypt.vue"
+import ClearSign from "../components/ClearSign.vue"
+import VerifyClearSign from "../components/VerifyClearSign.vue"
 
 /** @type {import("vitepress").Theme} */
 export default {
@@ -36,8 +36,8 @@ export default {
     app.component("OutputArea", OutputArea)
     app.component("RsaKey", RsaKey)
     app.component("ReadKey", ReadKey)
-    app.component("Encrypt", Encryption)
-    app.component("Decrypt", Decryption)
+    app.component("Encrypt", Encrypt)
+    app.component("Decrypt", Decrypt)
     app.component("ClearSign", ClearSign)
     app.component("VerifyClearSign", VerifyClearSign)
   }
