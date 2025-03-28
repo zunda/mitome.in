@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mitomeinui">
     <p>下記の鍵を
       <button v-bind:disabled="state.processing" @click="readKey" >確認する</button>
     </p>

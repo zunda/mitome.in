@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mitomeinui">
     <p>下記の公開鍵を受取人に
       <button v-bind:disabled="state.processing" v-on:click="addPublicKey">
         追加する

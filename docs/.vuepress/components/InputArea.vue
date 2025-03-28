@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mitomeinui">
     <textarea
       v-model="inputArea"
       v-bind:class="cssClass"

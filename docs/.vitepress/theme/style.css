@@ -137,6 +137,10 @@
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
 
+/**
+ * mitome.in
+ * -------------------------------------------------------------------------- */
+
 .vp-doc a {
   color: #e07000;
 }
@@ -145,20 +149,37 @@
   color: #ffa000;
 }
 
-.key, .encryptedtext {
-  color: #e07000;
-  font-family: monospace;
-  width: 100%;
-  height: 8em;
-  white-space: pre;
-}
+.mitomeinui {
+  .key, .encryptedtext {
+    color: #e07000;
+    border-color: --vp-input-border-color;
+    font-family: monospace;
+    width: 100%;
+    height: 8em;
+    white-space: pre;
+  }
 
-.cleartext {
-  width: 100%;
-  height: 10em;
-  white-space: pre;
-}
+  .cleartext {
+    width: 100%;
+    height: 10em;
+    white-space: pre;
+  }
 
-.email, .keyId {
-  font-family: monospace;
+  .email, .keyId {
+    font-family: monospace;
+  }
+
+  button,
+  input,
+  textarea {
+    border: 1px solid;
+    border-radius: 2px;
+    border-color: var(--vp-input-border-color);
+    padding: 0.1em;
+    margin: 0.1em;
+  }
+
+  button {
+    background-color: var(--vp-input-bg-color);
+  }
 }

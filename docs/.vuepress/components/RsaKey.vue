@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mitomeinui">
     <p>
       <input
         v-model="state[owner].name"

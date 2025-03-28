@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mitomeinui">
     <InputArea
       cssClass="key"
       name="受取人の私有鍵"

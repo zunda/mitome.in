@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mitomeinui">
     <InputArea
       cssClass="key"
       name="検証に使う公開鍵"
