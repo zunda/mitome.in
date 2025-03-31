@@ -15,7 +15,8 @@
 ## アリスの鍵対
 暗号通信などの分野では、メッセージをやりとりする想定上の登場人物として、アリスやボブといった名前が使われることがあります。1人目の登場人物アリスの鍵対を生成してみます。パスフレーズを設定して私有鍵を暗号化することもできます。パスフレーズが空白の場合は私有鍵は暗号化されません。
 
-<ClientOnly><RsaKey owner="Alice" defaultName="Alice" defaultEmail="alice@example.com" /></ClientOnly>
+<noscript>JavaScriptを有効にすると下記で鍵対を生成できます。</noscript>
+<RsaKey owner="Alice" defaultName="Alice" defaultEmail="alice@example.com" />
 
 鍵はテキストの羅列に変換されて表示されています。
 
@@ -31,7 +32,8 @@
 
 IDや指紋(fingerprint)は鍵対ごとに異なります(同じIDや指紋を持つが異なる鍵対を生成するのは非常に困難です)。このため、鍵そのものを確認しないでも、IDや指紋で鍵を同定することができます。
 
-<ClientOnly><ReadKey /></ClientOnly>
+<noscript>JavaScriptを有効にすると下記で鍵を確認できます。</noscript>
+<ReadKey />
 
 ::: tip
 確認された鍵の詳細をブラウザコンソールでも確認できます。私有鍵の内容も表示されますので注意してください。
@@ -44,6 +46,7 @@ IDや指紋(fingerprint)は鍵対ごとに異なります(同じIDや指紋を�
 ## ボブの鍵対
 本稿ではこれから暗号化したメッセージのやりとりや署名の検証を試していきます。メッセージを暗号化・署名する側だけではなく、復号・署名検証する側の鍵対も生成しておきましょう。2人目の登場人物はボブとします。
 
-<ClientOnly><RsaKey owner="Bob" defaultName="Bob" defaultEmail="bob@example.com" /></ClientOnly>
+<noscript>JavaScriptを有効にすると下記で鍵対を生成できます。</noscript>
+<RsaKey owner="Bob" defaultName="Bob" defaultEmail="bob@example.com" />
 
 それでは、鍵対を使ってメッセージを暗号化したり復号したりしてみましょう。
