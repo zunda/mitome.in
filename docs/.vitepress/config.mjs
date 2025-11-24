@@ -85,7 +85,7 @@ export default defineConfig({
         items: [
           { text:"SNSと暗号技術", link: "/sns/" },
           { text:"Keybase", link: "/sns/keybase" },
-          { text:"Keoxide", link: "/sns/keyoxide" },
+          { text:"Keyoxide", link: "/sns/keyoxide" },
           { text:"Mastodon", link: "/sns/mastodon" }
         ]
       },
