@@ -1,12 +1,7 @@
 # mitome.in
-[![Netlify Status](https://api.netlify.com/api/v1/badges/5b8126d8-1773-4ab4-8a4b-76c0f5839aa3/deploy-status)](https://app.netlify.com/sites/mitomein/deploys)
-
 Explore OpenPGP as an alternative for seals (mitome-in). このファイルの内容の一部は[日本語](README.ja.md)でご覧になれます。
 
-This project makes use of [VuePress](https://vuepress.vuejs.org/) to format the pages as well as provide in-page functions. The [main repository](https://github.com/zunda/mitome.in) is configured to interact with [Netlify](https://www.netlify.com/) so that
-
-- the master branch is automatically deployed to https://mitome.in/
-- a pull request is automatically deployed as a deploy preview. Look for the link in the pull request conversation.
+This project makes use of [VitePress](https://vitepress.dev/) to format the pages as well as provide in-page functions. Pushes to the `master` branch on [main repository](https://github.com/zunda/mitome.in) are deployed to [mitome.ink](https://mitome.ink) by [Cloudflare Workers](https://www.cloudflare.com/products/workers/). Until 2026, [Netlify](https://www.netlify.com/) was configured to deploy to mitome.in.
 
 ## Project setup
 Install yarn following their [installation instruction](https://classic.yarnpkg.com/en/docs/install/).
