@@ -1,8 +1,8 @@
 import { defineConfig } from "vitepress"
 import footnote from "markdown-it-footnote"
 
-const title = "mitome.in"
-const domain = "https://mitome.in"
+const title = "mitome.ink"
+const domain = "https://mitome.ink"
 const logoPath = "/mitomein.png"
 const biggerLogoPath = "/mitomein-144x144.png"
 const description = "認め印を使うくらい気軽に、暗号でやりとりしたり電子署名したい"
@@ -26,7 +26,8 @@ export default defineConfig({
     container: {
       tipLabel: "ヒント",
       warningLabel: "注意",
-      dangerLabel: "警告"
+      dangerLabel: "警告",
+      infoLabel: 'お知らせ',
     },
     // https://github.com/vuejs/vitepress/discussions/704
     config: (md) => {

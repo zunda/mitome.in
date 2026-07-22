@@ -1,14 +1,7 @@
 # mitome.in
-[![Netlify Status](https://api.netlify.com/api/v1/badges/5b8126d8-1773-4ab4-8a4b-76c0f5839aa3/deploy-status)](https://app.netlify.com/sites/mitomein/deploys)
-
 認め印の代わりとしてのOpenPGPの可能性を検討します。
 
-このプロジェクトはページの整形とページ内でのプログラムの動作に[VuePress](https://vuepress.vuejs.org/)を利用して、[主レポジトリ](https://github.com/zunda/mitome.in)は[Netlify](https://www.netlify.com/)によって、
-
-- masterブランチが自動的に https://mitome.in/ にデプロイされ、
-- プルリクエストはdeploy previewとしてデプロイ(プレビューへのリンクはプルリクエストの会話内に表示されます)され
-
-るように設定されています。
+このプロジェクトはページの整形とページ内でのプログラムの動作に[VitePress](https://vitepress.dev/)を利用しています。[zunda/mitome.in](https://github.com/zunda/mitome.in)の`master`ブランチへのpushは[Cloudflare Workers](https://www.cloudflare.com/products/workers/)によって、[mitome.ink](https://mitome.ink)にデプロイされます。2026年までは[Netlify](https://www.netlify.com/)によって、mitome.inにデプロイされていました。
 
 ## プロジェクトのセットアップ
 Yarnを[インストール手順](https://classic.yarnpkg.com/ja/docs/install/)に従ってインストールしてください。
