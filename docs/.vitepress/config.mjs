@@ -14,7 +14,7 @@ export default defineConfig({
   description: description,
   head: [
     ["link", {rel: "icon", href: logoPath }],
-    ["meta", {name: "keywords", content: "OpenPGP, S/MIME, 暗号化, 電子署名, デ>ジタル署名, 認め印, はんこ, 印鑑, mitomein, mitome.in, mitomeink, mitome.ink"}],
+    ["meta", {name: "keywords", content: "OpenPGP, S/MIME, 暗号化, 電子署名, デジタル署名, 認め印, はんこ, 印鑑, mitomein, mitome.in, mitomeink, mitome.ink"}],
     ["meta", {name: "og:title", content: title + " - 暗号と電子署名を気軽に"}],
     ["meta", {name: "og:description", content: description}],
     ["meta", {name: "og:type", content: "website"}],
