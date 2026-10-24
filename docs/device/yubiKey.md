@@ -455,6 +455,13 @@ ssb#  rsa3072/164F21FF001C8CD1  created: 2020-06-24  expires: 2022-06-24
 ```
 shared-access
 ```
+
+いっぽう、scdaemon (GnuPG) 2.5.24では、上記のオプションは受け入れないようです。この行をコメントアウトすることでscdaemonが起動してくれました。
+
+```shellsession{1}
+$ /opt/homebrew/Cellar/gnupg/2.5.24_1/libexec/scdaemon --daemon
+scdaemon[1239]: /Users/zunda/.gnupg/scdaemon.conf:1: invalid option
+```
 :::
 
 GPG Keychainで、公開鍵をダブルタップして、Detailsメニューから公開鍵の指紋が自分のものであることを確認して、Owner TrustをUltimateにします。

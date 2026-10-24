@@ -1,6 +1,7 @@
 # 改定履歴
 詳細な変更履歴は[zunda/mitome.in](https://github.com/zunda/mitome.in)を参照してください。
 
+- 2026-10-24 HomebrewでインストールしたGnuPGをmacOSで利用する際に必要な作業を「[GnuPGによる鍵対の生成と管理](/email/keyManagement.html#gnupg%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)」と「[YubiKey](/device/yubiKey.html#macos%E3%81%A7%E3%81%AE%E7%A7%81%E6%9C%89%E9%8D%B5%E3%81%AE%E5%88%A9%E7%94%A8)」に追記
 - 2026-07-22 本サイトのmitome.inから[mitome.ink](https://mitome.ink)への引っ越しを開始。印(in)から朱肉(ink)になります
 - 2025-03-28 本サイトを生成する静的サイトジェネレータをVuePressからVitePressへ変更
 - 2024-12-02 「[暗号化と復号](/OpenPGP/encryption)」「[デジタル署名](/OpenPGP/sign)」「[暗号デバイスでの鍵対の管理](/device/)」で、私有鍵をデバイス外に持ち出す必要のないことを追記

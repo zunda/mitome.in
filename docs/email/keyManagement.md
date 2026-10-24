@@ -40,6 +40,18 @@ macOSでは、[GPG Suite](https://gpgtools.org/)からインストーラをダ�
 
 ![GPG Suiteのインストール](/gpg-suite-install.png)
 
+[Homebrew](https://brew.sh)を利用している場合は`brew`コマンドでインストールすることもできます。
+
+```shellsession{1}
+$ brew install gpg pinentry
+```
+
+この場合はパスフレーズの入力に端末内で起動するダイアログを利用します。利用している端末でダイアログが表示されるように、下記の行を`~/.zshrc`などに追記しておきます。
+
+```
+export GPG_TTY=$(tty)
+```
+
 macOS 10.5.6 Catalinaで、2020年7月の執筆当時には、下記のようなバージョンがインストールされました。
 
 ```shellsession{1}
