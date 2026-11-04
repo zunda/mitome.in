@@ -1,5 +1,4 @@
 import { defineConfig } from "vitepress"
-import footnote from "markdown-it-footnote"
 
 const title = "mitome.ink"
 const domain = "https://mitome.ink"
@@ -28,10 +27,6 @@ export default defineConfig({
       warningLabel: "注意",
       dangerLabel: "警告",
       infoLabel: 'お知らせ',
-    },
-    // https://github.com/vuejs/vitepress/discussions/704
-    config: (md) => {
-      md.use(footnote)
     }
   },
   themeConfig: {
