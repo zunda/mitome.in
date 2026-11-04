@@ -123,3 +123,4 @@ node_modules
 pnpm-global
 TODOs.md
 *.timestamp-*.mjs
+.yarn/install-state.gz
